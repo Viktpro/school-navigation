@@ -1,0 +1,21 @@
+{
+  "total_navigations": 42,
+  "popular_routes": {
+    "entrance_1_dining_hall": 15,
+    "entrance_1_library": 10,
+    "classroom_101_classroom_201": 8,
+    "dining_hall_assembly_hall": 5,
+    "entrance_1_classroom_B115": 4
+  },
+  "daily_stats": {
+    "2026-02-23": 5,
+    "2026-02-22": 6,
+    "2026-02-21": 7,
+    "2026-02-20": 8,
+    "2026-02-19": 9,
+    "2026-02-18": 10,
+    "2026-02-17": 11
+  },
+  "unique_users": 5,
+  "last_reset": "2026-02-23T20:41:57.790912"
+}
