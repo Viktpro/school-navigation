@@ -35,8 +35,8 @@ class Statistics:
             if os.path.exists(self.stats_file):
                 with open(self.stats_file, 'r', encoding='utf-8') as f:
                     return json.load(f)
-        except:
-            pass
+        except Exception as e:
+            print(f"⚠️ Ошибка загрузки статистики: {e}")
         return {
             "total_navigations": 0,
             "popular_routes": {},
@@ -740,17 +740,25 @@ def get_stats():
 
         # Преобразуем популярные маршруты из ID в названия для читаемости
         popular_with_names = {}
-        for route_key, count in stats.get('popular_routes', {}).items():
-            if '_' in route_key:
-                start_id, end_id = route_key.split('_')
-                start = nav_manager.get_point(start_id)
-                end = nav_manager.get_point(end_id)
-                if start and end:
-                    popular_with_names[f"{start.name} → {end.name}"] = count
+
+        # Безопасное преобразование популярных маршрутов
+        if isinstance(stats.get('popular_routes'), dict):
+            for route_key, count in stats['popular_routes'].items():
+                if isinstance(route_key, str) and '_' in route_key:
+                    # Разделяем только по первому вхождению
+                    parts = route_key.split('_', 1)
+                    if len(parts) == 2:
+                        start_id, end_id = parts
+                        start = nav_manager.get_point(start_id)
+                        end = nav_manager.get_point(end_id)
+                        if start and end:
+                            popular_with_names[f"{start.name} → {end.name}"] = count
+                        else:
+                            popular_with_names[route_key] = count
+                    else:
+                        popular_with_names[route_key] = count
                 else:
                     popular_with_names[route_key] = count
-            else:
-                popular_with_names[route_key] = count
 
         stats['popular_with_names'] = popular_with_names
 
@@ -759,8 +767,15 @@ def get_stats():
         return jsonify(stats)
     except Exception as e:
         print(f"❌ Ошибка получения статистики: {e}")
-        logger.error(f"❌ Error getting stats: {e}")
-        return jsonify({'error': str(e)}), 500
+        # Возвращаем базовую статистику в случае ошибки
+        return jsonify({
+            "total_navigations": 0,
+            "popular_routes": {},
+            "daily_stats": {},
+            "total_points": len(nav_manager.points),
+            "total_routes": 0,
+            "error": str(e)
+        }), 500
 
 
 @app.route('/api/stats/reset', methods=['POST'])
