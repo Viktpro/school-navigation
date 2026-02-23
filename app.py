@@ -1,6 +1,6 @@
 """
-Школьная навигационная система - 3 страницы: Главная, Навигатор, Админка
-Полная версия со всей функциональностью
+Школьная навигационная система с главной страницей и админ-панелью
+Flask приложение для навигации по школе с использованием QR-кодов
 """
 
 from flask import Flask, render_template, jsonify, request, send_file, send_from_directory
@@ -21,6 +21,74 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'school-navigation-secret-key-2024'
 app.config['DEBUG'] = True
+
+
+# ========== СТАТИСТИКА НАВИГАЦИЙ ==========
+class Statistics:
+    def __init__(self, stats_file='data/statistics.json'):
+        self.stats_file = stats_file
+        self.data = self.load_stats()
+
+    def load_stats(self):
+        """Загрузка статистики из файла"""
+        try:
+            if os.path.exists(self.stats_file):
+                with open(self.stats_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+        except:
+            pass
+        return {
+            "total_navigations": 0,
+            "popular_routes": {},
+            "daily_stats": {},
+            "unique_users": 0,
+            "last_reset": datetime.now().isoformat()
+        }
+
+    def save_stats(self):
+        """Сохранение статистики в файл"""
+        try:
+            os.makedirs(os.path.dirname(self.stats_file), exist_ok=True)
+            with open(self.stats_file, 'w', encoding='utf-8') as f:
+                json.dump(self.data, f, ensure_ascii=False, indent=2)
+            print(f"💾 Статистика сохранена в {self.stats_file}")
+        except Exception as e:
+            print(f"❌ Ошибка сохранения статистики: {e}")
+
+    def increment_navigation(self, start_id: str, end_id: str, start_name: str = "", end_name: str = ""):
+        """Увеличение счетчика навигаций"""
+        try:
+            # Увеличиваем общее количество
+            self.data["total_navigations"] += 1
+            print(f"📊 Навигация #{self.data['total_navigations']}: {start_name} → {end_name}")
+
+            # Записываем в популярные маршруты (по ID)
+            route_key = f"{start_id}_{end_id}"
+            if route_key in self.data["popular_routes"]:
+                self.data["popular_routes"][route_key] += 1
+            else:
+                self.data["popular_routes"][route_key] = 1
+
+            # Статистика по дням
+            today = datetime.now().strftime("%Y-%m-%d")
+            if today in self.data["daily_stats"]:
+                self.data["daily_stats"][today] += 1
+            else:
+                self.data["daily_stats"][today] = 1
+
+            self.save_stats()
+            return True
+        except Exception as e:
+            print(f"❌ Ошибка в increment_navigation: {e}")
+            return False
+
+    def get_stats(self):
+        """Получение всей статистики"""
+        return self.data
+
+
+# Создаем объект статистики
+statistics = Statistics()
 
 
 # Класс для точки навигации
@@ -462,64 +530,6 @@ class NavigationManager:
 nav_manager = NavigationManager()
 
 
-# Класс для хранения статистики
-class Statistics:
-    def __init__(self, stats_file='data/statistics.json'):
-        self.stats_file = stats_file
-        self.data = self.load_stats()
-
-    def load_stats(self):
-        """Загрузка статистики из файла"""
-        try:
-            if os.path.exists(self.stats_file):
-                with open(self.stats_file, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-        except:
-            pass
-        return {
-            "total_navigations": 0,
-            "popular_routes": {},
-            "daily_stats": {},
-            "unique_users": 0,
-            "last_reset": datetime.now().isoformat()
-        }
-
-    def save_stats(self):
-        """Сохранение статистики в файл"""
-        try:
-            os.makedirs(os.path.dirname(self.stats_file), exist_ok=True)
-            with open(self.stats_file, 'w', encoding='utf-8') as f:
-                json.dump(self.data, f, ensure_ascii=False, indent=2)
-        except Exception as e:
-            logger.error(f"❌ Ошибка сохранения статистики: {e}")
-
-    def increment_navigation(self, start_id: str, end_id: str):
-        """Увеличение счетчика навигаций"""
-        self.data["total_navigations"] += 1
-
-        route_key = f"{start_id}_{end_id}"
-        if route_key in self.data["popular_routes"]:
-            self.data["popular_routes"][route_key] += 1
-        else:
-            self.data["popular_routes"][route_key] = 1
-
-        today = datetime.now().strftime("%Y-%m-%d")
-        if today in self.data["daily_stats"]:
-            self.data["daily_stats"][today] += 1
-        else:
-            self.data["daily_stats"][today] = 1
-
-        self.save_stats()
-
-    def get_stats(self):
-        """Получение статистики"""
-        return self.data
-
-
-# Создаем объект статистики
-statistics = Statistics()
-
-
 # Функция для получения локального IP
 def get_local_ip():
     try:
@@ -540,16 +550,40 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/admin')
+def admin_panel():
+    """Админ-панель"""
+    return render_template('admin.html')
+
+
+@app.route('/editor')
+def map_editor():
+    """Редактор карты - для рисования стен"""
+    return render_template('map-editor.html')
+
+
 @app.route('/viewer')
 def map_viewer():
     """Навигатор для пользователей"""
     return render_template('viewer.html')
 
 
-@app.route('/admin')
-def admin_panel():
-    """Админ-панель"""
-    return render_template('admin.html')
+@app.route('/route-editor')
+def route_editor():
+    """Редактор маршрутов - для рисования путей между точками"""
+    return render_template('route_editor.html')
+
+
+@app.route('/map-only')
+def map_only():
+    """Только карта без лишних элементов"""
+    return render_template('map_only.html')
+
+
+@app.route('/map')
+def school_map():
+    """Простая карта"""
+    return render_template('map.html')
 
 
 # ========== API ДЛЯ ТОЧЕК ==========
@@ -623,24 +657,34 @@ def navigate():
         start_id = data.get('start_id')
         end_id = data.get('end_id')
 
+        print(f"🔍 НАВИГАЦИЯ: start={start_id}, end={end_id}")
+
         if not start_id or not end_id:
             return jsonify({'error': 'Missing start_id or end_id'}), 400
 
-        # Записываем статистику
-        statistics.increment_navigation(start_id, end_id)
+        # Получаем точки для статистики
+        start_point = nav_manager.get_point(start_id)
+        end_point = nav_manager.get_point(end_id)
 
-        # Здесь можно добавить логику поиска маршрута
-        # Пока возвращаем прямую линию
-        start = nav_manager.get_point(start_id)
-        end = nav_manager.get_point(end_id)
+        if start_point and end_point:
+            # СОХРАНЯЕМ СТАТИСТИКУ!
+            statistics.increment_navigation(
+                start_id,
+                end_id,
+                start_point.name,
+                end_point.name
+            )
+            print(f"✅ Статистика обновлена. Всего: {statistics.data['total_navigations']}")
+        else:
+            print(f"❌ Точки не найдены: start={start_point}, end={end_point}")
 
-        if not start or not end:
-            return jsonify({'error': 'Point not found'}), 404
+        path = nav_manager.find_path(start_id, end_id)
 
-        path = [start, end]
+        if not path or len(path) < 2:
+            return jsonify({'error': 'Path not found'}), 404
 
         # Рассчитываем расстояние
-        total_distance = nav_manager.calculate_distance(start, end)
+        total_distance = nav_manager.calculate_distance(start_point, end_point)
         meters = round(total_distance * 0.5)
         minutes = max(1, round(meters / 70))
 
@@ -651,6 +695,7 @@ def navigate():
         })
 
     except Exception as e:
+        print(f"❌ ОШИБКА В НАВИГАЦИИ: {e}")
         logger.error(f"❌ Error in navigate: {e}")
         return jsonify({'error': str(e)}), 500
 
@@ -681,7 +726,7 @@ def get_stats():
     try:
         stats = statistics.get_stats()
 
-        # Добавляем общее количество точек и маршрутов
+        # Добавляем общее количество точек
         stats['total_points'] = len(nav_manager.points)
 
         # Считаем количество маршрутов
@@ -693,8 +738,27 @@ def get_stats():
         else:
             stats['total_routes'] = 0
 
+        # Преобразуем популярные маршруты из ID в названия для читаемости
+        popular_with_names = {}
+        for route_key, count in stats.get('popular_routes', {}).items():
+            if '_' in route_key:
+                start_id, end_id = route_key.split('_')
+                start = nav_manager.get_point(start_id)
+                end = nav_manager.get_point(end_id)
+                if start and end:
+                    popular_with_names[f"{start.name} → {end.name}"] = count
+                else:
+                    popular_with_names[route_key] = count
+            else:
+                popular_with_names[route_key] = count
+
+        stats['popular_with_names'] = popular_with_names
+
+        print(f"📊 Статистика запрошена: всего навигаций {stats['total_navigations']}")
+
         return jsonify(stats)
     except Exception as e:
+        print(f"❌ Ошибка получения статистики: {e}")
         logger.error(f"❌ Error getting stats: {e}")
         return jsonify({'error': str(e)}), 500
 
@@ -891,7 +955,7 @@ if __name__ == '__main__':
 
     # Выводим информацию
     print("\n" + "=" * 70)
-    print("🏫 ШКОЛЬНАЯ НАВИГАЦИЯ - 3 СТРАНИЦЫ")
+    print("🏫 ШКОЛЬНАЯ НАВИГАЦИЯ")
     print("=" * 70)
     print(f"📱 Локальный адрес: http://localhost:8080")
     print(f"📱 С телефона: http://{local_ip}:8080")
@@ -899,6 +963,9 @@ if __name__ == '__main__':
     print(f"   🏠 Главная: http://localhost:8080")
     print(f"   🗺️ Навигатор: http://localhost:8080/viewer")
     print(f"   ⚙️ Админ-панель: http://localhost:8080/admin")
+    print(f"   ✏️ Редактор карты: http://localhost:8080/editor")
+    print(f"   🛤️ Редактор маршрутов: http://localhost:8080/route-editor")
+    print(f"   🗺️ Только карта: http://localhost:8080/map-only")
     print("\n📊 ТОЧКИ НА КАРТЕ:")
     print(f"   • 1 этаж: {points_by_floor[1]} точек")
     print(f"   • 2 этаж: {points_by_floor[2]} точек")
