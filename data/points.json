@@ -1,0 +1,263 @@
+[
+  {
+    "id": "point_1771734635494",
+    "name": "Кухня",
+    "x": -960,
+    "y": -2268,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771734953045",
+    "name": "Класс Г164",
+    "x": 334,
+    "y": -2440,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771734975643",
+    "name": "Класс Г167",
+    "x": 914,
+    "y": -2073,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771734993310",
+    "name": "Класс Г168",
+    "x": 467,
+    "y": -2080,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735322603",
+    "name": "Столовая",
+    "x": -325,
+    "y": -2024,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735379450",
+    "name": "Гардероб общий",
+    "x": -202,
+    "y": -1233,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735494962",
+    "name": "Гардероб: Девочки (шкафчики)",
+    "x": -195,
+    "y": -1613,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735522011",
+    "name": "Гардероб: Мальчики (шкафчики)",
+    "x": -184,
+    "y": -1360,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735697417",
+    "name": "Медблок",
+    "x": 157,
+    "y": -1406,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735781170",
+    "name": "Класс Б122",
+    "x": -1110,
+    "y": -862,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735798817",
+    "name": "Класс Б120",
+    "x": -1615,
+    "y": -863,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735811081",
+    "name": "Класс Б119",
+    "x": -1644,
+    "y": -551,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735846633",
+    "name": "Класс Б 117",
+    "x": -1301,
+    "y": -552,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735860042",
+    "name": "Класс Б116",
+    "x": -947,
+    "y": -552,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735872385",
+    "name": "Класс Б115",
+    "x": -612,
+    "y": -556,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735896016",
+    "name": "Центральный вход",
+    "x": -101,
+    "y": -483,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735913121",
+    "name": "Лифт",
+    "x": 124,
+    "y": -913,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735962345",
+    "name": "Администрация",
+    "x": 991,
+    "y": -848,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771735980793",
+    "name": "Кабинет директора",
+    "x": 1276,
+    "y": -856,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771736095496",
+    "name": "Приемная",
+    "x": 1460,
+    "y": -894,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771736158745",
+    "name": "Класс В137",
+    "x": 408,
+    "y": -551,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771736193527",
+    "name": "Класс В136",
+    "x": 777,
+    "y": -552,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771736219591",
+    "name": "Класс В135",
+    "x": 1125,
+    "y": -554,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771736233775",
+    "name": "Класс В134",
+    "x": 1463,
+    "y": -557,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771736301935",
+    "name": "Пост охраны",
+    "x": 14,
+    "y": -510,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771755081335",
+    "name": "Санузел младшие классы",
+    "x": -552,
+    "y": -874,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771755108208",
+    "name": "Санузел старшие классы",
+    "x": 313,
+    "y": -867,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771757791077",
+    "name": "Гардероб: шкафчики",
+    "x": 74,
+    "y": -1574,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  },
+  {
+    "id": "point_1771758177067",
+    "name": "Лекционный зал",
+    "x": 873,
+    "y": -2439,
+    "floor": 1,
+    "description": "",
+    "category": "classroom"
+  }
+]

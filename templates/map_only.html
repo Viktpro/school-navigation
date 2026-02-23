@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта школы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a1a1a;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* Карта на весь экран */
+        .map-fullscreen {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        #mapCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: #1e1e1e;
+            cursor: grab;
+        }
+
+        #mapCanvas:active {
+            cursor: grabbing;
+        }
+
+        /* Простые элементы управления */
+        .simple-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .control-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: #2d2d2d;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            border: 1px solid #404040;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .control-btn:hover {
+            background: #404040;
+        }
+
+        /* Переключение этажей */
+        .floor-simple {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            background: #2d2d2d;
+            border: 1px solid #404040;
+            border-radius: 30px;
+            display: flex;
+            overflow: hidden;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .floor-simple button {
+            padding: 10px 20px;
+            border: none;
+            background: #2d2d2d;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            border-right: 1px solid #404040;
+        }
+
+        .floor-simple button:last-child {
+            border-right: none;
+        }
+
+        .floor-simple button:hover {
+            background: #404040;
+            color: #fff;
+        }
+
+        .floor-simple button.active {
+            background: #0078d4;
+            color: white;
+        }
+
+        /* Информация о точке при наведении */
+        .point-tooltip {
+            position: absolute;
+            background: rgba(45,45,45,0.95);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            border: 1px solid #404040;
+            pointer-events: none;
+            z-index: 20;
+            display: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Масштаб */
+        .scale-bar {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background: rgba(45,45,45,0.9);
+            border: 1px solid #404040;
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .scale-line {
+            width: 60px;
+            height: 2px;
+            background: #666;
+            position: relative;
+        }
+
+        .scale-line::after,
+        .scale-line::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 6px;
+            background: #666;
+            top: -2px;
+        }
+
+        .scale-line::after { right: 0; }
+        .scale-line::before { left: 0; }
+    </style>
+</head>
+<body>
+    <div class="map-fullscreen">
+        <canvas id="mapCanvas"></canvas>
+
+        <!-- Простые элементы управления -->
+        <div class="simple-controls">
+            <button class="control-btn" id="zoomIn">➕</button>
+            <button class="control-btn" id="zoomOut">➖</button>
+            <button class="control-btn" id="resetView">⟲</button>
+        </div>
+
+        <!-- Переключение этажей -->
+        <div class="floor-simple">
+            <button class="active" data-floor="1">1</button>
+            <button data-floor="2">2</button>
+            <button data-floor="3">3</button>
+        </div>
+
+        <!-- Масштаб -->
+        <div class="scale-bar">
+            <span class="scale-line"></span>
+            <span id="scaleValue">50 м</span>
+        </div>
+
+        <!-- Подсказка точки -->
+        <div class="point-tooltip" id="pointTooltip"></div>
+    </div>
+
+    <script>
+        class SimpleMap {
+            constructor() {
+                this.canvas = document.getElementById('mapCanvas');
+                this.ctx = this.canvas.getContext('2d');
+
+                // Размеры
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+
+                // Данные
+                this.points = [];
+                this.walls = {1: [], 2: [], 3: []};
+                this.currentFloor = 1;
+
+                // Камера
+                this.offsetX = 0;
+                this.offsetY = 0;
+                this.scale = 1;
+                this.isDragging = false;
+                this.lastX = 0;
+                this.lastY = 0;
+
+                // Подсказка
+                this.hoveredPoint = null;
+                this.tooltip = document.getElementById('pointTooltip');
+
+                this.init();
+            }
+
+            async init() {
+                await this.loadData();
+                this.setupControls();
+                this.setupMouseEvents();
+                this.draw();
+            }
+
+            async loadData() {
+                try {
+                    // Загружаем точки
+                    const pointsRes = await fetch('/api/points');
+                    this.points = await pointsRes.json();
+
+                    // Загружаем стены
+                    const wallsRes = await fetch('/api/load-map');
+                    const wallsData = await wallsRes.json();
+
+                    if (wallsData.floors) {
+                        this.walls = {
+                            1: wallsData.floors[1]?.walls || [],
+                            2: wallsData.floors[2]?.walls || [],
+                            3: wallsData.floors[3]?.walls || []
+                        };
+                    }
+
+                    console.log('✅ Карта загружена');
+                } catch (error) {
+                    console.error('Ошибка загрузки:', error);
+                }
+            }
+
+            setupControls() {
+                // Кнопки зума
+                document.getElementById('zoomIn').addEventListener('click', () => {
+                    this.scale = Math.min(this.scale * 1.2, 3);
+                    this.draw();
+                });
+
+                document.getElementById('zoomOut').addEventListener('click', () => {
+                    this.scale = Math.max(this.scale / 1.2, 0.3);
+                    this.draw();
+                });
+
+                document.getElementById('resetView').addEventListener('click', () => {
+                    this.scale = 1;
+                    this.offsetX = this.canvas.width / 2 - 400;
+                    this.offsetY = this.canvas.height / 2 - 300;
+                    this.draw();
+                });
+
+                // Этажи
+                document.querySelectorAll('[data-floor]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('[data-floor]').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.currentFloor = parseInt(btn.dataset.floor);
+                        this.draw();
+                    });
+                });
+
+                // Изменение размера окна
+                window.addEventListener('resize', () => {
+                    this.canvas.width = window.innerWidth;
+                    this.canvas.height = window.innerHeight;
+                    this.draw();
+                });
+            }
+
+            setupMouseEvents() {
+                // Перемещение карты
+                this.canvas.addEventListener('mousedown', (e) => {
+                    this.isDragging = true;
+                    this.lastX = e.clientX;
+                    this.lastY = e.clientY;
+                });
+
+                this.canvas.addEventListener('mousemove', (e) => {
+                    if (this.isDragging) {
+                        const dx = e.clientX - this.lastX;
+                        const dy = e.clientY - this.lastY;
+                        this.offsetX += dx;
+                        this.offsetY += dy;
+                        this.lastX = e.clientX;
+                        this.lastY = e.clientY;
+                        this.draw();
+                    } else {
+                        // Показываем подсказку при наведении
+                        this.checkHover(e);
+                    }
+                });
+
+                this.canvas.addEventListener('mouseup', () => {
+                    this.isDragging = false;
+                });
+
+                this.canvas.addEventListener('mouseleave', () => {
+                    this.hoveredPoint = null;
+                    this.tooltip.style.display = 'none';
+                });
+
+                // Масштабирование колесиком
+                this.canvas.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+
+                    const rect = this.canvas.getBoundingClientRect();
+                    const mouseX = e.clientX - rect.left;
+                    const mouseY = e.clientY - rect.top;
+
+                    const worldX = (mouseX - this.offsetX) / this.scale;
+                    const worldY = (mouseY - this.offsetY) / this.scale;
+
+                    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                    const newScale = Math.min(Math.max(0.3, this.scale * delta), 3);
+
+                    this.offsetX = mouseX - worldX * newScale;
+                    this.offsetY = mouseY - worldY * newScale;
+                    this.scale = newScale;
+
+                    this.updateScaleText();
+                    this.draw();
+                });
+            }
+
+            checkHover(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left - this.offsetX) / this.scale;
+                const y = (e.clientY - rect.top - this.offsetY) / this.scale;
+
+                // Ищем точку под курсором
+                const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
+                let found = null;
+
+                for (let point of floorPoints) {
+                    const dist = Math.sqrt(
+                        Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2)
+                    );
+                    if (dist < 20 / this.scale) {
+                        found = point;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    this.hoveredPoint = found;
+                    this.tooltip.style.display = 'block';
+                    this.tooltip.style.left = (e.clientX + 10) + 'px';
+                    this.tooltip.style.top = (e.clientY + 10) + 'px';
+                    this.tooltip.textContent = `${found.name} (${found.floor} этаж)`;
+                } else {
+                    this.hoveredPoint = null;
+                    this.tooltip.style.display = 'none';
+                }
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                this.ctx.save();
+                this.ctx.translate(this.offsetX, this.offsetY);
+                this.ctx.scale(this.scale, this.scale);
+
+                // Сетка
+                this.drawGrid();
+
+                // Стены
+                this.drawWalls();
+
+                // Точки
+                this.drawPoints();
+
+                this.ctx.restore();
+
+                this.updateScaleText();
+            }
+
+            drawGrid() {
+                this.ctx.strokeStyle = '#333';
+                this.ctx.lineWidth = 0.5 / this.scale;
+
+                const step = 50;
+                for (let x = 0; x < 2000; x += step) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(x, 0);
+                    this.ctx.lineTo(x, 2000);
+                    this.ctx.stroke();
+                }
+
+                for (let y = 0; y < 2000; y += step) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(0, y);
+                    this.ctx.lineTo(2000, y);
+                    this.ctx.stroke();
+                }
+            }
+
+            drawWalls() {
+                const walls = this.walls[this.currentFloor] || [];
+
+                this.ctx.strokeStyle = '#4a90e2';
+                this.ctx.lineWidth = 4 / this.scale;
+                this.ctx.lineCap = 'round';
+
+                walls.forEach(wall => {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(wall.x1, wall.y1);
+                    this.ctx.lineTo(wall.x2, wall.y2);
+                    this.ctx.stroke();
+                });
+            }
+
+            drawPoints() {
+                const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
+
+                floorPoints.forEach(point => {
+                    const isHovered = this.hoveredPoint?.id === point.id;
+
+                    // Цвет по категории
+                    let color = '#aaa';
+                    if (point.category === 'classroom') color = '#4a90e2';
+                    else if (point.category === 'entrance') color = '#4caf50';
+                    else if (point.category === 'toilet') color = '#f44336';
+                    else if (point.category === 'cafeteria') color = '#ff9800';
+
+                    // Размер (чуть больше при наведении)
+                    const size = isHovered ? 12 : 10;
+
+                    // Тень
+                    this.ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    this.ctx.shadowBlur = 10 / this.scale;
+
+                    // Круг
+                    this.ctx.beginPath();
+                    this.ctx.arc(point.x, point.y, size / this.scale, 0, 2 * Math.PI);
+                    this.ctx.fillStyle = color;
+                    this.ctx.fill();
+
+                    // Обводка
+                    this.ctx.shadowBlur = 0;
+                    this.ctx.strokeStyle = 'white';
+                    this.ctx.lineWidth = 2 / this.scale;
+                    this.ctx.stroke();
+
+                    // Иконка
+                    this.ctx.fillStyle = 'white';
+                    this.ctx.font = `${12 / this.scale}px Arial`;
+                    this.ctx.textAlign = 'center';
+                    this.ctx.fillText('📍', point.x, point.y - 1);
+                });
+            }
+
+            updateScaleText() {
+                const metersPerPixel = 0.5 / this.scale;
+                const scaleInMeters = Math.round(50 * metersPerPixel * 100);
+                document.getElementById('scaleValue').textContent = scaleInMeters + ' м';
+            }
+        }
+
+        // Запуск
+        document.addEventListener('DOMContentLoaded', () => {
+            new SimpleMap();
+        });
+    </script>
+</body>
+</html>

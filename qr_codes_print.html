@@ -1,0 +1,355 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>QR-коды для навигации по школе</title>
+        <style>
+            body { 
+                font-family: Arial, sans-serif; 
+                padding: 20px;
+                margin: 0;
+                background: #f5f5f5;
+            }
+            h1 {
+                text-align: center;
+                color: #2c3e50;
+                margin-bottom: 30px;
+                font-size: 28px;
+            }
+            .ip-info {
+                text-align: center;
+                background: #e8f4fd;
+                padding: 15px;
+                border-radius: 10px;
+                margin-bottom: 30px;
+                font-size: 18px;
+                border: 2px solid #3498db;
+            }
+            .ip-info code {
+                background: #2c3e50;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+                font-size: 20px;
+            }
+            .floor-section {
+                margin-bottom: 40px;
+                page-break-after: always;
+            }
+            .floor-title {
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                font-size: 24px;
+            }
+            .qr-grid { 
+                display: grid; 
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+            .qr-item {
+                background: white;
+                border: 1px solid #ddd;
+                padding: 15px;
+                text-align: center;
+                border-radius: 10px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                page-break-inside: avoid;
+            }
+            .qr-item img {
+                width: 100%;
+                max-width: 200px;
+                height: auto;
+                margin: 10px 0;
+                border: 1px solid #eee;
+            }
+            .qr-item p {
+                margin: 5px 0;
+                font-weight: bold;
+                color: #2c3e50;
+            }
+            .qr-item .floor-badge {
+                display: inline-block;
+                padding: 3px 8px;
+                background: #e8f4fd;
+                color: #3498db;
+                border-radius: 5px;
+                font-size: 12px;
+                margin-top: 5px;
+            }
+            .qr-item .small {
+                font-size: 11px;
+                color: #666;
+            }
+            .instructions {
+                background: #fff3cd;
+                border: 2px solid #ffc107;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+            .instructions h3 {
+                color: #856404;
+                margin-bottom: 10px;
+            }
+            .instructions ol {
+                margin-left: 20px;
+                color: #856404;
+            }
+            .instructions li {
+                margin: 10px 0;
+            }
+            @media print {
+                .qr-grid {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+                .floor-section {
+                    page-break-after: always;
+                }
+                .ip-info {
+                    border: 1px solid #000;
+                    background: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>🏫 QR-коды для навигации по школе</h1>
+
+        <div class="ip-info">
+            <p>🌐 Для сканирования используйте адрес:</p>
+            <code>http://192.168.0.11:8080</code>
+            <p style="font-size: 14px; margin-top: 10px;">
+                (Телефон должен быть в одной Wi-Fi сети с компьютером)
+            </p>
+        </div>
+
+        <div class="instructions">
+            <h3>📱 Как пользоваться:</h3>
+            <ol>
+                <li>Подключите телефон к той же Wi-Fi сети, что и компьютер</li>
+                <li>Откройте приложение "Навигатор" на телефоне</li>
+                <li>Нажмите "Сканировать QR-код" и разрешите доступ к камере</li>
+                <li>Наведите камеру на нужный QR-код</li>
+                <li>Ваше местоположение установится автоматически</li>
+            </ol>
+        </div>
+    
+        <div class="floor-section">
+            <div class="floor-title">
+                <h2>1 ЭТАЖ</h2>
+            </div>
+            <div class="qr-grid">
+            
+                <div class="qr-item">
+                    <p><strong>Администрация</strong></p>
+                    <img src="qr_codes/point_1771735962345.png" alt="Администрация">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Гардероб общий</strong></p>
+                    <img src="qr_codes/point_1771735379450.png" alt="Гардероб общий">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Гардероб: Девочки (шкафчики)</strong></p>
+                    <img src="qr_codes/point_1771735494962.png" alt="Гардероб: Девочки (шкафчики)">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Гардероб: Мальчики (шкафчики)</strong></p>
+                    <img src="qr_codes/point_1771735522011.png" alt="Гардероб: Мальчики (шкафчики)">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Гардероб: шкафчики</strong></p>
+                    <img src="qr_codes/point_1771757791077.png" alt="Гардероб: шкафчики">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Кабинет директора</strong></p>
+                    <img src="qr_codes/point_1771735980793.png" alt="Кабинет директора">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс Б 117</strong></p>
+                    <img src="qr_codes/point_1771735846633.png" alt="Класс Б 117">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс Б115</strong></p>
+                    <img src="qr_codes/point_1771735872385.png" alt="Класс Б115">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс Б116</strong></p>
+                    <img src="qr_codes/point_1771735860042.png" alt="Класс Б116">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс Б119</strong></p>
+                    <img src="qr_codes/point_1771735811081.png" alt="Класс Б119">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс Б120</strong></p>
+                    <img src="qr_codes/point_1771735798817.png" alt="Класс Б120">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс Б122</strong></p>
+                    <img src="qr_codes/point_1771735781170.png" alt="Класс Б122">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс В134</strong></p>
+                    <img src="qr_codes/point_1771736233775.png" alt="Класс В134">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс В135</strong></p>
+                    <img src="qr_codes/point_1771736219591.png" alt="Класс В135">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс В136</strong></p>
+                    <img src="qr_codes/point_1771736193527.png" alt="Класс В136">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс В137</strong></p>
+                    <img src="qr_codes/point_1771736158745.png" alt="Класс В137">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс Г164</strong></p>
+                    <img src="qr_codes/point_1771734953045.png" alt="Класс Г164">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс Г167</strong></p>
+                    <img src="qr_codes/point_1771734975643.png" alt="Класс Г167">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Класс Г168</strong></p>
+                    <img src="qr_codes/point_1771734993310.png" alt="Класс Г168">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Кухня</strong></p>
+                    <img src="qr_codes/point_1771734635494.png" alt="Кухня">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Лекционный зал</strong></p>
+                    <img src="qr_codes/point_1771758177067.png" alt="Лекционный зал">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Лифт</strong></p>
+                    <img src="qr_codes/point_1771735913121.png" alt="Лифт">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Медблок</strong></p>
+                    <img src="qr_codes/point_1771735697417.png" alt="Медблок">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Пост охраны</strong></p>
+                    <img src="qr_codes/point_1771736301935.png" alt="Пост охраны">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Приемная</strong></p>
+                    <img src="qr_codes/point_1771736095496.png" alt="Приемная">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Санузел младшие классы</strong></p>
+                    <img src="qr_codes/point_1771755081335.png" alt="Санузел младшие классы">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Санузел старшие классы</strong></p>
+                    <img src="qr_codes/point_1771755108208.png" alt="Санузел старшие классы">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Столовая</strong></p>
+                    <img src="qr_codes/point_1771735322603.png" alt="Столовая">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+                <div class="qr-item">
+                    <p><strong>Центральный вход</strong></p>
+                    <img src="qr_codes/point_1771735896016.png" alt="Центральный вход">
+                    <p class="small"></p>
+                    <span class="floor-badge">1 этаж</span>
+                </div>
+                
+            </div>
+        </div>
+        
+    </body>
+    </html>
+    

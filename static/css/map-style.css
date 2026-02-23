@@ -1,0 +1,630 @@
+/* ========== СТИЛЬ КАК В ЯНДЕКС КАРТАХ ========== */
+:root {
+    --primary: #1E98FF;
+    --primary-dark: #0071E3;
+    --secondary: #34C759;
+    --warning: #FF9F0A;
+    --danger: #FF3B30;
+    --dark: #1C1C1E;
+    --light: #F2F2F7;
+    --gray: #8E8E93;
+    --border: #C6C6C8;
+
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--light);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ========== ГЛАВНЫЙ КОНТЕЙНЕР КАРТЫ ========== */
+.map-app {
+    display: flex;
+    height: 100vh;
+    position: relative;
+}
+
+/* ========== БОКОВАЯ ПАНЕЛЬ ========== */
+.sidebar {
+    width: 400px;
+    background: white;
+    box-shadow: var(--shadow-lg);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+}
+
+.sidebar.collapsed {
+    transform: translateX(-340px);
+}
+
+.sidebar-toggle {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--primary);
+    z-index: 5;
+}
+
+/* Шапка поиска */
+.search-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.search-box {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px 20px;
+    padding-left: 45px;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    background: var(--light);
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: var(--shadow-sm);
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray);
+    font-size: 20px;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+}
+
+.search-result-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s;
+}
+
+.search-result-item:hover {
+    background: var(--light);
+}
+
+/* Местоположение */
+.location-card {
+    background: linear-gradient(135deg, var(--primary), #5856D6);
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+    margin-top: 15px;
+}
+
+.location-title {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.location-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.location-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.location-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+}
+
+.location-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Категории */
+.categories {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.categories-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--dark);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 16px;
+    background: var(--light);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.category-item:hover {
+    transform: translateY(-2px);
+}
+
+.category-item.active {
+    background: var(--primary);
+    color: white;
+    border-color: white;
+}
+
+.category-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.category-name {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Список мест */
+.places-section {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.places-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.places-header h3 {
+    font-size: 16px;
+    color: var(--gray);
+}
+
+.places-count {
+    background: var(--light);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: var(--gray);
+}
+
+.place-item {
+    background: white;
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.place-item:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-md);
+}
+
+.place-item.selected {
+    border-color: var(--primary);
+    background: #F0F9FF;
+}
+
+.place-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary), #5856D6);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+}
+
+.place-info {
+    flex: 1;
+}
+
+.place-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.place-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 13px;
+    color: var(--gray);
+}
+
+.place-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.place-rating {
+    color: #FF9F0A;
+    font-weight: 600;
+}
+
+/* Панель маршрута */
+.route-panel {
+    background: white;
+    border-top: 1px solid var(--border);
+    padding: 20px;
+    display: none;
+}
+
+.route-panel.active {
+    display: block;
+    animation: slideUp 0.3s;
+}
+
+.route-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.route-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.route-distance {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.route-time {
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.route-steps {
+    background: var(--light);
+    border-radius: 16px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.route-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.route-step:last-child {
+    border-bottom: none;
+}
+
+.step-marker {
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.route-build-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--primary), #5856D6);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.route-build-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ========== ОСНОВНАЯ КАРТА ========== */
+.map-container {
+    flex: 1;
+    position: relative;
+    background: #E5E5E5;
+}
+
+#main-map {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Элементы управления картой */
+.map-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 5;
+}
+
+.map-control-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    background: white;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--dark);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-control-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+.floor-control {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border-radius: 30px;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    z-index: 5;
+}
+
+.floor-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gray);
+    transition: all 0.3s;
+    border-bottom: 1px solid var(--border);
+}
+
+.floor-btn:last-child {
+    border-bottom: none;
+}
+
+.floor-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* Масштаб карты */
+.map-scale {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: white;
+    padding: 8px 16px;
+    border-radius: 30px;
+    box-shadow: var(--shadow-sm);
+    font-size: 14px;
+    color: var(--gray);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.scale-line {
+    width: 100px;
+    height: 3px;
+    background: var(--gray);
+    border-radius: 3px;
+}
+
+/* Балун с информацией */
+.balloon {
+    position: absolute;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    padding: 15px;
+    min-width: 250px;
+    z-index: 1000;
+    display: none;
+    transform: translate(-50%, -120%);
+}
+
+.balloon.active {
+    display: block;
+    animation: fadeIn 0.2s;
+}
+
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+}
+
+.balloon-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.balloon-address {
+    color: var(--gray);
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.balloon-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.balloon-btn {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    background: var(--light);
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.2s;
+}
+
+.balloon-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Анимации */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -140%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -120%);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 20;
+    }
+
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

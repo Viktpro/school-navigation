@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Навигация по школе — как в Яндекс Картах</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/map-style.css') }}">
+</head>
+<body>
+    <div class="map-app">
+        <!-- Боковая панель -->
+        <div class="sidebar">
+            <button class="sidebar-toggle" id="sidebar-toggle">◀</button>
+
+            <div class="search-header">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Поиск места...">
+                    <div class="search-results" id="search-results"></div>
+                </div>
+
+                <div class="location-card">
+                    <div class="location-title">📍 Текущее местоположение</div>
+                    <div class="location-name" id="start-location">Не выбрано</div>
+                    <div class="location-actions">
+                        <button class="location-btn" id="scan-qr">
+                            <span>📷</span> QR-код
+                        </button>
+                        <button class="location-btn" id="my-location">
+                            <span>🎯</span> Мое место
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="categories">
+                <div class="categories-title">Категории</div>
+                <div class="categories-grid">
+                    <div class="category-item active" data-category="all">
+                        <span class="category-icon">🏢</span>
+                        <span class="category-name">Все</span>
+                    </div>
+                    <div class="category-item" data-category="classroom">
+                        <span class="category-icon">📚</span>
+                        <span class="category-name">Классы</span>
+                    </div>
+                    <div class="category-item" data-category="cafeteria">
+                        <span class="category-icon">🍽️</span>
+                        <span class="category-name">Еда</span>
+                    </div>
+                    <div class="category-item" data-category="toilet">
+                        <span class="category-icon">🚻</span>
+                        <span class="category-name">Туалеты</span>
+                    </div>
+                    <div class="category-item" data-category="entrance">
+                        <span class="category-icon">🚪</span>
+                        <span class="category-name">Входы</span>
+                    </div>
+                    <div class="category-item" data-category="stair">
+                        <span class="category-icon">⬆️</span>
+                        <span class="category-name">Лестницы</span>
+                    </div>
+                    <div class="category-item" data-category="elevator">
+                        <span class="category-icon">🛗</span>
+                        <span class="category-name">Лифты</span>
+                    </div>
+                    <div class="category-item" data-category="hall">
+                        <span class="category-icon">🏛️</span>
+                        <span class="category-name">Залы</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="places-section">
+                <div class="places-header">
+                    <h3>Места на карте</h3>
+                    <span class="places-count" id="places-count">0</span>
+                </div>
+                <div id="places-list"></div>
+            </div>
+
+            <!-- Панель маршрута -->
+            <div class="route-panel" id="route-panel">
+                <div class="route-header">
+                    <div class="route-info">
+                        <span class="route-distance" id="route-distance">--</span>
+                        <span class="route-time" id="route-time">🚶 -- м</span>
+                    </div>
+                    <button class="route-close" onclick="document.getElementById('route-panel').classList.remove('active')">✕</button>
+                </div>
+
+                <div class="route-steps" id="route-steps"></div>
+
+                <button class="route-build-btn" id="build-route">
+                    <span>🚶</span> Построить маршрут
+                </button>
+            </div>
+        </div>
+
+        <!-- Основная карта -->
+        <div class="map-container">
+            <canvas id="main-map"></canvas>
+
+            <!-- Элементы управления -->
+            <div class="map-controls">
+                <button class="map-control-btn" id="zoom-in" title="Приблизить">➕</button>
+                <button class="map-control-btn" id="zoom-out" title="Отдалить">➖</button>
+                <button class="map-control-btn" id="reset-view" title="Сбросить вид">🔄</button>
+                <button class="map-control-btn" id="layer-switch" title="Слои">🗺️</button>
+            </div>
+
+            <!-- Переключение этажей -->
+            <div class="floor-control">
+                <button class="floor-btn active" data-floor="1">1</button>
+                <button class="floor-btn" data-floor="2">2</button>
+                <button class="floor-btn" data-floor="3">3</button>
+            </div>
+
+            <!-- Масштаб -->
+            <div class="map-scale">
+                <span class="scale-line"></span>
+                <span id="map-scale-value">100 м</span>
+            </div>
+
+            <!-- Балун с информацией -->
+            <div class="balloon" id="balloon"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/yandex-style-map.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор карты школы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #1a1a1a;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .editor-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Панель инструментов */
+        .toolbar {
+            width: 340px;
+            background: #2d2d2d;
+            border-right: 1px solid #404040;
+            padding: 20px;
+            overflow-y: auto;
+            color: #fff;
+        }
+
+        .toolbar h2 {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-section {
+            margin-bottom: 25px;
+            background: #363636;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .tool-section h3 {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .tool-btn {
+            padding: 12px;
+            border: 1px solid #404040;
+            border-radius: 6px;
+            background: #2d2d2d;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .tool-btn:hover {
+            background: #404040;
+            border-color: #666;
+        }
+
+        .tool-btn.active {
+            background: #0078d4;
+            border-color: #0078d4;
+        }
+
+        .tool-icon {
+            font-size: 20px;
+        }
+
+        .tool-label {
+            font-size: 12px;
+        }
+
+        /* Кнопки этажей */
+        .floor-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .floor-btn {
+            padding: 12px;
+            border: 1px solid #404040;
+            border-radius: 6px;
+            background: #2d2d2d;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .floor-btn:hover {
+            background: #404040;
+        }
+
+        .floor-btn.active {
+            background: #0078d4;
+            border-color: #0078d4;
+        }
+
+        /* Настройки стены */
+        .settings {
+            background: #2d2d2d;
+            border-radius: 6px;
+            padding: 12px;
+        }
+
+        .setting-item {
+            margin-bottom: 12px;
+        }
+
+        .setting-item label {
+            display: block;
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 4px;
+        }
+
+        .setting-item input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #404040;
+            border-radius: 4px;
+            background: #2d2d2d;
+            cursor: pointer;
+        }
+
+        .setting-item input[type="range"] {
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .value-display {
+            color: #0078d4;
+            font-weight: bold;
+            float: right;
+        }
+
+        /* Списки */
+        .walls-list, .points-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #404040;
+            border-radius: 4px;
+            margin-top: 10px;
+            background: #2d2d2d;
+        }
+
+        .wall-item, .point-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            border-bottom: 1px solid #404040;
+            font-size: 12px;
+            color: #ddd;
+            cursor: pointer;
+        }
+
+        .wall-item:last-child, .point-item:last-child {
+            border-bottom: none;
+        }
+
+        .wall-item:hover, .point-item:hover {
+            background: #363636;
+        }
+
+        .wall-item.selected, .point-item.selected {
+            background: #1e3a5f;
+            border-left: 3px solid #0078d4;
+        }
+
+        .wall-coords, .point-coords {
+            font-family: monospace;
+            color: #0078d4;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .action-icon {
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .action-icon.edit {
+            color: #4caf50;
+        }
+
+        .action-icon.edit:hover {
+            background: #4caf50;
+            color: white;
+        }
+
+        .action-icon.delete {
+            color: #f44336;
+        }
+
+        .action-icon.delete:hover {
+            background: #f44336;
+            color: white;
+        }
+
+        .action-icon.move {
+            color: #ff9800;
+        }
+
+        .action-icon.move:hover {
+            background: #ff9800;
+            color: white;
+        }
+
+        /* Кнопки действий */
+        .action-buttons {
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .action-btn.save {
+            background: #4caf50;
+            color: white;
+        }
+
+        .action-btn.save:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .action-btn.load {
+            background: #0078d4;
+            color: white;
+        }
+
+        .action-btn.load:hover {
+            background: #006cbd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 120, 212, 0.3);
+        }
+
+        .action-btn.clear {
+            background: #f44336;
+            color: white;
+        }
+
+        .action-btn.clear:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+        }
+
+        .auto-save-status {
+            text-align: center;
+            font-size: 12px;
+            color: #4caf50;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        /* Карта */
+        .map-area {
+            flex: 1;
+            position: relative;
+            background: #2d2d2d;
+            overflow: hidden;
+        }
+
+        #mapCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: #1e1e1e;
+            cursor: crosshair;
+        }
+
+        /* Информационная панель */
+        .info-bar {
+            position: absolute;
+            bottom: 20px;
+            left: 360px;
+            right: 20px;
+            background: rgba(45, 45, 45, 0.95);
+            border-radius: 8px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #fff;
+            border: 1px solid #404040;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .coordinates {
+            display: flex;
+            gap: 30px;
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+        .coord-value {
+            color: #0078d4;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4caf50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+            }
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2d2d2d;
+            padding: 24px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid #404040;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: #fff;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #aaa;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #404040;
+            border-radius: 4px;
+            background: #363636;
+            color: #fff;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #0078d4;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .modal-btn.save {
+            background: #4caf50;
+            color: white;
+        }
+
+        .modal-btn.cancel {
+            background: #404040;
+            color: white;
+        }
+
+        /* Статистика */
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #363636;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-label {
+            color: #aaa;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            color: #0078d4;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Подсказки */
+        .tips {
+            margin-top: 20px;
+            padding: 12px;
+            background: #363636;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .tips kbd {
+            background: #2d2d2d;
+            border: 1px solid #404040;
+            border-radius: 3px;
+            padding: 2px 6px;
+            color: #0078d4;
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <!-- Панель инструментов -->
+        <div class="toolbar">
+            <h2>
+                <span>✏️</span>
+                Редактор карты
+            </h2>
+
+            <!-- Инструменты -->
+            <div class="tool-section">
+                <h3>Инструменты</h3>
+                <div class="tools-grid">
+                    <button class="tool-btn active" id="toolSelect" data-tool="select">
+                        <span class="tool-icon">🖱️</span>
+                        <span class="tool-label">Выбрать</span>
+                    </button>
+                    <button class="tool-btn" id="toolWall" data-tool="wall">
+                        <span class="tool-icon">📏</span>
+                        <span class="tool-label">Стена</span>
+                    </button>
+                    <button class="tool-btn" id="toolMoveWall" data-tool="movewall">
+                        <span class="tool-icon">🖐️</span>
+                        <span class="tool-label">Двигать стену</span>
+                    </button>
+                    <button class="tool-btn" id="toolPoint" data-tool="point">
+                        <span class="tool-icon">📍</span>
+                        <span class="tool-label">Точка</span>
+                    </button>
+                    <button class="tool-btn" id="toolMovePoint" data-tool="movepoint">
+                        <span class="tool-icon">✋</span>
+                        <span class="tool-label">Двигать точку</span>
+                    </button>
+                    <button class="tool-btn" id="toolErase" data-tool="erase">
+                        <span class="tool-icon">🗑️</span>
+                        <span class="tool-label">Стереть</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Этажи -->
+            <div class="tool-section">
+                <h3>Этаж</h3>
+                <div class="floor-buttons">
+                    <button class="floor-btn active" data-floor="1">1</button>
+                    <button class="floor-btn" data-floor="2">2</button>
+                    <button class="floor-btn" data-floor="3">3</button>
+                </div>
+            </div>
+
+            <!-- Настройки стены -->
+            <div class="tool-section">
+                <h3>Стиль стены</h3>
+                <div class="settings">
+                    <div class="setting-item">
+                        <label>Цвет</label>
+                        <input type="color" id="wallColor" value="#4a90e2">
+                    </div>
+                    <div class="setting-item">
+                        <label>Толщина <span class="value-display" id="widthValue">4px</span></label>
+                        <input type="range" id="wallWidth" min="1" max="10" value="4" step="1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Статистика -->
+            <div class="tool-section">
+                <h3>Статистика этажа</h3>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Стен</span>
+                        <span class="stat-value" id="wallCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Точек</span>
+                        <span class="stat-value" id="pointCount">0</span>
+                    </div>
+                </div>
+
+                <!-- Список стен -->
+                <h4 style="color: #aaa; margin: 10px 0 5px; font-size: 13px;">Стены</h4>
+                <div class="walls-list" id="wallsList">
+                    <div style="padding: 10px; text-align: center; color: #666;">Нет стен</div>
+                </div>
+
+                <!-- Список точек -->
+                <h4 style="color: #aaa; margin: 15px 0 5px; font-size: 13px;">Точки</h4>
+                <div class="points-list" id="pointsList">
+                    <div style="padding: 10px; text-align: center; color: #666;">Загрузка...</div>
+                </div>
+            </div>
+
+            <!-- Кнопки действий -->
+            <div class="action-buttons">
+                <button class="action-btn save" id="saveMap">
+                    💾 Сохранить всё
+                </button>
+                <button class="action-btn load" id="loadMap">
+                    📂 Загрузить
+                </button>
+                <button class="action-btn clear" id="clearFloor">
+                    🧹 Очистить этаж
+                </button>
+            </div>
+
+            <!-- Статус автосохранения -->
+            <div class="auto-save-status" id="autoSaveStatus">
+                <span class="status-indicator" style="width: 8px; height: 8px;"></span>
+                <span id="saveStatusText">Все изменения сохраняются</span>
+            </div>
+
+            <!-- Подсказки -->
+            <div class="tips">
+                <p><kbd>Клик</kbd> - начать/закончить стену</p>
+                <p><kbd>Ctrl+клик</kbd> - двигать карту</p>
+                <p><kbd>Клик на стену</kbd> - выбрать для перемещения</p>
+                <p><kbd>Клик на точку</kbd> - выбрать для перемещения</p>
+                <p>Все изменения сохраняются автоматически</p>
+            </div>
+        </div>
+
+        <!-- Область карты -->
+        <div class="map-area">
+            <canvas id="mapCanvas"></canvas>
+
+            <!-- Информационная панель -->
+            <div class="info-bar">
+                <div class="coordinates">
+                    <span>X: <span class="coord-value" id="coordX">0</span></span>
+                    <span>Y: <span class="coord-value" id="coordY">0</span></span>
+                </div>
+                <div class="status">
+                    <span class="status-indicator"></span>
+                    <span id="toolStatus">Режим: Выбор</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно редактирования точки -->
+    <div class="modal" id="pointModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Редактировать точку</h3>
+                <button class="modal-close" onclick="document.getElementById('pointModal').style.display='none'">✕</button>
+            </div>
+            <div class="form-group">
+                <label>Название</label>
+                <input type="text" id="editPointName" placeholder="Класс Б115">
+            </div>
+            <div class="form-group">
+                <label>Категория</label>
+                <select id="editPointCategory">
+                    <option value="classroom">📚 Класс</option>
+                    <option value="entrance">🚪 Вход</option>
+                    <option value="toilet">🚻 Туалет</option>
+                    <option value="cafeteria">🍽️ Столовая</option>
+                    <option value="stair">⬆️ Лестница</option>
+                    <option value="elevator">🛗 Лифт</option>
+                    <option value="hall">🏛️ Зал</option>
+                    <option value="library">📖 Библиотека</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Описание</label>
+                <input type="text" id="editPointDesc" placeholder="Описание">
+            </div>
+            <div class="form-group">
+                <label>Координаты</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" id="editPointX" placeholder="X" style="flex:1">
+                    <input type="number" id="editPointY" placeholder="Y" style="flex:1">
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn save" id="savePointBtn">Сохранить</button>
+                <button class="modal-btn cancel" onclick="document.getElementById('pointModal').style.display='none'">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно редактирования стены -->
+    <div class="modal" id="wallModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Редактировать стену</h3>
+                <button class="modal-close" onclick="document.getElementById('wallModal').style.display='none'">✕</button>
+            </div>
+            <div class="form-group">
+                <label>Начало (X1, Y1)</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" id="editWallX1" placeholder="X1" style="flex:1">
+                    <input type="number" id="editWallY1" placeholder="Y1" style="flex:1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Конец (X2, Y2)</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" id="editWallX2" placeholder="X2" style="flex:1">
+                    <input type="number" id="editWallY2" placeholder="Y2" style="flex:1">
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn save" id="saveWallBtn">Сохранить</button>
+                <button class="modal-btn cancel" onclick="document.getElementById('wallModal').style.display='none'">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class MapEditor {
+            constructor() {
+                this.canvas = document.getElementById('mapCanvas');
+                this.ctx = this.canvas.getContext('2d');
+
+                // Размеры канваса
+                this.resizeCanvas();
+
+                // Данные
+                this.points = [];
+                this.floors = {
+                    1: {
+                        walls: [],
+                        color: '#4a90e2',
+                        width: 4
+                    },
+                    2: {
+                        walls: [],
+                        color: '#4a90e2',
+                        width: 4
+                    },
+                    3: {
+                        walls: [],
+                        color: '#4a90e2',
+                        width: 4
+                    }
+                };
+
+                // Текущее состояние
+                this.currentFloor = 1;
+                this.currentTool = 'select';
+                this.isDrawing = false;
+                this.startPoint = null;
+                this.isDragging = false;
+                this.lastX = 0;
+                this.lastY = 0;
+
+                // Выбранные объекты
+                this.selectedWall = null;
+                this.selectedPoint = null;
+                this.isMovingWall = false;
+                this.isMovingPoint = false;
+                this.moveType = null; // 'start', 'end', 'whole'
+
+                // Позиция камеры
+                this.offsetX = 0;
+                this.offsetY = 0;
+                this.scale = 1;
+
+                // Таймер автосохранения
+                this.saveTimeout = null;
+
+                // Загружаем данные
+                this.loadData();
+                this.init();
+            }
+
+            resizeCanvas() {
+                this.canvas.width = window.innerWidth - 340;
+                this.canvas.height = window.innerHeight;
+            }
+
+            async loadData() {
+                try {
+                    // Загружаем точки
+                    const pointsRes = await fetch('/api/points');
+                    this.points = await pointsRes.json();
+
+                    // Загружаем стены
+                    const wallsRes = await fetch('/api/load-map');
+                    const wallsData = await wallsRes.json();
+
+                    if (wallsData.floors) {
+                        this.floors = {
+                            1: {
+                                walls: wallsData.floors[1]?.walls || [],
+                                color: '#4a90e2',
+                                width: 4
+                            },
+                            2: {
+                                walls: wallsData.floors[2]?.walls || [],
+                                color: '#4a90e2',
+                                width: 4
+                            },
+                            3: {
+                                walls: wallsData.floors[3]?.walls || [],
+                                color: '#4a90e2',
+                                width: 4
+                            }
+                        };
+                    }
+
+                    this.updateStats();
+                    this.draw();
+                    this.showSaveStatus('✅ Данные загружены');
+                } catch (error) {
+                    console.error('Ошибка загрузки:', error);
+                    this.showSaveStatus('❌ Ошибка загрузки', 'error');
+                }
+            }
+
+            init() {
+                // Слушатели событий
+                this.canvas.addEventListener('mousedown', (e) => this.onMouseDown(e));
+                this.canvas.addEventListener('mousemove', (e) => this.onMouseMove(e));
+                this.canvas.addEventListener('mouseup', () => this.onMouseUp());
+                this.canvas.addEventListener('wheel', (e) => this.onWheel(e));
+
+                // Инструменты
+                document.querySelectorAll('[data-tool]').forEach(btn => {
+                    btn.addEventListener('click', () => this.setTool(btn.dataset.tool));
+                });
+
+                // Переключение этажей
+                document.querySelectorAll('[data-floor]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('[data-floor]').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.currentFloor = parseInt(btn.dataset.floor);
+                        this.selectedWall = null;
+                        this.selectedPoint = null;
+                        this.updateStats();
+                        this.draw();
+                    });
+                });
+
+                // Кнопки
+                document.getElementById('saveMap').addEventListener('click', () => this.saveAll());
+                document.getElementById('loadMap').addEventListener('click', () => this.loadData());
+                document.getElementById('clearFloor').addEventListener('click', () => this.clearFloor());
+
+                // Настройки стен
+                document.getElementById('wallColor').addEventListener('input', (e) => {
+                    this.floors[this.currentFloor].color = e.target.value;
+                    this.draw();
+                    this.autoSave();
+                });
+
+                document.getElementById('wallWidth').addEventListener('input', (e) => {
+                    const val = e.target.value;
+                    this.floors[this.currentFloor].width = parseInt(val);
+                    document.getElementById('widthValue').textContent = val + 'px';
+                    this.draw();
+                    this.autoSave();
+                });
+
+                // Сохранение точки
+                document.getElementById('savePointBtn').addEventListener('click', () => this.savePointEdit());
+                document.getElementById('saveWallBtn').addEventListener('click', () => this.saveWallEdit());
+
+                // Отслеживание мыши для координат
+                this.canvas.addEventListener('mousemove', (e) => {
+                    const rect = this.canvas.getBoundingClientRect();
+                    const x = Math.round((e.clientX - rect.left - this.offsetX) / this.scale);
+                    const y = Math.round((e.clientY - rect.top - this.offsetY) / this.scale);
+                    document.getElementById('coordX').textContent = x;
+                    document.getElementById('coordY').textContent = y;
+                });
+
+                // Изменение размера окна
+                window.addEventListener('resize', () => {
+                    this.resizeCanvas();
+                    this.draw();
+                });
+            }
+
+            setTool(tool) {
+                this.currentTool = tool;
+                document.querySelectorAll('[data-tool]').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tool === tool);
+                });
+
+                const toolNames = {
+                    select: 'Выбор',
+                    wall: 'Рисование стен',
+                    movewall: 'Перемещение стен',
+                    point: 'Добавление точек',
+                    movepoint: 'Перемещение точек',
+                    erase: 'Стирание'
+                };
+                document.getElementById('toolStatus').textContent = `Режим: ${toolNames[tool]}`;
+
+                // Сбрасываем выделение
+                this.selectedWall = null;
+                this.selectedPoint = null;
+                this.draw();
+            }
+
+            onMouseDown(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left - this.offsetX) / this.scale;
+                const y = (e.clientY - rect.top - this.offsetY) / this.scale;
+
+                if (e.ctrlKey) {
+                    // Перемещение карты
+                    this.isDragging = true;
+                    this.lastX = e.clientX;
+                    this.lastY = e.clientY;
+                    return;
+                }
+
+                switch(this.currentTool) {
+                    case 'wall':
+                        this.handleWallTool(x, y);
+                        break;
+                    case 'movewall':
+                        this.handleMoveWallTool(x, y);
+                        break;
+                    case 'point':
+                        this.handlePointTool(x, y);
+                        break;
+                    case 'movepoint':
+                        this.handleMovePointTool(x, y);
+                        break;
+                    case 'erase':
+                        this.handleEraseTool(x, y);
+                        break;
+                    case 'select':
+                        this.handleSelectTool(x, y);
+                        break;
+                }
+            }
+
+            handleWallTool(x, y) {
+                if (!this.isDrawing) {
+                    this.isDrawing = true;
+                    this.startPoint = { x, y };
+                } else {
+                    this.isDrawing = false;
+                    this.addWall(this.startPoint.x, this.startPoint.y, x, y);
+                }
+            }
+
+            handleMoveWallTool(x, y) {
+                const wall = this.findNearestWall(x, y);
+                if (wall) {
+                    this.selectedWall = wall;
+
+                    // Определяем какой конец ближе
+                    const distToStart = Math.sqrt(
+                        Math.pow(wall.x1 - x, 2) + Math.pow(wall.y1 - y, 2)
+                    );
+                    const distToEnd = Math.sqrt(
+                        Math.pow(wall.x2 - x, 2) + Math.pow(wall.y2 - y, 2)
+                    );
+                    const distToCenter = Math.sqrt(
+                        Math.pow((wall.x1 + wall.x2)/2 - x, 2) +
+                        Math.pow((wall.y1 + wall.y2)/2 - y, 2)
+                    );
+
+                    if (distToCenter < 20 && distToCenter < distToStart && distToCenter < distToEnd) {
+                        this.moveType = 'whole';
+                    } else if (distToStart < distToEnd) {
+                        this.moveType = 'start';
+                    } else {
+                        this.moveType = 'end';
+                    }
+
+                    this.isMovingWall = true;
+                    this.draw();
+                }
+            }
+
+            handlePointTool(x, y) {
+                this.addPoint(x, y);
+            }
+
+            handleMovePointTool(x, y) {
+                const point = this.findNearestPoint(x, y);
+                if (point) {
+                    this.selectedPoint = point;
+                    this.isMovingPoint = true;
+                    this.draw();
+                }
+            }
+
+            handleEraseTool(x, y) {
+                this.eraseAt(x, y);
+            }
+
+            handleSelectTool(x, y) {
+                // Сначала ищем стену
+                const wall = this.findNearestWall(x, y);
+                if (wall) {
+                    this.selectedWall = wall;
+                    this.selectedPoint = null;
+                    this.updateStats();
+                    this.draw();
+                    return;
+                }
+
+                // Потом ищем точку
+                const point = this.findNearestPoint(x, y);
+                if (point) {
+                    this.selectedPoint = point;
+                    this.selectedWall = null;
+                    this.updateStats();
+                    this.draw();
+                }
+            }
+
+            onMouseMove(e) {
+                if (this.isDragging) {
+                    // Перемещение карты
+                    const dx = e.clientX - this.lastX;
+                    const dy = e.clientY - this.lastY;
+                    this.offsetX += dx;
+                    this.offsetY += dy;
+                    this.lastX = e.clientX;
+                    this.lastY = e.clientY;
+                    this.draw();
+                    return;
+                }
+
+                if (this.isMovingWall && this.selectedWall) {
+                    this.moveWall(e);
+                } else if (this.isMovingPoint && this.selectedPoint) {
+                    this.movePoint(e);
+                } else if (this.isDrawing && this.currentTool === 'wall') {
+                    this.drawPreview(e);
+                }
+            }
+
+            moveWall(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left - this.offsetX) / this.scale;
+                const y = (e.clientY - rect.top - this.offsetY) / this.scale;
+
+                const wall = this.selectedWall;
+
+                if (this.moveType === 'start') {
+                    wall.x1 = Math.round(x);
+                    wall.y1 = Math.round(y);
+                } else if (this.moveType === 'end') {
+                    wall.x2 = Math.round(x);
+                    wall.y2 = Math.round(y);
+                } else if (this.moveType === 'whole') {
+                    const dx = x - (wall.x1 + wall.x2) / 2;
+                    const dy = y - (wall.y1 + wall.y2) / 2;
+                    wall.x1 = Math.round(wall.x1 + dx);
+                    wall.y1 = Math.round(wall.y1 + dy);
+                    wall.x2 = Math.round(wall.x2 + dx);
+                    wall.y2 = Math.round(wall.y2 + dy);
+                }
+
+                this.draw();
+            }
+
+            movePoint(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const x = Math.round((e.clientX - rect.left - this.offsetX) / this.scale);
+                const y = Math.round((e.clientY - rect.top - this.offsetY) / this.scale);
+
+                this.selectedPoint.x = x;
+                this.selectedPoint.y = y;
+
+                this.draw();
+            }
+
+            drawPreview(e) {
+                this.draw();
+
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left - this.offsetX) / this.scale;
+                const y = (e.clientY - rect.top - this.offsetY) / this.scale;
+
+                this.ctx.save();
+                this.ctx.translate(this.offsetX, this.offsetY);
+                this.ctx.scale(this.scale, this.scale);
+
+                this.ctx.beginPath();
+                this.ctx.strokeStyle = '#f44336';
+                this.ctx.lineWidth = 2 / this.scale;
+                this.ctx.setLineDash([5 / this.scale, 5 / this.scale]);
+                this.ctx.moveTo(this.startPoint.x, this.startPoint.y);
+                this.ctx.lineTo(x, y);
+                this.ctx.stroke();
+
+                this.ctx.restore();
+            }
+
+            onMouseUp() {
+                if (this.isMovingWall || this.isMovingPoint) {
+                    this.autoSave();
+                }
+
+                this.isDragging = false;
+                this.isMovingWall = false;
+                this.isMovingPoint = false;
+                this.moveType = null;
+            }
+
+            onWheel(e) {
+                e.preventDefault();
+
+                const rect = this.canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                const worldX = (mouseX - this.offsetX) / this.scale;
+                const worldY = (mouseY - this.offsetY) / this.scale;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(0.3, this.scale * delta), 3);
+
+                this.offsetX = mouseX - worldX * newScale;
+                this.offsetY = mouseY - worldY * newScale;
+                this.scale = newScale;
+
+                this.draw();
+            }
+
+            findNearestWall(x, y, threshold = 20) {
+                const walls = this.floors[this.currentFloor].walls;
+                let nearest = null;
+                let minDist = Infinity;
+
+                walls.forEach(wall => {
+                    const dist = this.pointToLineDistance(x, y, wall.x1, wall.y1, wall.x2, wall.y2);
+                    if (dist < threshold && dist < minDist) {
+                        minDist = dist;
+                        nearest = wall;
+                    }
+                });
+
+                return nearest;
+            }
+
+            findNearestPoint(x, y, threshold = 20) {
+                const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
+                let nearest = null;
+                let minDist = Infinity;
+
+                floorPoints.forEach(point => {
+                    const dist = Math.sqrt(
+                        Math.pow(point.x - x, 2) +
+                        Math.pow(point.y - y, 2)
+                    );
+
+                    if (dist < threshold && dist < minDist) {
+                        minDist = dist;
+                        nearest = point;
+                    }
+                });
+
+                return nearest;
+            }
+
+            pointToLineDistance(px, py, x1, y1, x2, y2) {
+                const A = px - x1;
+                const B = py - y1;
+                const C = x2 - x1;
+                const D = y2 - y1;
+
+                const dot = A * C + B * D;
+                const len_sq = C * C + D * D;
+                let param = -1;
+
+                if (len_sq !== 0) param = dot / len_sq;
+
+                let xx, yy;
+
+                if (param < 0) {
+                    xx = x1;
+                    yy = y1;
+                } else if (param > 1) {
+                    xx = x2;
+                    yy = y2;
+                } else {
+                    xx = x1 + param * C;
+                    yy = y1 + param * D;
+                }
+
+                const dx = px - xx;
+                const dy = py - yy;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+
+            addWall(x1, y1, x2, y2) {
+                const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                if (distance < 10) return;
+
+                this.floors[this.currentFloor].walls.push({
+                    x1: Math.round(x1),
+                    y1: Math.round(y1),
+                    x2: Math.round(x2),
+                    y2: Math.round(y2)
+                });
+
+                this.updateStats();
+                this.draw();
+                this.autoSave();
+            }
+
+            addPoint(x, y) {
+                const name = prompt('Введите название точки (например: Класс Б115):');
+                if (!name) return;
+
+                const newPoint = {
+                    id: 'point_' + Date.now(),
+                    name: name,
+                    x: Math.round(x),
+                    y: Math.round(y),
+                    floor: this.currentFloor,
+                    description: '',
+                    category: 'classroom'
+                };
+
+                this.points.push(newPoint);
+                this.updateStats();
+                this.draw();
+                this.savePoint(newPoint);
+            }
+
+            async savePoint(point) {
+                try {
+                    await fetch('/api/points', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(point)
+                    });
+                    this.showSaveStatus('✅ Точка сохранена');
+                } catch (error) {
+                    console.error('Ошибка сохранения точки:', error);
+                }
+            }
+
+            eraseAt(x, y) {
+                const threshold = 20 / this.scale;
+
+                // Проверяем стены
+                const wall = this.findNearestWall(x, y, threshold);
+                if (wall) {
+                    const walls = this.floors[this.currentFloor].walls;
+                    const index = walls.indexOf(wall);
+                    if (index !== -1) {
+                        walls.splice(index, 1);
+                        this.autoSave();
+                    }
+                }
+
+                // Проверяем точки
+                const point = this.findNearestPoint(x, y, threshold);
+                if (point && confirm(`Удалить точку "${point.name}"?`)) {
+                    this.points = this.points.filter(p => p.id !== point.id);
+                    this.deletePoint(point.id);
+                }
+
+                this.updateStats();
+                this.draw();
+            }
+
+            async deletePoint(pointId) {
+                try {
+                    await fetch(`/api/points/${pointId}`, {
+                        method: 'DELETE'
+                    });
+                    this.showSaveStatus('✅ Точка удалена');
+                } catch (error) {
+                    console.error('Ошибка удаления точки:', error);
+                }
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                this.ctx.save();
+                this.ctx.translate(this.offsetX, this.offsetY);
+                this.ctx.scale(this.scale, this.scale);
+
+                // Сетка
+                this.drawGrid();
+
+                // Стены
+                this.drawWalls();
+
+                // Точки
+                this.drawPoints();
+
+                this.ctx.restore();
+            }
+
+            drawGrid() {
+                this.ctx.strokeStyle = '#333';
+                this.ctx.lineWidth = 0.5 / this.scale;
+
+                const step = 50;
+                const startX = -this.offsetX / this.scale;
+                const startY = -this.offsetY / this.scale;
+                const endX = startX + this.canvas.width / this.scale;
+                const endY = startY + this.canvas.height / this.scale;
+
+                for (let x = Math.floor(startX / step) * step; x < endX; x += step) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(x, startY);
+                    this.ctx.lineTo(x, endY);
+                    this.ctx.stroke();
+                }
+
+                for (let y = Math.floor(startY / step) * step; y < endY; y += step) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(startX, y);
+                    this.ctx.lineTo(endX, y);
+                    this.ctx.stroke();
+                }
+            }
+
+            drawWalls() {
+                const floor = this.floors[this.currentFloor];
+
+                floor.walls.forEach(wall => {
+                    const isSelected = this.selectedWall === wall;
+
+                    this.ctx.strokeStyle = isSelected ? '#fff' : floor.color;
+                    this.ctx.lineWidth = (isSelected ? floor.width + 2 : floor.width) / this.scale;
+                    this.ctx.lineCap = 'round';
+
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(wall.x1, wall.y1);
+                    this.ctx.lineTo(wall.x2, wall.y2);
+                    this.ctx.stroke();
+
+                    // Рисуем ручки для перемещения
+                    if (isSelected && this.currentTool === 'movewall') {
+                        this.ctx.fillStyle = '#fff';
+
+                        // Начало
+                        this.ctx.beginPath();
+                        this.ctx.arc(wall.x1, wall.y1, 6 / this.scale, 0, 2 * Math.PI);
+                        this.ctx.fill();
+
+                        // Конец
+                        this.ctx.beginPath();
+                        this.ctx.arc(wall.x2, wall.y2, 6 / this.scale, 0, 2 * Math.PI);
+                        this.ctx.fill();
+
+                        // Центр
+                        this.ctx.fillStyle = '#ff9800';
+                        this.ctx.beginPath();
+                        this.ctx.arc((wall.x1 + wall.x2)/2, (wall.y1 + wall.y2)/2, 8 / this.scale, 0, 2 * Math.PI);
+                        this.ctx.fill();
+                    }
+                });
+            }
+
+            drawPoints() {
+                const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
+
+                floorPoints.forEach(point => {
+                    const isSelected = this.selectedPoint?.id === point.id;
+
+                    // Цвет по категории
+                    let color = '#aaa';
+                    if (point.category === 'classroom') color = '#4a90e2';
+                    else if (point.category === 'entrance') color = '#4caf50';
+                    else if (point.category === 'toilet') color = '#f44336';
+                    else if (point.category === 'cafeteria') color = '#ff9800';
+                    else if (point.category === 'stair') color = '#9c27b0';
+                    else if (point.category === 'elevator') color = '#ff5722';
+                    else if (point.category === 'hall') color = '#00bcd4';
+                    else if (point.category === 'library') color = '#795548';
+
+                    // Тень
+                    this.ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    this.ctx.shadowBlur = 10 / this.scale;
+
+                    // Круг
+                    this.ctx.beginPath();
+                    this.ctx.arc(point.x, point.y, (isSelected ? 12 : 10) / this.scale, 0, 2 * Math.PI);
+                    this.ctx.fillStyle = color;
+                    this.ctx.fill();
+
+                    // Обводка для выбранной
+                    this.ctx.shadowBlur = 0;
+                    this.ctx.strokeStyle = isSelected ? '#fff' : '#333';
+                    this.ctx.lineWidth = 2 / this.scale;
+                    this.ctx.stroke();
+
+                    // Иконка
+                    this.ctx.fillStyle = 'white';
+                    this.ctx.font = `${12 / this.scale}px Arial`;
+                    this.ctx.textAlign = 'center';
+                    this.ctx.textBaseline = 'middle';
+
+                    let icon = '📍';
+                    if (point.category === 'classroom') icon = '📚';
+                    else if (point.category === 'toilet') icon = '🚻';
+                    else if (point.category === 'cafeteria') icon = '🍽️';
+                    else if (point.category === 'entrance') icon = '🚪';
+                    else if (point.category === 'stair') icon = '⬆️';
+                    else if (point.category === 'elevator') icon = '🛗';
+                    else if (point.category === 'hall') icon = '🏛️';
+                    else if (point.category === 'library') icon = '📖';
+
+                    this.ctx.fillText(icon, point.x, point.y - 1);
+
+                    // Название
+                    if (this.scale > 0.7 || isSelected) {
+                        this.ctx.shadowColor = 'white';
+                        this.ctx.shadowBlur = 4 / this.scale;
+                        this.ctx.fillStyle = 'white';
+                        this.ctx.font = `bold ${11 / this.scale}px Arial`;
+                        this.ctx.fillText(point.name, point.x, point.y - 25 / this.scale);
+                    }
+                });
+            }
+
+            updateStats() {
+                const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
+                const walls = this.floors[this.currentFloor].walls;
+
+                document.getElementById('wallCount').textContent = walls.length;
+                document.getElementById('pointCount').textContent = floorPoints.length;
+
+                this.updateWallsList();
+                this.updatePointsList();
+            }
+
+            updateWallsList() {
+                const list = document.getElementById('wallsList');
+                const walls = this.floors[this.currentFloor].walls;
+
+                list.innerHTML = '';
+
+                if (walls.length === 0) {
+                    list.innerHTML = '<div style="padding: 10px; text-align: center; color: #666;">Нет стен</div>';
+                    return;
+                }
+
+                walls.forEach((wall, index) => {
+                    const div = document.createElement('div');
+                    div.className = `wall-item ${this.selectedWall === wall ? 'selected' : ''}`;
+                    div.innerHTML = `
+                        <div>
+                            <span class="wall-coords">#${index + 1}</span>
+                            <span style="margin-left: 8px;">(${wall.x1},${wall.y1}) → (${wall.x2},${wall.y2})</span>
+                        </div>
+                        <div class="item-actions">
+                            <span class="action-icon move" onclick="window.editor.selectWallForMove(${index})">✋</span>
+                            <span class="action-icon edit" onclick="window.editor.editWall(${index})">✏️</span>
+                            <span class="action-icon delete" onclick="window.editor.deleteWall(${index})">🗑️</span>
+                        </div>
+                    `;
+                    list.appendChild(div);
+                });
+            }
+
+            updatePointsList() {
+                const list = document.getElementById('pointsList');
+                const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
+
+                list.innerHTML = '';
+
+                if (floorPoints.length === 0) {
+                    list.innerHTML = '<div style="padding: 10px; text-align: center; color: #666;">Нет точек</div>';
+                    return;
+                }
+
+                floorPoints.forEach(point => {
+                    const div = document.createElement('div');
+                    div.className = `point-item ${this.selectedPoint?.id === point.id ? 'selected' : ''}`;
+                    div.innerHTML = `
+                        <div>
+                            <span class="point-coords">${point.name}</span>
+                            <span style="margin-left: 8px; color: #666;">(${point.x},${point.y})</span>
+                        </div>
+                        <div class="item-actions">
+                            <span class="action-icon move" onclick="window.editor.selectPointForMove('${point.id}')">✋</span>
+                            <span class="action-icon edit" onclick="window.editor.editPoint('${point.id}')">✏️</span>
+                            <span class="action-icon delete" onclick="window.editor.deletePoint('${point.id}')">🗑️</span>
+                        </div>
+                    `;
+                    list.appendChild(div);
+                });
+            }
+
+            selectWallForMove(index) {
+                this.selectedWall = this.floors[this.currentFloor].walls[index];
+                this.currentTool = 'movewall';
+                this.setTool('movewall');
+                this.updateStats();
+                this.draw();
+            }
+
+            selectPointForMove(pointId) {
+                this.selectedPoint = this.points.find(p => p.id === pointId);
+                this.currentTool = 'movepoint';
+                this.setTool('movepoint');
+                this.updateStats();
+                this.draw();
+            }
+
+            editWall(index) {
+                const wall = this.floors[this.currentFloor].walls[index];
+                document.getElementById('editWallX1').value = wall.x1;
+                document.getElementById('editWallY1').value = wall.y1;
+                document.getElementById('editWallX2').value = wall.x2;
+                document.getElementById('editWallY2').value = wall.y2;
+
+                this.editingWallIndex = index;
+                document.getElementById('wallModal').style.display = 'block';
+            }
+
+            saveWallEdit() {
+                const wall = this.floors[this.currentFloor].walls[this.editingWallIndex];
+                if (!wall) return;
+
+                wall.x1 = parseInt(document.getElementById('editWallX1').value);
+                wall.y1 = parseInt(document.getElementById('editWallY1').value);
+                wall.x2 = parseInt(document.getElementById('editWallX2').value);
+                wall.y2 = parseInt(document.getElementById('editWallY2').value);
+
+                document.getElementById('wallModal').style.display = 'none';
+                this.updateStats();
+                this.draw();
+                this.autoSave();
+            }
+
+            deleteWall(index) {
+                if (confirm('Удалить эту стену?')) {
+                    this.floors[this.currentFloor].walls.splice(index, 1);
+                    this.updateStats();
+                    this.draw();
+                    this.autoSave();
+                }
+            }
+
+            editPoint(pointId) {
+                const point = this.points.find(p => p.id === pointId);
+                if (!point) return;
+
+                document.getElementById('editPointName').value = point.name;
+                document.getElementById('editPointCategory').value = point.category;
+                document.getElementById('editPointDesc').value = point.description || '';
+                document.getElementById('editPointX').value = point.x;
+                document.getElementById('editPointY').value = point.y;
+
+                this.editingPointId = pointId;
+                document.getElementById('pointModal').style.display = 'block';
+            }
+
+            savePointEdit() {
+                const point = this.points.find(p => p.id === this.editingPointId);
+                if (!point) return;
+
+                point.name = document.getElementById('editPointName').value;
+                point.category = document.getElementById('editPointCategory').value;
+                point.description = document.getElementById('editPointDesc').value;
+                point.x = parseInt(document.getElementById('editPointX').value);
+                point.y = parseInt(document.getElementById('editPointY').value);
+
+                document.getElementById('pointModal').style.display = 'none';
+                this.updateStats();
+                this.draw();
+                this.updatePoint(point);
+            }
+
+            async updatePoint(point) {
+                try {
+                    await fetch(`/api/points/${point.id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(point)
+                    });
+                    this.showSaveStatus('✅ Точка обновлена');
+                } catch (error) {
+                    console.error('Ошибка обновления точки:', error);
+                }
+            }
+
+            async deletePoint(pointId) {
+                if (confirm('Удалить эту точку?')) {
+                    this.points = this.points.filter(p => p.id !== pointId);
+                    this.updateStats();
+                    this.draw();
+
+                    try {
+                        await fetch(`/api/points/${pointId}`, {
+                            method: 'DELETE'
+                        });
+                        this.showSaveStatus('✅ Точка удалена');
+                    } catch (error) {
+                        console.error('Ошибка удаления точки:', error);
+                    }
+                }
+            }
+
+            clearFloor() {
+                if (confirm(`Очистить все стены на ${this.currentFloor} этаже? Точки останутся.`)) {
+                    this.floors[this.currentFloor].walls = [];
+                    this.updateStats();
+                    this.draw();
+                    this.autoSave();
+                }
+            }
+
+            autoSave() {
+                // Отменяем предыдущий таймер
+                if (this.saveTimeout) {
+                    clearTimeout(this.saveTimeout);
+                }
+
+                // Устанавливаем новый таймер
+                this.saveTimeout = setTimeout(() => {
+                    this.saveAll();
+                }, 2000); // Сохраняем через 2 секунды после последнего изменения
+
+                this.showSaveStatus('⏳ Изменения сохраняются...');
+            }
+
+            async saveAll() {
+                // Сохраняем стены
+                const mapData = {
+                    floors: {
+                        1: { walls: this.floors[1].walls },
+                        2: { walls: this.floors[2].walls },
+                        3: { walls: this.floors[3].walls }
+                    }
+                };
+
+                try {
+                    // Сохраняем стены
+                    await fetch('/api/save-map', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(mapData)
+                    });
+
+                    // Сохраняем точки
+                    for (const point of this.points) {
+                        await fetch(`/api/points/${point.id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(point)
+                        });
+                    }
+
+                    this.showSaveStatus('✅ Все изменения сохранены');
+                } catch (error) {
+                    console.error('Ошибка сохранения:', error);
+                    this.showSaveStatus('❌ Ошибка сохранения', 'error');
+                }
+            }
+
+            showSaveStatus(message, type = 'success') {
+                const statusEl = document.getElementById('saveStatusText');
+                const indicator = document.querySelector('#autoSaveStatus .status-indicator');
+
+                statusEl.textContent = message;
+
+                if (type === 'success') {
+                    indicator.style.background = '#4caf50';
+                } else if (type === 'error') {
+                    indicator.style.background = '#f44336';
+                } else {
+                    indicator.style.background = '#ff9800';
+                }
+            }
+        }
+
+        // Создаем экземпляр редактора
+        window.editor = new MapEditor();
+    </script>
+</body>
+</html>

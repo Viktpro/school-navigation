@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Школа - навигация как в Google Maps</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/google-style.css') }}">
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+</head>
+<body>
+    <!-- Верхняя панель -->
+    <div class="app-bar">
+        <div class="logo">
+            <div class="logo-icon">🏫</div>
+            <span>Школа</span>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" placeholder="Поиск кабинетов Б115, В134...">
+            </div>
+            <button class="route-swap" id="swap-route" title="Поменять направление">⇄</button>
+        </div>
+
+        <div class="user-menu">
+            <button class="control-btn" id="scan-qr-btn" style="width: 48px;" title="Сканировать QR-код">📷</button>
+            <button class="control-btn" id="my-location-btn" style="width: 48px;" title="Мое местоположение">📍</button>
+        </div>
+    </div>
+
+    <!-- Основной контейнер -->
+    <div class="main-container">
+        <!-- Боковая панель -->
+        <div class="side-panel">
+            <div class="panel-header">
+                <h2>Навигация</h2>
+                <p>Выберите куда хотите пойти</p>
+
+                <div class="location-badge">
+                    <div class="badge-dot"></div>
+                    <div class="location-text" id="start-location">Не выбрано</div>
+                    <button class="change-btn" onclick="document.getElementById('start-select').click()">Изменить</button>
+                </div>
+
+                <div class="location-badge" style="margin-top: 8px; background: #fef7e0;">
+                    <div style="width: 12px; height: 12px; background: #e5252d; border-radius: 50%;"></div>
+                    <div class="location-text" id="end-location">Не выбрано</div>
+                    <button class="change-btn" onclick="document.getElementById('end-select').click()">Изменить</button>
+                </div>
+
+                <button class="route-build-btn" id="build-route-btn" style="
+                    width: 100%;
+                    margin-top: 16px;
+                    padding: 12px;
+                    background: #1a73e8;
+                    color: white;
+                    border: none;
+                    border-radius: 24px;
+                    font-weight: 500;
+                    cursor: pointer;
+                ">Построить маршрут</button>
+            </div>
+
+            <div class="categories">
+                <div class="categories-title">КАТЕГОРИИ</div>
+                <div class="category-list">
+                    <span class="category-chip active" data-category="all">Все</span>
+                    <span class="category-chip" data-category="classroom">Классы</span>
+                    <span class="category-chip" data-category="cafeteria">Еда</span>
+                    <span class="category-chip" data-category="toilet">Туалеты</span>
+                    <span class="category-chip" data-category="entrance">Входы</span>
+                    <span class="category-chip" data-category="stair">Лестницы</span>
+                    <span class="category-chip" data-category="elevator">Лифты</span>
+                </div>
+            </div>
+
+            <div class="places-list" id="places-list">
+                <!-- Список мест будет добавлен через JavaScript -->
+            </div>
+        </div>
+
+        <!-- Карта -->
+        <div class="map-section">
+            <canvas id="floor-plan"></canvas>
+
+            <!-- Элементы управления -->
+            <div class="map-controls">
+                <button class="control-btn" id="zoom-in" title="Приблизить">➕</button>
+                <button class="control-btn" id="zoom-out" title="Отдалить">➖</button>
+                <button class="control-btn" id="reset-view" title="Сбросить вид">⟲</button>
+            </div>
+
+            <!-- Переключение этажей -->
+            <div class="floor-control">
+                <button class="floor-btn active" data-floor="1">1</button>
+                <button class="floor-btn" data-floor="2">2</button>
+                <button class="floor-btn" data-floor="3">3</button>
+            </div>
+
+            <!-- Масштаб -->
+            <div class="scale-bar">
+                <span class="scale-line"></span>
+                <span id="scale-value">100 м</span>
+            </div>
+
+            <!-- Карточка маршрута -->
+            <div class="route-card" id="route-card" style="display: none;">
+                <div class="route-info">
+                    <span class="route-distance" id="route-distance">5 мин</span>
+                    <span class="route-time" id="route-time">350 м</span>
+                </div>
+                <div class="route-steps" id="route-steps">
+                    Переход на 2 этаж
+                </div>
+                <button class="close-btn" onclick="this.parentElement.style.display='none'">✕</button>
+            </div>
+
+            <!-- Карточка с информацией о месте -->
+            <div class="info-card" id="info-card">
+                <div class="card-header">
+                    <span class="card-title" id="info-title">Класс Б115</span>
+                    <span class="card-category" id="info-category">Класс</span>
+                </div>
+                <div class="card-description" id="info-description">
+                    1 этаж, левое крыло
+                </div>
+                <div class="card-actions">
+                    <button class="card-btn" onclick="window.map.setAsStart()">
+                        <span>📍</span> Отсюда
+                    </button>
+                    <button class="card-btn primary" onclick="window.map.setAsEnd()">
+                        <span>🏁</span> Сюда
+                    </button>
+                    <button class="card-btn" onclick="document.getElementById('info-card').classList.remove('active')">
+                        ✕
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для QR-сканера -->
+    <div id="qr-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; backdrop-filter: blur(5px);">
+        <div style="background: white; margin: 10% auto; padding: 24px; border-radius: 24px; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-size: 20px; color: #202124;">📱 Сканируйте QR-код</h2>
+                <button onclick="document.getElementById('qr-modal').style.display='none'" style="border: none; background: none; font-size: 24px; cursor: pointer;">✕</button>
+            </div>
+            <div id="qr-reader" style="width: 100%; min-height: 300px; border-radius: 16px; overflow: hidden;"></div>
+            <p style="text-align: center; margin-top: 16px; color: #5f6368; font-size: 14px;">
+                Наведите камеру на QR-код на кабинете
+            </p>
+        </div>
+    </div>
+
+    <style>
+        .route-build-btn:hover {
+            background: #1557b0 !important;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(26,115,232,0.3);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script src="{{ url_for('static', filename='js/google-style-map.js') }}"></script>
+    <script>
+        // Обработка кликов по категориям
+        document.querySelectorAll('.category-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+
+                const category = this.dataset.category;
+                const places = document.querySelectorAll('.place-item');
+
+                places.forEach(place => {
+                    if (category === 'all') {
+                        place.style.display = 'flex';
+                    } else {
+                        const point = window.map.points.find(p => p.id === place.dataset.id);
+                        place.style.display = point?.category === category ? 'flex' : 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

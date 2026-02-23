@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивная карта школы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        /* Шапка */
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header h1 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 28px;
+        }
+
+        .tools {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            background: #f0f0f0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .tool-btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .tool-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .tool-btn i {
+            font-size: 16px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .action-btn.secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        /* Основной контент */
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        /* Боковая панель */
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .floor-switcher {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .floor-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: #f0f0f0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .floor-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .info-panel {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-panel h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .info-panel p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        /* Карта */
+        .map-container {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .canvas-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 15px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+        }
+
+        #interactive-map {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: crosshair;
+        }
+
+        .canvas-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .canvas-controls button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .canvas-controls button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Подсказки */
+        .tips {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 12px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .tips h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .tips ul {
+            list-style: none;
+            color: #856404;
+            font-size: 14px;
+        }
+
+        .tips li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <div class="header">
+            <h1>🏫 Интерактивная карта школы</h1>
+            <div class="tools">
+                <button class="tool-btn active" id="tool-select">
+                    <span>🖱️</span> Выбрать
+                </button>
+                <button class="tool-btn" id="tool-wall">
+                    <span>🧱</span> Стена
+                </button>
+                <button class="tool-btn" id="tool-room">
+                    <span>📐</span> Комната
+                </button>
+                <button class="tool-btn" id="tool-point">
+                    <span>📍</span> Точка
+                </button>
+                <button class="tool-btn" id="tool-move">
+                    <span>✋</span> Переместить
+                </button>
+            </div>
+            <div class="action-btns">
+                <button class="action-btn" id="save-map">💾 Сохранить</button>
+                <button class="action-btn secondary" id="load-map">📂 Загрузить</button>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <!-- Боковая панель -->
+            <div class="sidebar">
+                <div class="floor-switcher">
+                    <button class="floor-btn active" data-floor="1">1 этаж</button>
+                    <button class="floor-btn" data-floor="2">2 этаж</button>
+                    <button class="floor-btn" data-floor="3">3 этаж</button>
+                </div>
+
+                <div class="info-panel">
+                    <h3>📊 Информация</h3>
+                    <p>📍 Точек на этаже: <span id="point-count">0</span></p>
+                    <p>🧱 Стен: <span id="wall-count">0</span></p>
+                    <p>📐 Комнат: <span id="room-count">0</span></p>
+                </div>
+
+                <div class="info-panel">
+                    <h3>🎨 Легенда</h3>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #3498db;"></div>
+                            <span>Класс</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #27ae60;"></div>
+                            <span>Вход/Выход</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #e67e22;"></div>
+                            <span>Туалет</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #9b59b6;"></div>
+                            <span>Лестница</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #f1c40f;"></div>
+                            <span>Лифт</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #e74c3c;"></div>
+                            <span>Столовая</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tips">
+                    <h4>💡 Как пользоваться:</h4>
+                    <ul>
+                        <li><span>🖱️</span> Клик + Ctrl - переместить карту</li>
+                        <li><span>📏</span> Выберите "Стена" - рисуйте линии</li>
+                        <li><span>📐</span> Выберите "Комната" - рисуйте прямоугольники</li>
+                        <li><span>📍</span> Выберите "Точка" - добавляйте метки</li>
+                        <li><span>✋</span> Выберите "Переместить" - двигайте точки</li>
+                        <li><span>🖱️</span> Колесико мыши - масштаб</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Карта -->
+            <div class="map-container">
+                <div class="canvas-wrapper">
+                    <canvas id="interactive-map"></canvas>
+                    <div class="canvas-controls">
+                        <button onclick="window.interactiveMap.scale *= 1.2; window.interactiveMap.draw()">➕</button>
+                        <button onclick="window.interactiveMap.scale *= 0.8; window.interactiveMap.draw()">➖</button>
+                        <button onclick="window.interactiveMap.offsetX = 0; window.interactiveMap.offsetY = 0; window.interactiveMap.draw()">🔄</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/interactive-map.js') }}"></script>
+</body>
+</html>
