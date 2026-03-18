@@ -223,6 +223,11 @@
       color: white;
     }
 
+    .voice-btn {
+      background-color: #9b59b6;
+      color: white;
+    }
+
     .floor-selector {
       position: absolute;
       left: 20px;
@@ -315,6 +320,16 @@
       border-left: 4px solid #f39c12;
       line-height: 1.5;
     }
+
+    .voice-button-container {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+
+    .voice-button-container button {
+      flex: 1;
+    }
   </style>
 </head>
 <body>
@@ -363,7 +378,10 @@
       <div class="tool-section">
         <h2>📋 Сохраненные маршруты</h2>
         <div class="routes-list" id="routes-list"></div>
-        <button class="danger" id="delete-all-routes" style="margin-top: 10px;">🗑️ Удалить все</button>
+        <div class="voice-button-container">
+          <button class="success" id="configure-voice" disabled>🎤 Настроить голос</button>
+          <button class="danger" id="delete-all-routes">🗑️ Удалить все</button>
+        </div>
       </div>
 
       <div class="status-bar" id="status-bar">
@@ -435,6 +453,7 @@
         this.saveRouteBtn = document.getElementById('save-route');
         this.cancelDrawingBtn = document.getElementById('cancel-drawing');
         this.deleteAllBtn = document.getElementById('delete-all-routes');
+        this.configureVoiceBtn = document.getElementById('configure-voice');
         this.statusBar = document.getElementById('status-bar');
         this.routesList = document.getElementById('routes-list');
 
@@ -581,6 +600,8 @@
         this.saveRouteBtn.addEventListener('click', () => this.saveCurrentRoute());
         this.cancelDrawingBtn.addEventListener('click', () => this.cancelDrawing());
         this.deleteAllBtn.addEventListener('click', () => this.deleteAllRoutes());
+
+        this.configureVoiceBtn.addEventListener('click', () => this.configureVoice());
       }
 
       updateDrawingButton() {
@@ -656,6 +677,14 @@
           this.saveRoutes();
           this.renderRoutesList();
           this.draw();
+        }
+      }
+
+      configureVoice() {
+        if (this.selectedRouteKey) {
+          window.location.href = `/route-voice-editor?route=${this.selectedRouteKey}`;
+        } else {
+          alert('Сначала выберите маршрут из списка');
         }
       }
 
@@ -833,9 +862,13 @@
 
         if (selectedKey) {
           this.selectedRouteKey = selectedKey;
+          this.configureVoiceBtn.disabled = false;
           this.renderRoutesList();
           this.draw();
           this.updateStatus(`Выбран маршрут`);
+        } else {
+          this.selectedRouteKey = null;
+          this.configureVoiceBtn.disabled = true;
         }
       }
 
@@ -1128,6 +1161,7 @@
             </div>
             <div class="route-actions">
               <button class="route-action-btn edit-btn" onclick="window.editor.selectRouteByKey('${key}')">👁️</button>
+              <button class="route-action-btn voice-btn" onclick="window.editor.configureVoiceForRoute('${key}')">🎤</button>
               <button class="route-action-btn delete-btn" onclick="window.editor.deleteRoute('${key}')">🗑️</button>
             </div>
           `;
@@ -1144,9 +1178,14 @@
 
       selectRouteByKey(key) {
         this.selectedRouteKey = key;
+        this.configureVoiceBtn.disabled = false;
         this.renderRoutesList();
         this.draw();
         this.updateStatus('Маршрут выбран');
+      }
+
+      configureVoiceForRoute(key) {
+        window.location.href = `/route-voice-editor?route=${key}`;
       }
 
       deleteRoute(key) {
@@ -1154,6 +1193,7 @@
           delete this.routes[key];
           if (this.selectedRouteKey === key) {
             this.selectedRouteKey = null;
+            this.configureVoiceBtn.disabled = true;
           }
           this.saveRoutes();
           this.renderRoutesList();

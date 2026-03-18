@@ -574,6 +574,12 @@ def route_editor():
     return render_template('route_editor.html')
 
 
+@app.route('/voice-editor')
+def voice_editor():
+    """Редактор голосовых подсказок"""
+    return render_template('voice_editor.html')
+
+
 @app.route('/map-only')
 def map_only():
     """Только карта без лишних элементов"""
@@ -928,6 +934,68 @@ def save_routes():
         return jsonify({'error': str(e)}), 500
 
 
+# ========== API ДЛЯ ГОЛОСОВЫХ ПОДСКАЗОК ==========
+
+@app.route('/api/voice-prompts', methods=['GET'])
+def get_all_voice_prompts():
+    """Получение всех голосовых подсказок"""
+    try:
+        prompts_file = 'data/voice_prompts.json'
+        if os.path.exists(prompts_file):
+            with open(prompts_file, 'r', encoding='utf-8') as f:
+                prompts = json.load(f)
+            return jsonify(prompts)
+        return jsonify({})
+    except Exception as e:
+        logger.error(f"❌ Error loading voice prompts: {e}")
+        return jsonify({}), 500
+
+
+@app.route('/api/voice-prompts/<route_key>', methods=['GET'])
+def get_voice_prompts(route_key):
+    """Получение подсказок для конкретного маршрута"""
+    try:
+        prompts_file = 'data/voice_prompts.json'
+        if os.path.exists(prompts_file):
+            with open(prompts_file, 'r', encoding='utf-8') as f:
+                prompts = json.load(f)
+            return jsonify(prompts.get(route_key, []))
+        return jsonify([])
+    except Exception as e:
+        logger.error(f"❌ Error loading voice prompts: {e}")
+        return jsonify([]), 500
+
+
+@app.route('/api/voice-prompts/<route_key>', methods=['POST'])
+def save_voice_prompts(route_key):
+    """Сохранение подсказок для маршрута"""
+    try:
+        data = request.json
+        prompts = data.get('prompts', [])
+
+        prompts_file = 'data/voice_prompts.json'
+
+        # Загружаем существующие
+        all_prompts = {}
+        if os.path.exists(prompts_file):
+            with open(prompts_file, 'r', encoding='utf-8') as f:
+                all_prompts = json.load(f)
+
+        # Сохраняем новые
+        all_prompts[route_key] = prompts
+
+        # Записываем
+        os.makedirs(os.path.dirname(prompts_file), exist_ok=True)
+        with open(prompts_file, 'w', encoding='utf-8') as f:
+            json.dump(all_prompts, f, ensure_ascii=False, indent=2)
+
+        logger.info(f"✅ Сохранено {len(prompts)} подсказок для {route_key}")
+        return jsonify({'success': True, 'count': len(prompts)})
+    except Exception as e:
+        logger.error(f"❌ Error saving voice prompts: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 # ========== СТАТИЧЕСКИЕ ФАЙЛЫ ==========
 
 @app.route('/static/<path:path>')
@@ -980,6 +1048,7 @@ if __name__ == '__main__':
     print(f"   ⚙️ Админ-панель: http://localhost:8080/admin")
     print(f"   ✏️ Редактор карты: http://localhost:8080/editor")
     print(f"   🛤️ Редактор маршрутов: http://localhost:8080/route-editor")
+    print(f"   🎤 Редактор голоса: http://localhost:8080/voice-editor")
     print(f"   🗺️ Только карта: http://localhost:8080/map-only")
     print("\n📊 ТОЧКИ НА КАРТЕ:")
     print(f"   • 1 этаж: {points_by_floor[1]} точек")

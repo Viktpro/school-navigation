@@ -18,6 +18,159 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       color: #2d3748;
+      transition: all 0.3s ease;
+    }
+
+    /* Режим для слабовидящих */
+    body.visually-impaired {
+      background: #000000;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    body.visually-impaired * {
+      font-family: Arial, Helvetica, sans-serif !important;
+    }
+
+    body.visually-impaired .modern-header {
+      background: #000000;
+      border-bottom: 3px solid #ffff00;
+    }
+
+    body.visually-impaired .logo-text,
+    body.visually-impaired .school-fullname,
+    body.visually-impaired .school-city,
+    body.visually-impaired .nav-link,
+    body.visually-impaired h1,
+    body.visually-impaired h2,
+    body.visually-impaired h3,
+    body.visually-impaired p,
+    body.visually-impaired span,
+    body.visually-impaired .control-panel,
+    body.visually-impaired .map-panel,
+    body.visually-impaired .navigation-panel,
+    body.visually-impaired .voice-settings,
+    body.visually-impaired .current-step,
+    body.visually-impaired .step-item,
+    body.visually-impaired .direction-text,
+    body.visually-impaired .direction-hint,
+    body.visually-impaired .floor-change,
+    body.visually-impaired #route-title,
+    body.visually-impaired #route-progress,
+    body.visually-impaired label {
+      color: #ffffff !important;
+    }
+
+    body.visually-impaired .nav-link {
+      background: #000000;
+      border: 2px solid #ffff00;
+      color: #ffff00 !important;
+    }
+
+    body.visually-impaired .nav-link:hover {
+      background: #ffff00;
+      color: #000000 !important;
+    }
+
+    body.visually-impaired .nav-link.active {
+      background: #ffff00;
+      color: #000000 !important;
+    }
+
+    body.visually-impaired .control-panel,
+    body.visually-impaired .map-panel,
+    body.visually-impaired .navigation-panel,
+    body.visually-impaired .voice-settings,
+    body.visually-impaired .current-step {
+      background: #000000;
+      border: 3px solid #ffff00;
+    }
+
+    body.visually-impaired button,
+    body.visually-impaired .map-control-btn,
+    body.visually-impaired .floor-btn,
+    body.visually-impaired .location-btn,
+    body.visually-impaired .camera-button,
+    body.visually-impaired .qr-tab,
+    body.visually-impaired .show-settings-btn,
+    body.visually-impaired .test-voice-btn,
+    body.visually-impaired #voice-navigation-btn,
+    body.visually-impaired #test-voice-btn,
+    body.visually-impaired #test-voice-settings,
+    body.visually-impaired #prev-step-btn,
+    body.visually-impaired #next-step-btn {
+      background: #000000 !important;
+      color: #ffff00 !important;
+      border: 3px solid #ffff00 !important;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 12px 20px;
+    }
+
+    body.visually-impaired button:hover,
+    body.visually-impaired .map-control-btn:hover,
+    body.visually-impaired .floor-btn:hover,
+    body.visually-impaired .location-btn:hover,
+    body.visually-impaired .camera-button:hover,
+    body.visually-impaired .qr-tab:hover,
+    body.visually-impaired .show-settings-btn:hover,
+    body.visually-impaired .test-voice-btn:hover,
+    body.visually-impaired #voice-navigation-btn:hover,
+    body.visually-impaired #test-voice-btn:hover,
+    body.visually-impaired #test-voice-settings:hover,
+    body.visually-impaired #prev-step-btn:hover,
+    body.visually-impaired #next-step-btn:hover {
+      background: #ffff00 !important;
+      color: #000000 !important;
+    }
+
+    body.visually-impaired .floor-btn.active {
+      background: #ffff00 !important;
+      color: #000000 !important;
+    }
+
+    body.visually-impaired input,
+    body.visually-impaired select,
+    body.visually-impaired textarea,
+    body.visually-impaired #searchInput,
+    body.visually-impaired #manual-location,
+    body.visually-impaired #destination,
+    body.visually-impaired .prompt-input {
+      background: #000000;
+      border: 3px solid #ffff00;
+      color: #ffffff;
+      font-size: 18px;
+      padding: 12px;
+    }
+
+    body.visually-impaired .point-tooltip {
+      background: #000000;
+      border: 2px solid #ffff00;
+      color: #ffffff;
+      font-size: 16px;
+    }
+
+    body.visually-impaired .current-step {
+      background: #ffff00;
+      color: #000000 !important;
+    }
+
+    body.visually-impaired .current-step div {
+      color: #000000 !important;
+    }
+
+    body.visually-impaired .step-item.active {
+      background: #333333;
+      border-color: #ffff00;
+    }
+
+    body.visually-impaired .step-badge {
+      background: #ffff00;
+      color: #000000;
+    }
+
+    body.visually-impaired footer {
+      color: #ffff00;
     }
 
     /* Шапка */
@@ -75,6 +228,7 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .nav-link {
@@ -96,6 +250,32 @@
       color: white;
     }
 
+    /* Кнопка для слабовидящих */
+    .accessibility-btn {
+      background: #2d3748;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 0.5rem 1.2rem;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s;
+    }
+
+    .accessibility-btn:hover {
+      background: #4a5568;
+      transform: scale(1.05);
+    }
+
+    body.visually-impaired .accessibility-btn {
+      background: #ffff00;
+      color: #000000;
+      border: 2px solid #ffff00;
+    }
+
     /* Основной контейнер */
     .main-container {
       display: flex;
@@ -107,7 +287,7 @@
     }
 
     .control-panel {
-      flex: 0 0 350px;
+      flex: 0 0 380px;
       background: white;
       border-radius: 20px;
       padding: 1.5rem;
@@ -416,7 +596,7 @@
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid #e2e8f0;
-      touch-action: none; /* Отключаем стандартные жесты браузера */
+      touch-action: none;
     }
 
     #mapCanvas {
@@ -424,7 +604,7 @@
       height: 100%;
       background: white;
       cursor: grab;
-      touch-action: none; /* Для мобильных устройств */
+      touch-action: none;
     }
 
     #mapCanvas:active {
@@ -518,38 +698,59 @@
       border: 1px solid #e2e8f0;
     }
 
-    /* Упрощённая навигация - только направление */
+    /* Стили для навигации */
     .navigation-panel {
       background: #f7fafc;
-      border-radius: 12px;
+      border-radius: 16px;
       padding: 20px;
       margin-top: 20px;
-      text-align: center;
       border: 1px solid #e2e8f0;
     }
 
-    .direction-arrow {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      color: #f39c12;
+    .current-step {
+      background: #4a90e2;
+      color: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 15px;
     }
 
-    .direction-text {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #2d3748;
-      margin-bottom: 5px;
+    .step-badge {
+      width: 24px;
+      height: 24px;
+      background: #cbd5e0;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
     }
 
-    .direction-hint {
-      color: #718096;
-      font-size: 0.9rem;
+    .step-badge.active {
+      background: #4a90e2;
     }
 
-    .floor-change {
-      color: #667eea;
-      font-weight: 600;
-      margin-top: 10px;
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: #f7fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .step-item:hover {
+      background: #edf2f7;
+    }
+
+    .step-item.active {
+      background: #ebf8ff;
+      border-color: #4a90e2;
     }
 
     .success-message, .error-message {
@@ -569,6 +770,110 @@
       color: #c53030;
     }
 
+    /* Панель настроек голоса */
+    .voice-settings {
+      background: #f0f4ff;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 15px;
+      border: 2px solid #667eea;
+    }
+
+    .voice-settings h3 {
+      color: #4a5568;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 1rem;
+    }
+
+    .setting-row {
+      margin-bottom: 15px;
+    }
+
+    .setting-row label {
+      display: block;
+      font-size: 0.9rem;
+      color: #718096;
+      margin-bottom: 5px;
+    }
+
+    .setting-row input[type="range"] {
+      width: 100%;
+      margin: 5px 0;
+    }
+
+    .setting-row select {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .value-display {
+      float: right;
+      color: #667eea;
+      font-weight: 600;
+    }
+
+    .test-voice-btn {
+      background: #f39c12;
+      margin-top: 10px;
+      padding: 10px;
+    }
+
+    .toggle-settings-btn {
+      background: #718096;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .show-settings-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    /* Уведомление */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      background: #48bb78;
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: none;
+      z-index: 1000;
+      animation: slideIn 0.3s;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
     footer {
       text-align: center;
       padding: 1rem;
@@ -576,7 +881,6 @@
       margin-top: 1rem;
     }
 
-    /* Адаптивность */
     @media (max-width: 768px) {
       .main-container {
         flex-direction: column;
@@ -592,47 +896,6 @@
 
       .control-panel {
         flex: auto;
-      }
-
-      .floor-btn {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-      }
-
-      .map-control-btn {
-        width: 40px;
-        height: 40px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .modern-header {
-        padding: 0.8rem 1rem;
-      }
-
-      .logo-image img {
-        height: 40px;
-      }
-
-      .school-fullname {
-        font-size: 1rem;
-      }
-
-      .school-city {
-        font-size: 0.8rem;
-      }
-
-      .nav-link {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
-      }
-
-      h2 {
-        font-size: 1.1rem;
-      }
-
-      .qr-tabs {
-        flex-direction: column;
       }
     }
   </style>
@@ -654,6 +917,10 @@
         <a href="/" class="nav-link">Главная</a>
         <a href="/viewer" class="nav-link active">Навигатор</a>
         <a href="/admin" class="nav-link">Админка</a>
+        <!-- Кнопка режима для слабовидящих -->
+        <button class="accessibility-btn" onclick="toggleAccessibilityMode()">
+          <span>👁️</span> Режим для слабовидящих
+        </button>
       </div>
     </div>
   </header>
@@ -665,13 +932,11 @@
       <div class="scan-section">
         <h3>Сканировать QR-код</h3>
 
-        <!-- Вкладки для выбора способа сканирования -->
         <div class="qr-tabs">
           <button class="qr-tab active" onclick="switchQRMode('camera')">📷 Камера</button>
           <button class="qr-tab" onclick="switchQRMode('file')">📁 Загрузить файл</button>
         </div>
 
-        <!-- Режим камеры -->
         <div id="camera-mode" class="qr-content active">
           <div class="qr-container" id="qr-container">
             <div id="qr-reader"></div>
@@ -683,7 +948,6 @@
           </div>
         </div>
 
-        <!-- Режим загрузки файла -->
         <div id="file-mode" class="qr-content">
           <div class="qr-container">
             <div class="qr-placeholder">
@@ -715,12 +979,133 @@
       </select>
       <button id="find-route" disabled>Построить маршрут</button>
 
-      <!-- Упрощённая навигация - только направление -->
+      <!-- Панель настройки голоса -->
+      <div class="voice-settings" id="voice-settings-panel" style="display: none;">
+        <h3>🎤 Настройки голоса</h3>
+
+        <div class="setting-row">
+          <label>Скорость речи <span id="rate-value" class="value-display">0.9</span></label>
+          <input type="range" id="voice-rate" min="0.5" max="1.5" step="0.1" value="0.9">
+        </div>
+
+        <div class="setting-row">
+          <label>Высота голоса <span id="pitch-value" class="value-display">1.0</span></label>
+          <input type="range" id="voice-pitch" min="0.5" max="2.0" step="0.1" value="1.0">
+        </div>
+
+        <div class="setting-row">
+          <label>Громкость <span id="volume-value" class="value-display">1.0</span></label>
+          <input type="range" id="voice-volume" min="0.0" max="1.0" step="0.1" value="1.0">
+        </div>
+
+        <div class="setting-row">
+          <label>Голос</label>
+          <select id="voice-select">
+            <option value="">Автоматически</option>
+          </select>
+        </div>
+
+        <button id="test-voice-settings" class="test-voice-btn">🔊 Проверить голос</button>
+        <button id="toggle-voice-settings" class="toggle-settings-btn">🔽 Скрыть настройки</button>
+      </div>
+
+      <!-- Кнопка показа настроек голоса -->
+      <button id="show-voice-settings" class="show-settings-btn">🎤 Показать настройки голоса</button>
+
+      <!-- Панель навигации с пошаговым отображением -->
       <div id="navigation-panel" class="navigation-panel" style="display: none;">
-        <div class="direction-arrow" id="direction-arrow">⬆️</div>
-        <div class="direction-text" id="direction-text">Идите прямо</div>
-        <div class="direction-hint" id="direction-hint">Следуйте по маршруту</div>
-        <div class="floor-change" id="floor-change"></div>
+        <!-- Заголовок маршрута -->
+        <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0;">
+          <div style="font-size: 1.1rem; font-weight: 600; color: #2d3748;" id="route-title">Кухня → Г164</div>
+          <div style="font-size: 0.9rem; color: #718096;" id="route-progress">Шаг 1 из 5</div>
+        </div>
+
+        <!-- Текущий пункт маршрута (крупно) -->
+        <div class="current-step">
+          <div style="font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px;">СЕЙЧАС</div>
+          <div style="font-size: 1.3rem; font-weight: 600; margin-bottom: 5px;" id="current-step-text">Выйдите из кухни</div>
+          <div style="font-size: 0.9rem; opacity: 0.9;" id="current-step-detail">в столовую</div>
+        </div>
+
+        <!-- Кнопки управления -->
+        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+          <button id="prev-step-btn" style="
+              flex: 1;
+              padding: 12px;
+              background: #cbd5e0;
+              color: #4a5568;
+              border: none;
+              border-radius: 10px;
+              font-size: 1rem;
+              font-weight: 600;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 5px;
+          " disabled>◀ Предыдущий</button>
+
+          <button id="next-step-btn" style="
+              flex: 1;
+              padding: 12px;
+              background: #4a90e2;
+              color: white;
+              border: none;
+              border-radius: 10px;
+              font-size: 1rem;
+              font-weight: 600;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 5px;
+          ">Следующий ▶</button>
+        </div>
+
+        <!-- Список всех пунктов маршрута -->
+        <div style="margin-top: 15px;">
+          <div style="font-size: 0.9rem; font-weight: 600; color: #4a5568; margin-bottom: 10px;">
+            📋 ВЕСЬ МАРШРУТ:
+          </div>
+          <div id="steps-list" style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- Пункты будут добавляться динамически -->
+          </div>
+        </div>
+
+        <!-- Кнопка озвучки -->
+        <button id="voice-navigation-btn" style="
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        ">
+            <span>🎤</span> Озвучить весь маршрут
+        </button>
+
+        <!-- Тестовая кнопка -->
+        <button id="test-voice-btn" style="
+            margin-top: 10px;
+            padding: 8px;
+            background: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            width: 100%;
+        ">
+            🔈 Тест голоса
+        </button>
       </div>
 
       <div id="success-message" class="success-message"></div>
@@ -757,8 +1142,37 @@
     <p>© МБОУ СОШ №1</p>
   </footer>
 
+  <div class="notification" id="notification"></div>
+
   <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
   <script>
+    // ===== РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ =====
+    function toggleAccessibilityMode() {
+      document.body.classList.toggle('visually-impaired');
+
+      // Сохраняем настройку в localStorage
+      const isEnabled = document.body.classList.contains('visually-impaired');
+      localStorage.setItem('visuallyImpairedMode', isEnabled ? 'enabled' : 'disabled');
+
+      // Показываем уведомление
+      showNotification(isEnabled ? '👁️ Режим для слабовидящих включен' : '👁️ Обычный режим');
+    }
+
+    // Проверяем сохраненную настройку при загрузке
+    if (localStorage.getItem('visuallyImpairedMode') === 'enabled') {
+      document.body.classList.add('visually-impaired');
+    }
+
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.style.display = 'block';
+
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
     class SchoolMap {
       constructor() {
         this.canvas = document.getElementById('mapCanvas');
@@ -774,7 +1188,15 @@
         this.currentLocation = null;
         this.destination = null;
         this.currentRoute = null;
+        this.currentRoutePrompts = [];
         this.currentStep = 0;
+
+        // Настройки голоса
+        this.voiceRate = 0.9;
+        this.voicePitch = 1.0;
+        this.voiceVolume = 1.0;
+        this.selectedVoice = null;
+        this.availableVoices = [];
 
         // Параметры камеры
         this.offsetX = 0;
@@ -783,12 +1205,12 @@
         this.minScale = 0.3;
         this.maxScale = 5;
 
-        // Для перетаскивания мышью
+        // Для перетаскивания
         this.isDragging = false;
         this.lastX = 0;
         this.lastY = 0;
 
-        // Для мультитач на телефонах
+        // Для мультитач
         this.touchDistance = 0;
         this.touchCenter = { x: 0, y: 0 };
 
@@ -801,10 +1223,6 @@
         this.findRouteBtn = document.getElementById('find-route');
         this.currentLocationDiv = document.getElementById('current-location');
         this.navigationPanel = document.getElementById('navigation-panel');
-        this.directionArrow = document.getElementById('direction-arrow');
-        this.directionText = document.getElementById('direction-text');
-        this.directionHint = document.getElementById('direction-hint');
-        this.floorChange = document.getElementById('floor-change');
         this.successMessage = document.getElementById('success-message');
         this.errorMessage = document.getElementById('error-message');
 
@@ -820,9 +1238,101 @@
         this.isFullscreen = false;
 
         this.init();
-
-        // Сразу запрашиваем разрешение на камеру при загрузке
         this.requestCameraPermission();
+        this.initVoiceSettings();
+      }
+
+      initVoiceSettings() {
+        // Настройка ползунков голоса
+        const rateInput = document.getElementById('voice-rate');
+        const pitchInput = document.getElementById('voice-pitch');
+        const volumeInput = document.getElementById('voice-volume');
+        const voiceSelect = document.getElementById('voice-select');
+        const testBtn = document.getElementById('test-voice-settings');
+        const showBtn = document.getElementById('show-voice-settings');
+        const toggleBtn = document.getElementById('toggle-voice-settings');
+        const settingsPanel = document.getElementById('voice-settings-panel');
+
+        // Показываем/скрываем панель
+        showBtn.addEventListener('click', () => {
+          settingsPanel.style.display = 'block';
+          showBtn.style.display = 'none';
+        });
+
+        toggleBtn.addEventListener('click', () => {
+          settingsPanel.style.display = 'none';
+          showBtn.style.display = 'block';
+        });
+
+        rateInput.addEventListener('input', () => {
+          this.voiceRate = parseFloat(rateInput.value);
+          document.getElementById('rate-value').textContent = this.voiceRate.toFixed(1);
+        });
+
+        pitchInput.addEventListener('input', () => {
+          this.voicePitch = parseFloat(pitchInput.value);
+          document.getElementById('pitch-value').textContent = this.voicePitch.toFixed(1);
+        });
+
+        volumeInput.addEventListener('input', () => {
+          this.voiceVolume = parseFloat(volumeInput.value);
+          document.getElementById('volume-value').textContent = this.voiceVolume.toFixed(1);
+        });
+
+        testBtn.addEventListener('click', () => {
+          this.speak('Привет, я голосовой помощник. Проверка настроек голоса.');
+        });
+
+        // Загрузка доступных голосов
+        if (window.speechSynthesis) {
+          if (window.speechSynthesis.getVoices().length > 0) {
+            this.loadVoices();
+          } else {
+            window.speechSynthesis.addEventListener('voiceschanged', () => this.loadVoices());
+          }
+        }
+      }
+
+      loadVoices() {
+        const voices = window.speechSynthesis.getVoices();
+        this.availableVoices = voices.filter(v => v.lang.startsWith('ru'));
+
+        const voiceSelect = document.getElementById('voice-select');
+        voiceSelect.innerHTML = '<option value="">Автоматически</option>';
+
+        // Приоритет лучших русских голосов
+        const preferredVoices = [
+          'Microsoft Irina', 'Microsoft Mikhail', 'Microsoft Pavel',
+          'Milena', 'Yuri', 'Katya', 'Google русский'
+        ];
+
+        // Сначала добавляем предпочтительные голоса
+        preferredVoices.forEach(prefName => {
+          const voice = this.availableVoices.find(v =>
+            v.name.includes(prefName) || v.name.toLowerCase().includes(prefName.toLowerCase())
+          );
+          if (voice && ![...voiceSelect.options].some(opt => opt.value === voice.name)) {
+            const option = document.createElement('option');
+            option.value = voice.name;
+            option.textContent = `⭐ ${voice.name}`;
+            voiceSelect.appendChild(option);
+          }
+        });
+
+        // Добавляем остальные русские голоса
+        this.availableVoices.forEach(voice => {
+          if (![...voiceSelect.options].some(opt => opt.value === voice.name)) {
+            const option = document.createElement('option');
+            option.value = voice.name;
+            option.textContent = voice.name;
+            voiceSelect.appendChild(option);
+          }
+        });
+
+        voiceSelect.addEventListener('change', () => {
+          const selectedName = voiceSelect.value;
+          this.selectedVoice = this.availableVoices.find(v => v.name === selectedName) || null;
+        });
       }
 
       resizeCanvas() {
@@ -836,6 +1346,7 @@
         this.setupControls();
         this.setupMouseEvents();
         this.setupTouchEvents();
+        this.setupVoiceNavigation();
         this.fitToScreen();
         this.populateSelects();
         this.setupFileInput();
@@ -849,19 +1360,10 @@
           }
         });
 
-        // Слушаем изменение полноэкранного режима
-        document.addEventListener('fullscreenchange', () => {
-          this.handleFullscreenChange();
-        });
-        document.addEventListener('webkitfullscreenchange', () => {
-          this.handleFullscreenChange();
-        });
-        document.addEventListener('mozfullscreenchange', () => {
-          this.handleFullscreenChange();
-        });
-        document.addEventListener('MSFullscreenChange', () => {
-          this.handleFullscreenChange();
-        });
+        document.addEventListener('fullscreenchange', () => this.handleFullscreenChange());
+        document.addEventListener('webkitfullscreenchange', () => this.handleFullscreenChange());
+        document.addEventListener('mozfullscreenchange', () => this.handleFullscreenChange());
+        document.addEventListener('MSFullscreenChange', () => this.handleFullscreenChange());
       }
 
       handleFullscreenChange() {
@@ -885,28 +1387,23 @@
         }, 100);
       }
 
-      // Настройка touch-событий для мобильных устройств
       setupTouchEvents() {
         this.canvas.addEventListener('touchstart', (e) => {
           e.preventDefault();
 
           if (e.touches.length === 1) {
-            // Одно касание - начало перетаскивания
             this.isDragging = true;
             this.lastX = e.touches[0].clientX;
             this.lastY = e.touches[0].clientY;
           } else if (e.touches.length === 2) {
-            // Два касания - подготовка к масштабированию
             const touch1 = e.touches[0];
             const touch2 = e.touches[1];
 
-            // Расстояние между пальцами
             this.touchDistance = Math.hypot(
               touch1.clientX - touch2.clientX,
               touch1.clientY - touch2.clientY
             );
 
-            // Центр между пальцами
             this.touchCenter.x = (touch1.clientX + touch2.clientX) / 2;
             this.touchCenter.y = (touch1.clientY + touch2.clientY) / 2;
           }
@@ -916,7 +1413,6 @@
           e.preventDefault();
 
           if (e.touches.length === 1 && this.isDragging) {
-            // Перемещение карты одним пальцем
             const dx = e.touches[0].clientX - this.lastX;
             const dy = e.touches[0].clientY - this.lastY;
 
@@ -928,7 +1424,6 @@
 
             this.draw();
           } else if (e.touches.length === 2) {
-            // Масштабирование двумя пальцами
             const touch1 = e.touches[0];
             const touch2 = e.touches[1];
 
@@ -938,7 +1433,6 @@
             );
 
             if (this.touchDistance > 0) {
-              // Масштабирование относительно центра между пальцами
               const rect = this.canvas.getBoundingClientRect();
               const centerX = (touch1.clientX + touch2.clientX) / 2 - rect.left;
               const centerY = (touch1.clientY + touch2.clientY) / 2 - rect.top;
@@ -972,7 +1466,6 @@
         });
       }
 
-      // Запрос разрешения на камеру сразу при загрузке
       async requestCameraPermission() {
         try {
           const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
@@ -1255,7 +1748,7 @@
         this.draw();
       }
 
-      findRoute() {
+      async findRoute() {
         if (!this.currentLocation || !this.destination) return;
 
         const startId = this.currentLocation.id;
@@ -1273,11 +1766,52 @@
 
         if (routePoints && routePoints.length > 1) {
           this.currentRoute = routePoints;
+
+          // Загружаем подсказки
+          try {
+            const response = await fetch(`/api/voice-prompts/${routeKey}`);
+            this.currentRoutePrompts = await response.json();
+
+            if (!this.currentRoutePrompts || this.currentRoutePrompts.length === 0) {
+              // Если нет подсказок, создаем стандартные
+              this.currentRoutePrompts = [
+                "Начало маршрута",
+                "Следуйте по коридору",
+                "Вы на месте"
+              ];
+            }
+          } catch (error) {
+            console.error('Ошибка загрузки подсказок:', error);
+            this.currentRoutePrompts = [
+              "Начало маршрута",
+              "Следуйте по коридору",
+              "Вы на месте"
+            ];
+          }
+
           this.currentStep = 0;
-          this.updateNavigation();
+          this.updateStepsDisplay();
           this.navigationPanel.style.display = 'block';
           this.showSuccess('Маршрут построен');
           this.fitToRoute();
+
+          // Проверяем наличие голосовых подсказок
+          try {
+            const response = await fetch(`/api/voice-prompts/${routeKey}`);
+            const prompts = await response.json();
+            const voiceBtn = document.getElementById('voice-navigation-btn');
+            if (voiceBtn) {
+              if (prompts && prompts.length > 0) {
+                voiceBtn.style.background = '#48bb78'; // Зеленый - есть подсказки
+                voiceBtn.title = 'Есть голосовые подсказки';
+              } else {
+                voiceBtn.style.background = '#4a90e2'; // Синий - нет подсказок
+                voiceBtn.title = 'Нет голосовых подсказок';
+              }
+            }
+          } catch (error) {
+            console.log('Нет голосовых подсказок для этого маршрута');
+          }
         } else {
           this.currentRoute = null;
           this.navigationPanel.style.display = 'none';
@@ -1287,43 +1821,98 @@
         this.draw();
       }
 
-      updateNavigation() {
-        if (!this.currentRoute || this.currentRoute.length < 2) return;
+      updateStepsDisplay() {
+        if (!this.currentRoutePrompts || this.currentRoutePrompts.length === 0) return;
 
-        const current = this.currentRoute[this.currentStep];
-        const next = this.currentRoute[this.currentStep + 1];
+        // Обновляем заголовок
+        const startName = this.currentLocation?.name || 'Начало';
+        const endName = this.destination?.name || 'Конец';
+        document.getElementById('route-title').textContent = `${startName} → ${endName}`;
+        document.getElementById('route-progress').textContent = `Шаг ${this.currentStep + 1} из ${this.currentRoutePrompts.length}`;
 
-        const dx = next.x - current.x;
-        const dy = next.y - current.y;
-
-        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-        let direction = '';
-        let arrow = '';
-
-        if (angle > -45 && angle <= 45) {
-          direction = 'направо';
-          arrow = '➡️';
-        } else if (angle > 45 && angle <= 135) {
-          direction = 'вниз';
-          arrow = '⬇️';
-        } else if (angle > 135 || angle <= -135) {
-          direction = 'налево';
-          arrow = '⬅️';
-        } else {
-          direction = 'вверх';
-          arrow = '⬆️';
+        // Обновляем текущий шаг
+        const currentPrompt = this.currentRoutePrompts[this.currentStep];
+        if (currentPrompt) {
+          const parts = currentPrompt.split(/[.,]/).map(s => s.trim());
+          if (parts.length > 1) {
+            document.getElementById('current-step-text').textContent = parts[0];
+            document.getElementById('current-step-detail').textContent = parts.slice(1).join(', ');
+          } else {
+            document.getElementById('current-step-text').textContent = currentPrompt;
+            document.getElementById('current-step-detail').textContent = '';
+          }
         }
 
-        this.directionArrow.textContent = arrow;
-        this.directionText.textContent = `Идите ${direction}`;
+        // Обновляем список всех шагов
+        const stepsList = document.getElementById('steps-list');
+        stepsList.innerHTML = '';
 
-        if (current.floor !== next.floor) {
-          this.floorChange.textContent = `Перейдите на ${next.floor} этаж`;
-        } else {
-          this.floorChange.textContent = '';
+        this.currentRoutePrompts.forEach((prompt, index) => {
+          const stepDiv = document.createElement('div');
+          stepDiv.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: ${index === this.currentStep ? '#ebf8ff' : '#f7fafc'};
+            border: 2px solid ${index === this.currentStep ? '#4a90e2' : '#e2e8f0'};
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+          `;
+
+          stepDiv.innerHTML = `
+            <div style="
+              width: 24px;
+              height: 24px;
+              background: ${index === this.currentStep ? '#4a90e2' : '#cbd5e0'};
+              color: white;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 0.8rem;
+              font-weight: bold;
+            ">${index + 1}</div>
+            <div style="flex: 1; font-size: 0.9rem;">${prompt}</div>
+            <button class="speak-step-btn" data-index="${index}" style="
+              background: none;
+              border: none;
+              font-size: 1.2rem;
+              cursor: pointer;
+              padding: 5px;
+              display: ${index === this.currentStep ? 'block' : 'none'};
+            ">🔊</button>
+          `;
+
+          stepDiv.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('speak-step-btn')) {
+              this.goToStep(index);
+            }
+          });
+
+          stepsList.appendChild(stepDiv);
+        });
+
+        // Обновляем кнопки
+        document.getElementById('prev-step-btn').disabled = this.currentStep === 0;
+        document.getElementById('next-step-btn').disabled = this.currentStep === this.currentRoutePrompts.length - 1;
+
+        // Добавляем обработчики для кнопок озвучки отдельных шагов
+        document.querySelectorAll('.speak-step-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const index = parseInt(btn.dataset.index);
+            this.speak(this.currentRoutePrompts[index]);
+          });
+        });
+      }
+
+      goToStep(index) {
+        if (index >= 0 && index < this.currentRoutePrompts.length) {
+          this.currentStep = index;
+          this.updateStepsDisplay();
         }
-
-        this.directionHint.textContent = `От ${current.name || 'точки'} к ${next.name || 'следующей точке'}`;
       }
 
       fitToRoute() {
@@ -1608,6 +2197,149 @@
         this.errorMessage.classList.add('active');
         this.successMessage.classList.remove('active');
         setTimeout(() => this.errorMessage.classList.remove('active'), 3000);
+      }
+
+      // === УЛУЧШЕННЫЙ МЕТОД SPEAK С НАСТРОЙКАМИ ГОЛОСА ===
+
+      speak(text) {
+        return new Promise((resolve) => {
+          if (!text) {
+            resolve();
+            return;
+          }
+
+          console.log('🗣️ Озвучиваю:', text);
+
+          // Останавливаем предыдущую речь
+          window.speechSynthesis.cancel();
+
+          // Обработка ударений через заглавные буквы
+          let processedText = text
+            .replace(/,/g, ', ')
+            .replace(/\./g, '. ')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+          console.log('📝 Текст после обработки:', processedText);
+
+          setTimeout(() => {
+            const utterance = new SpeechSynthesisUtterance(processedText);
+            utterance.lang = 'ru-RU';
+            utterance.rate = this.voiceRate;
+            utterance.pitch = this.voicePitch;
+            utterance.volume = this.voiceVolume;
+
+            // Выбираем голос, если выбран конкретный
+            if (this.selectedVoice) {
+              utterance.voice = this.selectedVoice;
+              console.log('✅ Использую выбранный голос:', this.selectedVoice.name);
+            } else {
+              // Иначе ищем лучший русский голос
+              const voices = window.speechSynthesis.getVoices();
+
+              const preferredVoices = [
+                'Microsoft Irina', 'Microsoft Mikhail', 'Microsoft Pavel',
+                'Milena', 'Yuri', 'Katya', 'Google русский'
+              ];
+
+              let selectedVoice = null;
+
+              for (const prefName of preferredVoices) {
+                selectedVoice = voices.find(v =>
+                  (v.name.includes(prefName) || v.name.toLowerCase().includes(prefName.toLowerCase())) &&
+                  v.lang.startsWith('ru')
+                );
+                if (selectedVoice) {
+                  utterance.voice = selectedVoice;
+                  console.log('✅ Выбран голос:', selectedVoice.name);
+                  break;
+                }
+              }
+            }
+
+            utterance.onstart = () => {
+              console.log('▶️ Начало озвучивания');
+              this.showSuccess(`🗣️ ${text.substring(0, 50)}${text.length > 50 ? '...' : ''}`);
+            };
+
+            utterance.onend = () => {
+              console.log('✅ Озвучивание завершено');
+              resolve();
+            };
+
+            utterance.onerror = (event) => {
+              console.error('❌ Ошибка озвучивания:', event);
+              try {
+                const fallbackUtterance = new SpeechSynthesisUtterance(processedText);
+                fallbackUtterance.lang = 'ru-RU';
+                fallbackUtterance.rate = this.voiceRate;
+                fallbackUtterance.pitch = this.voicePitch;
+                fallbackUtterance.volume = this.voiceVolume;
+                fallbackUtterance.onend = resolve;
+                fallbackUtterance.onerror = resolve;
+                window.speechSynthesis.speak(fallbackUtterance);
+              } catch (e) {
+                console.error('❌ Fallback тоже не сработал:', e);
+                resolve();
+              }
+            };
+
+            try {
+              window.speechSynthesis.speak(utterance);
+            } catch (e) {
+              console.error('❌ Ошибка при запуске:', e);
+              resolve();
+            }
+          }, 100);
+        });
+      }
+
+      setupVoiceNavigation() {
+        const voiceBtn = document.getElementById('voice-navigation-btn');
+        if (voiceBtn) {
+          voiceBtn.addEventListener('click', () => {
+            this.playVoiceNavigation();
+          });
+        }
+
+        const testBtn = document.getElementById('test-voice-btn');
+        if (testBtn) {
+          testBtn.addEventListener('click', () => {
+            this.speak('Привет, я голосовой помощник. Проверка связи.');
+          });
+        }
+
+        const prevBtn = document.getElementById('prev-step-btn');
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            this.goToStep(this.currentStep - 1);
+          });
+        }
+
+        const nextBtn = document.getElementById('next-step-btn');
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            this.goToStep(this.currentStep + 1);
+          });
+        }
+      }
+
+      async playVoiceNavigation() {
+        if (!this.currentRoutePrompts || this.currentRoutePrompts.length === 0) {
+          this.showError('Нет подсказок для озвучивания');
+          return;
+        }
+
+        this.showSuccess(`🎤 Озвучиваю маршрут из ${this.currentRoutePrompts.length} шагов...`);
+
+        for (let i = 0; i < this.currentRoutePrompts.length; i++) {
+          await this.speak(this.currentRoutePrompts[i]);
+          if (i < this.currentRoutePrompts.length - 1) {
+            await new Promise(r => setTimeout(r, 2000));
+          }
+        }
+
+        this.showSuccess('✅ Озвучивание маршрута завершено');
       }
     }
 

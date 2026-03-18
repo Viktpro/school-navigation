@@ -1,0 +1,49 @@
+{
+  "point_1771735896016_point_1771734635494": {
+    "startId": "point_1771735896016",
+    "endId": "point_1771734635494",
+    "points": [
+      {
+        "floor": 1,
+        "pointId": "point_1771735896016",
+        "pointName": "Центральный вход",
+        "x": -101,
+        "y": -483
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": -107,
+        "y": -1111
+      },
+      {
+        "floor": 1,
+        "pointId": "point_1771734635494",
+        "pointName": "Кухня",
+        "x": -960,
+        "y": -2268
+      }
+    ],
+    "voiceSettings": {
+      "enabled": true,
+      "rate": 0.9,
+      "pitch": 1.1,
+      "volume": 1.0,
+      "language": "ru-RU",
+      "voice_name": "",
+      "customPhrases": {
+        "start": "Отправляемся от входа на кухню!",
+        "first_step": "Сначала пройдите прямо по коридору",
+        "step": "Продолжайте движение {direction}",
+        "last_step": "Почти пришли, поверните {direction}",
+        "finish": "Вы на кухне! Приятного аппетита!",
+        "floor_change": "Переходим на {floor} этаж"
+      },
+      "stepInstructions": {
+        "point_1771735896016_point_1771734635494": "Идите прямо до конца коридора, затем поверните налево",
+        "point_1771735896016_null": "Продолжайте двигаться прямо"
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "rate": 0.9,
+  "pitch": 1.1,
+  "volume": 1.0,
+  "language": "ru-RU",
+  "voice_name": "",
+  "enable_auto_repeat": true,
+  "repeat_delay": 2000,
+  "phrases": {
+    "start": "Начинаем маршрут от {start} до {destination}.",
+    "step": "Затем идите {direction} к {point}.",
+    "first_step": "Сначала идите {direction} к {point}.",
+    "last_step": "Затем поверните {direction} и вы у цели: {point}.",
+    "finish": "Вы прибыли в пункт назначения: {destination}. Маршрут завершён.",
+    "floor_change": "Перейдите на {floor} этаж.",
+    "direction_up": "вверх",
+    "direction_down": "вниз",
+    "direction_left": "налево",
+    "direction_right": "направо",
+    "direction_straight": "прямо"
+  }
+}

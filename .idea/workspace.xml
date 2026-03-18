@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b825bda-bff9-4e9f-b583-4f9f821040a5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/add_voice_settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/voice_prompts.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/voice_settings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/route_voice_editor.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/voice_admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/voice_editor.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/add_test_stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/add_test_stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/statistics.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/statistics.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/route_editor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/route_editor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/viewer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/viewer.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

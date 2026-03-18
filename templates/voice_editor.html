@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор голосовых подсказок</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .routes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .route-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .route-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .route-name {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1.1rem;
+        }
+
+        .route-path {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .prompts-list {
+            margin-bottom: 15px;
+        }
+
+        .prompt-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+
+        .prompt-text {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .prompt-text:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        }
+
+        .prompt-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-icon.play {
+            color: #48bb78;
+        }
+
+        .btn-icon.play:hover {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-icon.delete {
+            color: #f56565;
+        }
+
+        .btn-icon.delete:hover {
+            background: #f56565;
+            color: white;
+        }
+
+        .add-prompt {
+            width: 100%;
+            padding: 12px;
+            background: #edf2f7;
+            border: 2px dashed #cbd5e0;
+            border-radius: 8px;
+            color: #4a5568;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+
+        .add-prompt:hover {
+            background: #e2e8f0;
+            border-color: #a0aec0;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.2s;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102,126,234,0.3);
+        }
+
+        .test-btn {
+            padding: 8px 12px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+
+        .test-btn:hover {
+            background: #38a169;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #a0aec0;
+        }
+
+        .empty-state p {
+            margin-top: 10px;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #48bb78;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: none;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/admin" class="back-link">← Назад в админ-панель</a>
+
+        <header>
+            <h1>🎤 Голосовые подсказки</h1>
+            <p class="subtitle">Напишите свои фразы для каждого маршрута. Они будут озвучиваться при навигации.</p>
+        </header>
+
+        <div id="routes-container">
+            <div class="empty-state">
+                <div style="font-size: 48px;">🗣️</div>
+                <p>Загрузка маршрутов...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">Сохранено!</div>
+
+    <script>
+        class VoicePromptsEditor {
+            constructor() {
+                this.points = [];
+                this.routes = {};
+                this.prompts = {};
+                this.currentRouteKey = null;
+
+                this.init();
+            }
+
+            async init() {
+                await this.loadPoints();
+                await this.loadRoutes();
+                await this.loadPrompts();
+                this.render();
+            }
+
+            async loadPoints() {
+                try {
+                    const response = await fetch('/api/points');
+                    this.points = await response.json();
+                } catch (error) {
+                    console.error('Ошибка загрузки точек:', error);
+                }
+            }
+
+            async loadRoutes() {
+                try {
+                    const response = await fetch('/api/routes');
+                    this.routes = await response.json();
+                } catch (error) {
+                    console.error('Ошибка загрузки маршрутов:', error);
+                }
+            }
+
+            async loadPrompts() {
+                try {
+                    const response = await fetch('/api/voice-prompts');
+                    this.prompts = await response.json();
+                } catch (error) {
+                    console.error('Ошибка загрузки подсказок:', error);
+                }
+            }
+
+            getPointName(pointId) {
+                const point = this.points.find(p => p.id === pointId);
+                return point ? point.name : pointId;
+            }
+
+            render() {
+                const container = document.getElementById('routes-container');
+
+                if (Object.keys(this.routes).length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div style="font-size: 48px;">🗺️</div>
+                            <p>Нет сохраненных маршрутов. Сначала создайте маршруты в редакторе.</p>
+                            <a href="/route-editor" style="color: #667eea; text-decoration: none;">Перейти в редактор маршрутов →</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = '<div class="routes-grid">';
+
+                for (const [key, route] of Object.entries(this.routes)) {
+                    const startName = this.getPointName(route.startId);
+                    const endName = this.getPointName(route.endId);
+                    const routePrompts = this.prompts[key] || ['', '', ''];
+
+                    html += `
+                        <div class="route-card" data-route-key="${key}">
+                            <div class="route-header">
+                                <div>
+                                    <div class="route-name">${startName} → ${endName}</div>
+                                    <div class="route-path">Точек на пути: ${route.points?.length || 0}</div>
+                                </div>
+                                <button class="test-btn" onclick="editor.testRoute('${key}')">
+                                    🔄 Проверить
+                                </button>
+                            </div>
+                            <div class="prompts-list" id="prompts-${key}">
+                                ${this.renderPrompts(key, routePrompts)}
+                            </div>
+                            <button class="add-prompt" onclick="editor.addPrompt('${key}')">
+                                + Добавить подсказку
+                            </button>
+                        </div>
+                    `;
+                }
+
+                html += '</div>';
+
+                html += `
+                    <button class="save-btn" onclick="editor.saveAll()">
+                        💾 Сохранить все подсказки
+                    </button>
+                `;
+
+                container.innerHTML = html;
+            }
+
+            renderPrompts(routeKey, prompts) {
+                if (!prompts || prompts.length === 0) {
+                    prompts = [''];
+                }
+
+                return prompts.map((text, index) => `
+                    <div class="prompt-item">
+                        <input type="text"
+                               class="prompt-text"
+                               value="${this.escapeHtml(text)}"
+                               placeholder="Например: Идите прямо до конца коридора"
+                               data-route="${routeKey}"
+                               data-index="${index}">
+                        <div class="prompt-actions">
+                            <button class="btn-icon play" onclick="editor.speak('${this.escapeHtml(text)}')" ${!text ? 'disabled' : ''}>
+                                ▶️
+                            </button>
+                            <button class="btn-icon delete" onclick="editor.deletePrompt('${routeKey}', ${index})">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            escapeHtml(text) {
+                if (!text) return '';
+                return text.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+            }
+
+            addPrompt(routeKey) {
+                if (!this.prompts[routeKey]) {
+                    this.prompts[routeKey] = [];
+                }
+                this.prompts[routeKey].push('');
+                this.render();
+            }
+
+            deletePrompt(routeKey, index) {
+                if (this.prompts[routeKey]) {
+                    this.prompts[routeKey].splice(index, 1);
+                    this.render();
+                }
+            }
+
+            async saveAll() {
+                // Собираем все подсказки из полей ввода
+                const inputs = document.querySelectorAll('.prompt-text');
+                const newPrompts = {};
+
+                inputs.forEach(input => {
+                    const routeKey = input.dataset.route;
+                    const index = parseInt(input.dataset.index);
+                    const value = input.value.trim();
+
+                    if (!newPrompts[routeKey]) {
+                        newPrompts[routeKey] = [];
+                    }
+
+                    if (value) {
+                        newPrompts[routeKey][index] = value;
+                    }
+                });
+
+                // Очищаем пустые элементы
+                for (const key in newPrompts) {
+                    newPrompts[key] = newPrompts[key].filter(p => p && p.trim() !== '');
+                }
+
+                // Сохраняем каждый маршрут отдельно
+                let successCount = 0;
+                for (const [key, prompts] of Object.entries(newPrompts)) {
+                    try {
+                        const response = await fetch(`/api/voice-prompts/${key}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ prompts })
+                        });
+
+                        if (response.ok) {
+                            successCount++;
+                        }
+                    } catch (error) {
+                        console.error(`Ошибка сохранения ${key}:`, error);
+                    }
+                }
+
+                this.showNotification(`✅ Сохранено ${successCount} маршрутов`);
+                await this.loadPrompts();
+            }
+
+            speak(text) {
+                if (!text) return;
+
+                // Останавливаем предыдущую речь
+                window.speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ru-RU';
+                utterance.rate = 0.9; // Чуть медленнее для понятности
+                utterance.pitch = 1;
+
+                window.speechSynthesis.speak(utterance);
+            }
+
+            async testRoute(routeKey) {
+                const prompts = this.prompts[routeKey] || [];
+                if (prompts.length === 0) {
+                    alert('Для этого маршрута нет подсказок');
+                    return;
+                }
+
+                this.speak('Начинаю навигацию');
+
+                for (let i = 0; i < prompts.length; i++) {
+                    setTimeout(() => {
+                        this.speak(prompts[i]);
+                    }, i * 4000); // Каждые 4 секунды
+                }
+            }
+
+            showNotification(message) {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.style.display = 'block';
+
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        const editor = new VoicePromptsEditor();
+    </script>
+</body>
+</html>
