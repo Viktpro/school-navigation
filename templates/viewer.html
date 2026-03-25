@@ -80,6 +80,14 @@
       cursor: pointer;
       color: #4a5568;
       padding: 0.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    .menu-toggle:hover {
+      background: #edf2f7;
     }
 
     .nav-links {
@@ -129,7 +137,7 @@
       transform: scale(1.05);
     }
 
-    /* Адаптивное меню */
+    /* Адаптивное меню для телефонов */
     @media (max-width: 768px) {
       .modern-header {
         padding: 0.8rem 1rem;
@@ -147,8 +155,13 @@
         font-size: 0.75rem;
       }
 
+      .header-container {
+        justify-content: space-between;
+      }
+
       .menu-toggle {
         display: block;
+        order: 2;
       }
 
       .nav-links {
@@ -165,6 +178,7 @@
         transition: right 0.3s ease;
         gap: 0.8rem;
         align-items: flex-start;
+        order: 3;
       }
 
       .nav-links.open {
@@ -715,14 +729,14 @@
         </div>
       </div>
 
-      <!-- Кнопка гамбургер (только на телефонах) -->
-      <button class="menu-toggle" id="menu-toggle" aria-label="Меню">☰</button>
-
-      <div class="nav-links" id="nav-links">
-        <a href="/" class="nav-link">Главная</a>
-        <a href="/viewer" class="nav-link active">Навигатор</a>
-        <a href="/admin" class="nav-link">Админка</a>
-        <button class="accessibility-btn" onclick="toggleAccessibilityMode()" title="Режим для слабовидящих">👁️</button>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Меню">☰</button>
+        <div class="nav-links" id="nav-links">
+          <a href="/" class="nav-link">Главная</a>
+          <a href="/viewer" class="nav-link active">Навигатор</a>
+          <a href="/admin" class="nav-link">Админка</a>
+          <button class="accessibility-btn" onclick="toggleAccessibilityMode()" title="Режим для слабовидящих">👁️</button>
+        </div>
       </div>
     </div>
   </header>
