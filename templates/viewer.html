@@ -25,8 +25,25 @@
       /* Предотвращаем резиновый эффект на iOS */
       overscroll-behavior: none;
       -webkit-overflow-scrolling: touch;
-      /* Запрещаем системные жесты на телефоне */
-      touch-action: pan-y; /* Разрешаем только вертикальную прокрутку */
+    }
+
+    /* СКРЫВАЕМ СКРОЛЛБАР НО ОСТАВЛЯЕМ ПРОКРУТКУ */
+    /* Для Webkit браузеров (Chrome, Safari, Edge) */
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      background: transparent;
+      display: none;
+    }
+
+    /* Для Firefox */
+    * {
+      scrollbar-width: none;
+    }
+
+    /* Для Internet Explorer и Edge */
+    body {
+      -ms-overflow-style: none;
     }
 
     /* Шапка */
@@ -40,8 +57,6 @@
       top: 0;
       z-index: 100;
       border-bottom: 3px solid #f39c12;
-      /* Защита от системных жестов */
-      touch-action: pan-y;
     }
 
     .header-container {
@@ -222,7 +237,6 @@
       gap: 20px;
       padding: 0 20px;
       transition: all 0.3s ease;
-      touch-action: pan-y; /* Запрещаем горизонтальные свайпы на всем контейнере */
     }
 
     .control-panel {
@@ -232,9 +246,18 @@
       padding: 1.5rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       height: fit-content;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
       transition: all 0.3s ease;
       z-index: 10;
-      touch-action: pan-y; /* Разрешаем только вертикальную прокрутку */
+      /* Скрываем скроллбар внутри панели */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .control-panel::-webkit-scrollbar {
+      display: none;
+      width: 0;
     }
 
     .map-panel {
@@ -546,8 +569,7 @@
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid #e2e8f0;
-      /* Критически важно для мобильных устройств */
-      touch-action: none; /* Полный контроль над жестами на карте */
+      touch-action: none;
     }
 
     #mapCanvas {
@@ -555,7 +577,7 @@
       height: 100%;
       background: white;
       cursor: grab;
-      touch-action: none; /* Запрещаем системные жесты на canvas */
+      touch-action: none;
     }
 
     #mapCanvas:active {
@@ -752,13 +774,11 @@
       padding: 1rem;
       color: rgba(255, 255, 255, 0.8);
       margin-top: 1rem;
-      touch-action: pan-y;
     }
 
     @media (max-width: 768px) {
       .main-container {
         flex-direction: column;
-        touch-action: pan-y;
       }
 
       .map-container {
@@ -771,7 +791,8 @@
 
       .control-panel {
         flex: auto;
-        touch-action: pan-y;
+        max-height: none;
+        overflow-y: visible;
       }
     }
 
@@ -1092,11 +1113,9 @@
       }
 
       setupTouchEvents() {
-        // Запрещаем системные жесты на canvas
         this.canvas.addEventListener('touchstart', (e) => {
           e.preventDefault();
 
-          // Блокируем системные жесты при любом касании на canvas
           if (e.touches.length >= 1) {
             e.stopPropagation();
           }
@@ -1122,7 +1141,6 @@
         this.canvas.addEventListener('touchmove', (e) => {
           e.preventDefault();
 
-          // Блокируем системные жесты
           if (e.touches.length >= 1) {
             e.stopPropagation();
           }
