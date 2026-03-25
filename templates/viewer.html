@@ -2,7 +2,10 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#667eea">
   <title>Навигатор | МБОУ СОШ №1</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -11,6 +14,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -18,6 +22,11 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       color: #2d3748;
+      /* Предотвращаем резиновый эффект на iOS */
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
+      /* Запрещаем системные жесты на телефоне */
+      touch-action: pan-y; /* Разрешаем только вертикальную прокрутку */
     }
 
     /* Шапка */
@@ -31,6 +40,8 @@
       top: 0;
       z-index: 100;
       border-bottom: 3px solid #f39c12;
+      /* Защита от системных жестов */
+      touch-action: pan-y;
     }
 
     .header-container {
@@ -84,10 +95,15 @@
       height: 44px;
       border-radius: 50%;
       transition: all 0.2s;
+      touch-action: manipulation;
     }
 
     .menu-toggle:hover {
       background: #edf2f7;
+    }
+
+    .menu-toggle:active {
+      transform: scale(0.95);
     }
 
     .nav-links {
@@ -104,6 +120,7 @@
       padding: 0.5rem 1.2rem;
       border-radius: 50px;
       transition: all 0.3s ease;
+      touch-action: manipulation;
     }
 
     .nav-link:hover {
@@ -116,7 +133,7 @@
       color: white;
     }
 
-    /* Кнопка для слабовидящих (компактная) */
+    /* Кнопка для слабовидящих */
     .accessibility-btn {
       width: 40px;
       height: 40px;
@@ -130,6 +147,7 @@
       justify-content: center;
       transition: all 0.3s;
       font-size: 1.2rem;
+      touch-action: manipulation;
     }
 
     .accessibility-btn:hover {
@@ -204,6 +222,7 @@
       gap: 20px;
       padding: 0 20px;
       transition: all 0.3s ease;
+      touch-action: pan-y; /* Запрещаем горизонтальные свайпы на всем контейнере */
     }
 
     .control-panel {
@@ -215,6 +234,7 @@
       height: fit-content;
       transition: all 0.3s ease;
       z-index: 10;
+      touch-action: pan-y; /* Разрешаем только вертикальную прокрутку */
     }
 
     .map-panel {
@@ -277,6 +297,7 @@
       justify-content: center;
       transition: all 0.2s;
       border: 1px solid #e2e8f0;
+      touch-action: manipulation;
     }
 
     .fullscreen-btn:hover {
@@ -307,6 +328,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
+      touch-action: manipulation;
     }
 
     .exit-fullscreen-btn:hover {
@@ -344,6 +366,7 @@
       font-size: 1rem;
       margin: 0.5rem 0;
       font-family: 'Inter', sans-serif;
+      touch-action: manipulation;
     }
 
     button {
@@ -358,6 +381,10 @@
     button:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0px);
     }
 
     button:disabled {
@@ -400,6 +427,7 @@
       color: #4a5568;
       cursor: pointer;
       transition: all 0.3s;
+      touch-action: manipulation;
     }
 
     .qr-tab.active {
@@ -441,6 +469,7 @@
       cursor: pointer;
       margin-top: 15px;
       transition: all 0.3s;
+      touch-action: manipulation;
     }
 
     .camera-button:hover {
@@ -456,6 +485,7 @@
       cursor: pointer;
       text-align: center;
       margin: 10px 0;
+      touch-action: manipulation;
     }
 
     .file-input:hover {
@@ -516,7 +546,8 @@
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid #e2e8f0;
-      touch-action: none;
+      /* Критически важно для мобильных устройств */
+      touch-action: none; /* Полный контроль над жестами на карте */
     }
 
     #mapCanvas {
@@ -524,7 +555,7 @@
       height: 100%;
       background: white;
       cursor: grab;
-      touch-action: none;
+      touch-action: none; /* Запрещаем системные жесты на canvas */
     }
 
     #mapCanvas:active {
@@ -662,6 +693,7 @@
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s;
+      touch-action: manipulation;
     }
 
     .step-item:hover {
@@ -690,16 +722,43 @@
       color: #c53030;
     }
 
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: #2d3748;
+      color: white;
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      z-index: 1000;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
     footer {
       text-align: center;
       padding: 1rem;
       color: rgba(255, 255, 255, 0.8);
       margin-top: 1rem;
+      touch-action: pan-y;
     }
 
     @media (max-width: 768px) {
       .main-container {
         flex-direction: column;
+        touch-action: pan-y;
       }
 
       .map-container {
@@ -712,7 +771,26 @@
 
       .control-panel {
         flex: auto;
+        touch-action: pan-y;
       }
+    }
+
+    /* Режим для слабовидящих */
+    body.visually-impaired {
+      font-size: 1.2rem;
+    }
+
+    body.visually-impaired .modern-header,
+    body.visually-impaired .control-panel,
+    body.visually-impaired .map-panel {
+      background: #000;
+      color: #ff0;
+    }
+
+    body.visually-impaired button,
+    body.visually-impaired select {
+      font-size: 1.2rem;
+      padding: 12px;
     }
   </style>
 </head>
@@ -721,7 +799,7 @@
     <div class="header-container">
       <div class="logo-section">
         <div class="logo-image">
-          <img src="/static/images/school_logo.png" alt="МБОУ СОШ №1">
+          <img src="/static/images/school_logo.png" alt="МБОУ СОШ №1" onerror="this.style.display='none'">
         </div>
         <div class="logo-text">
           <div class="school-fullname">МБОУ СОШ №1</div>
@@ -797,97 +875,33 @@
 
       <!-- Панель навигации с пошаговым отображением -->
       <div id="navigation-panel" class="navigation-panel" style="display: none;">
-        <!-- Заголовок маршрута -->
         <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0;">
           <div style="font-size: 1.1rem; font-weight: 600; color: #2d3748;" id="route-title">Кухня → Г164</div>
           <div style="font-size: 0.9rem; color: #718096;" id="route-progress">Шаг 1 из 5</div>
         </div>
 
-        <!-- Текущий пункт маршрута (крупно) -->
         <div class="current-step">
           <div style="font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px;">СЕЙЧАС</div>
           <div style="font-size: 1.3rem; font-weight: 600; margin-bottom: 5px;" id="current-step-text">Выйдите из кухни</div>
           <div style="font-size: 0.9rem; opacity: 0.9;" id="current-step-detail">в столовую</div>
         </div>
 
-        <!-- Кнопки управления -->
         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-          <button id="prev-step-btn" style="
-              flex: 1;
-              padding: 12px;
-              background: #cbd5e0;
-              color: #4a5568;
-              border: none;
-              border-radius: 10px;
-              font-size: 1rem;
-              font-weight: 600;
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 5px;
-          " disabled>◀ Предыдущий</button>
-
-          <button id="next-step-btn" style="
-              flex: 1;
-              padding: 12px;
-              background: #4a90e2;
-              color: white;
-              border: none;
-              border-radius: 10px;
-              font-size: 1rem;
-              font-weight: 600;
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 5px;
-          ">Следующий ▶</button>
+          <button id="prev-step-btn" style="flex: 1; padding: 12px; background: #cbd5e0; color: #4a5568; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;" disabled>◀ Предыдущий</button>
+          <button id="next-step-btn" style="flex: 1; padding: 12px; background: #4a90e2; color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;">Следующий ▶</button>
         </div>
 
-        <!-- Список всех пунктов маршрута -->
         <div style="margin-top: 15px;">
-          <div style="font-size: 0.9rem; font-weight: 600; color: #4a5568; margin-bottom: 10px;">
-            📋 ВЕСЬ МАРШРУТ:
-          </div>
-          <div id="steps-list" style="display: flex; flex-direction: column; gap: 8px;">
-            <!-- Пункты будут добавляться динамически -->
-          </div>
+          <div style="font-size: 0.9rem; font-weight: 600; color: #4a5568; margin-bottom: 10px;">📋 ВЕСЬ МАРШРУТ:</div>
+          <div id="steps-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
         </div>
 
-        <!-- Кнопка озвучки -->
-        <button id="voice-navigation-btn" style="
-            margin-top: 20px;
-            padding: 12px 20px;
-            background: #48bb78;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-        ">
-            <span>🎤</span> Озвучить весь маршрут
+        <button id="voice-navigation-btn" style="margin-top: 20px; padding: 12px 20px; background: #48bb78; color: white; border: none; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;">
+          <span>🎤</span> Озвучить весь маршрут
         </button>
 
-        <!-- Тестовая кнопка -->
-        <button id="test-voice-btn" style="
-            margin-top: 10px;
-            padding: 8px;
-            background: #f39c12;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            width: 100%;
-        ">
-            🔈 Тест голоса
+        <button id="test-voice-btn" style="margin-top: 10px; padding: 8px; background: #f39c12; color: white; border: none; border-radius: 50px; font-size: 0.9rem; cursor: pointer; width: 100%;">
+          🔈 Тест голоса
         </button>
       </div>
 
@@ -932,7 +946,8 @@
     const navLinks = document.getElementById('nav-links');
 
     if (menuToggle) {
-      menuToggle.addEventListener('click', () => {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         navLinks.classList.toggle('open');
       });
 
@@ -1006,10 +1021,6 @@
         this.findRouteBtn = document.getElementById('find-route');
         this.currentLocationDiv = document.getElementById('current-location');
         this.navigationPanel = document.getElementById('navigation-panel');
-        this.directionArrow = document.getElementById('direction-arrow');
-        this.directionText = document.getElementById('direction-text');
-        this.directionHint = document.getElementById('direction-hint');
-        this.floorChange = document.getElementById('floor-change');
         this.successMessage = document.getElementById('success-message');
         this.errorMessage = document.getElementById('error-message');
 
@@ -1081,8 +1092,14 @@
       }
 
       setupTouchEvents() {
+        // Запрещаем системные жесты на canvas
         this.canvas.addEventListener('touchstart', (e) => {
           e.preventDefault();
+
+          // Блокируем системные жесты при любом касании на canvas
+          if (e.touches.length >= 1) {
+            e.stopPropagation();
+          }
 
           if (e.touches.length === 1) {
             this.isDragging = true;
@@ -1104,6 +1121,11 @@
 
         this.canvas.addEventListener('touchmove', (e) => {
           e.preventDefault();
+
+          // Блокируем системные жесты
+          if (e.touches.length >= 1) {
+            e.stopPropagation();
+          }
 
           if (e.touches.length === 1 && this.isDragging) {
             const dx = e.touches[0].clientX - this.lastX;
@@ -1148,12 +1170,14 @@
 
         this.canvas.addEventListener('touchend', (e) => {
           e.preventDefault();
+          e.stopPropagation();
           this.isDragging = false;
           this.touchDistance = 0;
         });
 
         this.canvas.addEventListener('touchcancel', (e) => {
           e.preventDefault();
+          e.stopPropagation();
           this.isDragging = false;
           this.touchDistance = 0;
         });
@@ -1460,13 +1484,11 @@
         if (routePoints && routePoints.length > 1) {
           this.currentRoute = routePoints;
 
-          // Загружаем подсказки
           try {
             const response = await fetch(`/api/voice-prompts/${routeKey}`);
             this.currentRoutePrompts = await response.json();
 
             if (!this.currentRoutePrompts || this.currentRoutePrompts.length === 0) {
-              // Если нет подсказок, создаем стандартные
               this.currentRoutePrompts = [
                 "Начало маршрута",
                 "Следуйте по коридору",
@@ -1488,17 +1510,16 @@
           this.showSuccess('Маршрут построен');
           this.fitToRoute();
 
-          // Проверяем наличие голосовых подсказок
           try {
             const response = await fetch(`/api/voice-prompts/${routeKey}`);
             const prompts = await response.json();
             const voiceBtn = document.getElementById('voice-navigation-btn');
             if (voiceBtn) {
               if (prompts && prompts.length > 0) {
-                voiceBtn.style.background = '#48bb78'; // Зеленый - есть подсказки
+                voiceBtn.style.background = '#48bb78';
                 voiceBtn.title = 'Есть голосовые подсказки';
               } else {
-                voiceBtn.style.background = '#4a90e2'; // Синий - нет подсказок
+                voiceBtn.style.background = '#4a90e2';
                 voiceBtn.title = 'Нет голосовых подсказок';
               }
             }
@@ -1517,16 +1538,13 @@
       updateStepsDisplay() {
         if (!this.currentRoutePrompts || this.currentRoutePrompts.length === 0) return;
 
-        // Обновляем заголовок
         const startName = this.currentLocation?.name || 'Начало';
         const endName = this.destination?.name || 'Конец';
         document.getElementById('route-title').textContent = `${startName} → ${endName}`;
         document.getElementById('route-progress').textContent = `Шаг ${this.currentStep + 1} из ${this.currentRoutePrompts.length}`;
 
-        // Обновляем текущий шаг
         const currentPrompt = this.currentRoutePrompts[this.currentStep];
         if (currentPrompt) {
-          // Разбиваем на две строки (если есть точка или запятая)
           const parts = currentPrompt.split(/[.,]/).map(s => s.trim());
           if (parts.length > 1) {
             document.getElementById('current-step-text').textContent = parts[0];
@@ -1537,7 +1555,6 @@
           }
         }
 
-        // Обновляем список всех шагов
         const stepsList = document.getElementById('steps-list');
         stepsList.innerHTML = '';
 
@@ -1556,27 +1573,9 @@
           `;
 
           stepDiv.innerHTML = `
-            <div style="
-              width: 24px;
-              height: 24px;
-              background: ${index === this.currentStep ? '#4a90e2' : '#cbd5e0'};
-              color: white;
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 0.8rem;
-              font-weight: bold;
-            ">${index + 1}</div>
+            <div style="width: 24px; height: 24px; background: ${index === this.currentStep ? '#4a90e2' : '#cbd5e0'}; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">${index + 1}</div>
             <div style="flex: 1; font-size: 0.9rem;">${prompt}</div>
-            <button class="speak-step-btn" data-index="${index}" style="
-              background: none;
-              border: none;
-              font-size: 1.2rem;
-              cursor: pointer;
-              padding: 5px;
-              display: ${index === this.currentStep ? 'block' : 'none'};
-            ">🔊</button>
+            <button class="speak-step-btn" data-index="${index}" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 5px; display: ${index === this.currentStep ? 'block' : 'none'}; touch-action: manipulation;">🔊</button>
           `;
 
           stepDiv.addEventListener('click', (e) => {
@@ -1588,11 +1587,9 @@
           stepsList.appendChild(stepDiv);
         });
 
-        // Обновляем кнопки
         document.getElementById('prev-step-btn').disabled = this.currentStep === 0;
         document.getElementById('next-step-btn').disabled = this.currentStep === this.currentRoutePrompts.length - 1;
 
-        // Добавляем обработчики для кнопок озвучки отдельных шагов
         document.querySelectorAll('.speak-step-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1606,7 +1603,6 @@
         if (index >= 0 && index < this.currentRoutePrompts.length) {
           this.currentStep = index;
           this.updateStepsDisplay();
-          // Здесь можно добавить подсветку на карте
         }
       }
 
@@ -1777,15 +1773,12 @@
         this.ctx.translate(this.offsetX, this.offsetY);
         this.ctx.scale(this.scale, this.scale);
 
-        // Стены
         this.drawWalls();
 
-        // Маршрут
         if (this.currentRoute && this.currentRoute.length > 1) {
           this.drawRoute();
         }
 
-        // Точки
         this.drawPoints();
 
         this.ctx.restore();
@@ -1882,19 +1875,17 @@
 
       showSuccess(message) {
         this.successMessage.textContent = message;
-        this.successMessage.classList.add('active');
-        this.errorMessage.classList.remove('active');
-        setTimeout(() => this.successMessage.classList.remove('active'), 3000);
+        this.successMessage.style.display = 'block';
+        this.errorMessage.style.display = 'none';
+        setTimeout(() => this.successMessage.style.display = 'none', 3000);
       }
 
       showError(message) {
         this.errorMessage.textContent = message;
-        this.errorMessage.classList.add('active');
-        this.successMessage.classList.remove('active');
-        setTimeout(() => this.errorMessage.classList.remove('active'), 3000);
+        this.errorMessage.style.display = 'block';
+        this.successMessage.style.display = 'none';
+        setTimeout(() => this.errorMessage.style.display = 'none', 3000);
       }
-
-      // === МЕТОДЫ ДЛЯ ГОЛОСОВОЙ НАВИГАЦИИ ===
 
       setupVoiceNavigation() {
         const voiceBtn = document.getElementById('voice-navigation-btn');
@@ -1935,17 +1926,13 @@
 
           console.log('🗣️ Озвучиваю:', text);
 
-          // Останавливаем предыдущую речь
           window.speechSynthesis.cancel();
 
-          // Обработка ударений через заглавные буквы
           let processedText = text
             .replace(/,/g, ', ')
             .replace(/\./g, '. ')
             .replace(/\s+/g, ' ')
             .trim();
-
-          console.log('📝 Текст после обработки:', processedText);
 
           setTimeout(() => {
             const utterance = new SpeechSynthesisUtterance(processedText);
@@ -1954,7 +1941,6 @@
             utterance.pitch = 1.0;
             utterance.volume = 1.0;
 
-            // Пытаемся найти лучший русский голос
             if (window.speechSynthesis.getVoices().length === 0) {
               window.speechSynthesis.addEventListener('voiceschanged', () => {
                 this.setupVoiceAndSpeak(utterance, resolve);
@@ -1989,7 +1975,6 @@
 
         if (selectedVoice) {
           utterance.voice = selectedVoice;
-          console.log('✅ Выбран голос:', selectedVoice.name);
         }
 
         utterance.onstart = () => {
