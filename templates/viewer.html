@@ -250,19 +250,21 @@
       color: white;
     }
 
-    /* Кнопка для слабовидящих */
+    /* Компактная кнопка для слабовидящих */
     .accessibility-btn {
+      width: 40px;
+      height: 40px;
       background: #2d3748;
       color: white;
       border: none;
-      border-radius: 50px;
-      padding: 0.5rem 1.2rem;
+      border-radius: 50%;
       cursor: pointer;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 5px;
+      justify-content: center;
       transition: all 0.3s;
+      font-size: 1.2rem;
     }
 
     .accessibility-btn:hover {
@@ -306,9 +308,28 @@
       transition: all 0.3s ease;
     }
 
-    /* Полноэкранный режим */
-    .fullscreen-mode {
+    /* Полноэкранный режим карты */
+    .map-container {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      background: white;
+      border-radius: 12px;
       overflow: hidden;
+      border: 1px solid #e2e8f0;
+      touch-action: none;
+      transition: all 0.3s ease;
+    }
+
+    .map-container.fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1000;
+      border-radius: 0;
+      border: none;
     }
 
     .fullscreen-mode .modern-header,
@@ -336,267 +357,6 @@
       width: 100vw;
       border-radius: 0;
       border: none;
-    }
-
-    .fullscreen-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 44px;
-      height: 44px;
-      border: none;
-      border-radius: 50%;
-      background: white;
-      color: #4a5568;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      border: 1px solid #e2e8f0;
-    }
-
-    .fullscreen-btn:hover {
-      background: #667eea;
-      color: white;
-      transform: scale(1.1);
-    }
-
-    .fullscreen-btn:active {
-      transform: scale(0.95);
-    }
-
-    .exit-fullscreen-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 44px;
-      height: 44px;
-      border: none;
-      border-radius: 50%;
-      background: #e53e3e;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      z-index: 20;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .exit-fullscreen-btn:hover {
-      background: #c53030;
-      transform: scale(1.1);
-    }
-
-    .fullscreen-mode .exit-fullscreen-btn {
-      display: flex;
-    }
-
-    .fullscreen-mode .fullscreen-btn {
-      display: none;
-    }
-
-    h2 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-      color: #2d3748;
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 0.5rem;
-    }
-
-    h3 {
-      font-size: 1rem;
-      color: #718096;
-      margin-bottom: 0.5rem;
-    }
-
-    select, button {
-      width: 100%;
-      padding: 0.8rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 10px;
-      font-size: 1rem;
-      margin: 0.5rem 0;
-      font-family: 'Inter', sans-serif;
-    }
-
-    button {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-    }
-
-    button:disabled {
-      background: #cbd5e0;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    /* Стили для QR-сканера */
-    .qr-container {
-      position: relative;
-      width: 100%;
-      min-height: 300px;
-      background: #f7fafc;
-      border-radius: 12px;
-      overflow: hidden;
-      margin: 10px 0;
-      border: 2px dashed #cbd5e0;
-    }
-
-    #qr-reader {
-      width: 100%;
-      min-height: 300px;
-    }
-
-    .qr-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .qr-tab {
-      flex: 1;
-      padding: 10px;
-      background: #edf2f7;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      color: #4a5568;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .qr-tab.active {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-    }
-
-    .qr-content {
-      display: none;
-    }
-
-    .qr-content.active {
-      display: block;
-    }
-
-    .qr-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
-      text-align: center;
-      color: #718096;
-      min-height: 250px;
-    }
-
-    .qr-placeholder p {
-      margin: 10px 0;
-    }
-
-    .camera-button {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: all 0.3s;
-    }
-
-    .camera-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-    }
-
-    .file-input {
-      width: 100%;
-      padding: 20px;
-      border: 2px dashed #cbd5e0;
-      border-radius: 12px;
-      cursor: pointer;
-      text-align: center;
-      margin: 10px 0;
-    }
-
-    .file-input:hover {
-      border-color: #667eea;
-      background: #f0f4ff;
-    }
-
-    .camera-error {
-      color: #e53e3e;
-      margin-top: 10px;
-      font-size: 0.9rem;
-    }
-
-    #current-location {
-      margin-top: 10px;
-      padding: 10px;
-      background: #f0fff0;
-      border-left: 4px solid #48bb78;
-      border-radius: 8px;
-      display: none;
-    }
-
-    #current-location.active {
-      display: block;
-    }
-
-    .or-divider {
-      text-align: center;
-      margin: 15px 0;
-      position: relative;
-    }
-
-    .or-divider::before,
-    .or-divider::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 45%;
-      height: 1px;
-      background: #e2e8f0;
-    }
-
-    .or-divider::before { left: 0; }
-    .or-divider::after { right: 0; }
-
-    .or-divider span {
-      background: white;
-      padding: 0 10px;
-      color: #a0aec0;
-      font-size: 0.9rem;
-    }
-
-    .map-container {
-      position: relative;
-      width: 100%;
-      height: 500px;
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #e2e8f0;
-      touch-action: none;
     }
 
     #mapCanvas {
@@ -897,6 +657,12 @@
       .control-panel {
         flex: auto;
       }
+
+      .accessibility-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -917,9 +683,9 @@
         <a href="/" class="nav-link">Главная</a>
         <a href="/viewer" class="nav-link active">Навигатор</a>
         <a href="/admin" class="nav-link">Админка</a>
-        <!-- Кнопка режима для слабовидящих -->
-        <button class="accessibility-btn" onclick="toggleAccessibilityMode()">
-          <span>👁️</span> Режим для слабовидящих
+        <!-- Компактная кнопка режима для слабовидящих -->
+        <button class="accessibility-btn" onclick="toggleAccessibilityMode()" title="Режим для слабовидящих">
+          👁️
         </button>
       </div>
     </div>
@@ -1115,10 +881,34 @@
     <div class="map-panel">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; position: relative;">
         <h2 style="margin-bottom: 0; border-bottom: none;">Карта школы</h2>
-        <button class="fullscreen-btn" id="fullscreen-btn" onclick="toggleFullscreen()">⛶</button>
-        <button class="exit-fullscreen-btn" id="exit-fullscreen-btn" onclick="exitFullscreen()">✕</button>
+        <div>
+          <button class="fullscreen-btn" id="fullscreen-btn" title="На весь экран" style="
+              width: 44px;
+              height: 44px;
+              border: none;
+              border-radius: 50%;
+              background: white;
+              color: #4a5568;
+              font-size: 1.2rem;
+              cursor: pointer;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+              border: 1px solid #e2e8f0;
+          ">⛶</button>
+          <button class="exit-fullscreen-btn" id="exit-fullscreen-btn" title="Выйти из полноэкранного режима" style="
+              width: 44px;
+              height: 44px;
+              border: none;
+              border-radius: 50%;
+              background: #e53e3e;
+              color: white;
+              font-size: 1.2rem;
+              cursor: pointer;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+              display: none;
+          ">✕</button>
+        </div>
       </div>
-      <div class="map-container">
+      <div class="map-container" id="map-container">
         <canvas id="mapCanvas"></canvas>
 
         <div class="map-controls">
@@ -1149,16 +939,11 @@
     // ===== РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ =====
     function toggleAccessibilityMode() {
       document.body.classList.toggle('visually-impaired');
-
-      // Сохраняем настройку в localStorage
       const isEnabled = document.body.classList.contains('visually-impaired');
       localStorage.setItem('visuallyImpairedMode', isEnabled ? 'enabled' : 'disabled');
-
-      // Показываем уведомление
       showNotification(isEnabled ? '👁️ Режим для слабовидящих включен' : '👁️ Обычный режим');
     }
 
-    // Проверяем сохраненную настройку при загрузке
     if (localStorage.getItem('visuallyImpairedMode') === 'enabled') {
       document.body.classList.add('visually-impaired');
     }
@@ -1167,7 +952,6 @@
       const notification = document.getElementById('notification');
       notification.textContent = message;
       notification.style.display = 'block';
-
       setTimeout(() => {
         notification.style.display = 'none';
       }, 3000);
@@ -1198,7 +982,7 @@
         this.selectedVoice = null;
         this.availableVoices = [];
 
-        // Параметры камеры
+        // Параметры камеры для движения карты
         this.offsetX = 0;
         this.offsetY = 0;
         this.scale = 1;
@@ -1236,14 +1020,52 @@
 
         // Для полноэкранного режима
         this.isFullscreen = false;
+        this.mapContainer = document.getElementById('map-container');
+        this.fullscreenBtn = document.getElementById('fullscreen-btn');
+        this.exitFullscreenBtn = document.getElementById('exit-fullscreen-btn');
 
         this.init();
         this.requestCameraPermission();
         this.initVoiceSettings();
+        this.setupFullscreen();
+      }
+
+      resizeCanvas() {
+        const container = this.mapContainer;
+        this.canvas.width = container.clientWidth;
+        this.canvas.height = container.clientHeight;
+      }
+
+      setupFullscreen() {
+        this.fullscreenBtn.addEventListener('click', () => this.enterFullscreen());
+        this.exitFullscreenBtn.addEventListener('click', () => this.exitFullscreen());
+      }
+
+      enterFullscreen() {
+        this.mapContainer.classList.add('fullscreen');
+        this.fullscreenBtn.style.display = 'none';
+        this.exitFullscreenBtn.style.display = 'block';
+        this.isFullscreen = true;
+
+        setTimeout(() => {
+          this.resizeCanvas();
+          this.fitToScreen();
+        }, 100);
+      }
+
+      exitFullscreen() {
+        this.mapContainer.classList.remove('fullscreen');
+        this.fullscreenBtn.style.display = 'block';
+        this.exitFullscreenBtn.style.display = 'none';
+        this.isFullscreen = false;
+
+        setTimeout(() => {
+          this.resizeCanvas();
+          this.fitToScreen();
+        }, 100);
       }
 
       initVoiceSettings() {
-        // Настройка ползунков голоса
         const rateInput = document.getElementById('voice-rate');
         const pitchInput = document.getElementById('voice-pitch');
         const volumeInput = document.getElementById('voice-volume');
@@ -1253,7 +1075,6 @@
         const toggleBtn = document.getElementById('toggle-voice-settings');
         const settingsPanel = document.getElementById('voice-settings-panel');
 
-        // Показываем/скрываем панель
         showBtn.addEventListener('click', () => {
           settingsPanel.style.display = 'block';
           showBtn.style.display = 'none';
@@ -1283,7 +1104,6 @@
           this.speak('Привет, я голосовой помощник. Проверка настроек голоса.');
         });
 
-        // Загрузка доступных голосов
         if (window.speechSynthesis) {
           if (window.speechSynthesis.getVoices().length > 0) {
             this.loadVoices();
@@ -1300,13 +1120,11 @@
         const voiceSelect = document.getElementById('voice-select');
         voiceSelect.innerHTML = '<option value="">Автоматически</option>';
 
-        // Приоритет лучших русских голосов
         const preferredVoices = [
           'Microsoft Irina', 'Microsoft Mikhail', 'Microsoft Pavel',
           'Milena', 'Yuri', 'Katya', 'Google русский'
         ];
 
-        // Сначала добавляем предпочтительные голоса
         preferredVoices.forEach(prefName => {
           const voice = this.availableVoices.find(v =>
             v.name.includes(prefName) || v.name.toLowerCase().includes(prefName.toLowerCase())
@@ -1319,7 +1137,6 @@
           }
         });
 
-        // Добавляем остальные русские голоса
         this.availableVoices.forEach(voice => {
           if (![...voiceSelect.options].some(opt => opt.value === voice.name)) {
             const option = document.createElement('option');
@@ -1333,11 +1150,6 @@
           const selectedName = voiceSelect.value;
           this.selectedVoice = this.availableVoices.find(v => v.name === selectedName) || null;
         });
-      }
-
-      resizeCanvas() {
-        this.canvas.width = this.canvas.parentElement.clientWidth;
-        this.canvas.height = this.canvas.parentElement.clientHeight;
       }
 
       async init() {
@@ -1359,32 +1171,6 @@
             this.draw();
           }
         });
-
-        document.addEventListener('fullscreenchange', () => this.handleFullscreenChange());
-        document.addEventListener('webkitfullscreenchange', () => this.handleFullscreenChange());
-        document.addEventListener('mozfullscreenchange', () => this.handleFullscreenChange());
-        document.addEventListener('MSFullscreenChange', () => this.handleFullscreenChange());
-      }
-
-      handleFullscreenChange() {
-        const isFullscreen = !!(document.fullscreenElement ||
-                               document.webkitFullscreenElement ||
-                               document.mozFullScreenElement ||
-                               document.msFullscreenElement);
-
-        if (isFullscreen) {
-          document.body.classList.add('fullscreen-mode');
-          this.isFullscreen = true;
-        } else {
-          document.body.classList.remove('fullscreen-mode');
-          this.isFullscreen = false;
-          this.fitToScreen();
-        }
-
-        setTimeout(() => {
-          this.resizeCanvas();
-          this.draw();
-        }, 100);
       }
 
       setupTouchEvents() {
@@ -1398,12 +1184,7 @@
           } else if (e.touches.length === 2) {
             const touch1 = e.touches[0];
             const touch2 = e.touches[1];
-
-            this.touchDistance = Math.hypot(
-              touch1.clientX - touch2.clientX,
-              touch1.clientY - touch2.clientY
-            );
-
+            this.touchDistance = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY);
             this.touchCenter.x = (touch1.clientX + touch2.clientX) / 2;
             this.touchCenter.y = (touch1.clientY + touch2.clientY) / 2;
           }
@@ -1415,39 +1196,27 @@
           if (e.touches.length === 1 && this.isDragging) {
             const dx = e.touches[0].clientX - this.lastX;
             const dy = e.touches[0].clientY - this.lastY;
-
             this.offsetX += dx;
             this.offsetY += dy;
-
             this.lastX = e.touches[0].clientX;
             this.lastY = e.touches[0].clientY;
-
             this.draw();
           } else if (e.touches.length === 2) {
             const touch1 = e.touches[0];
             const touch2 = e.touches[1];
-
-            const newDistance = Math.hypot(
-              touch1.clientX - touch2.clientX,
-              touch1.clientY - touch2.clientY
-            );
-
+            const newDistance = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY);
             if (this.touchDistance > 0) {
               const rect = this.canvas.getBoundingClientRect();
               const centerX = (touch1.clientX + touch2.clientX) / 2 - rect.left;
               const centerY = (touch1.clientY + touch2.clientY) / 2 - rect.top;
-
               const worldX = (centerX - this.offsetX) / this.scale;
               const worldY = (centerY - this.offsetY) / this.scale;
-
               const scaleFactor = newDistance / this.touchDistance;
               const newScale = Math.min(Math.max(this.scale * scaleFactor, this.minScale), this.maxScale);
-
               this.offsetX = centerX - worldX * newScale;
               this.offsetY = centerY - worldY * newScale;
               this.scale = newScale;
             }
-
             this.touchDistance = newDistance;
             this.draw();
           }
@@ -1767,13 +1536,11 @@
         if (routePoints && routePoints.length > 1) {
           this.currentRoute = routePoints;
 
-          // Загружаем подсказки
           try {
             const response = await fetch(`/api/voice-prompts/${routeKey}`);
             this.currentRoutePrompts = await response.json();
 
             if (!this.currentRoutePrompts || this.currentRoutePrompts.length === 0) {
-              // Если нет подсказок, создаем стандартные
               this.currentRoutePrompts = [
                 "Начало маршрута",
                 "Следуйте по коридору",
@@ -1795,17 +1562,16 @@
           this.showSuccess('Маршрут построен');
           this.fitToRoute();
 
-          // Проверяем наличие голосовых подсказок
           try {
             const response = await fetch(`/api/voice-prompts/${routeKey}`);
             const prompts = await response.json();
             const voiceBtn = document.getElementById('voice-navigation-btn');
             if (voiceBtn) {
               if (prompts && prompts.length > 0) {
-                voiceBtn.style.background = '#48bb78'; // Зеленый - есть подсказки
+                voiceBtn.style.background = '#48bb78';
                 voiceBtn.title = 'Есть голосовые подсказки';
               } else {
-                voiceBtn.style.background = '#4a90e2'; // Синий - нет подсказок
+                voiceBtn.style.background = '#4a90e2';
                 voiceBtn.title = 'Нет голосовых подсказок';
               }
             }
@@ -1824,13 +1590,11 @@
       updateStepsDisplay() {
         if (!this.currentRoutePrompts || this.currentRoutePrompts.length === 0) return;
 
-        // Обновляем заголовок
         const startName = this.currentLocation?.name || 'Начало';
         const endName = this.destination?.name || 'Конец';
         document.getElementById('route-title').textContent = `${startName} → ${endName}`;
         document.getElementById('route-progress').textContent = `Шаг ${this.currentStep + 1} из ${this.currentRoutePrompts.length}`;
 
-        // Обновляем текущий шаг
         const currentPrompt = this.currentRoutePrompts[this.currentStep];
         if (currentPrompt) {
           const parts = currentPrompt.split(/[.,]/).map(s => s.trim());
@@ -1843,7 +1607,6 @@
           }
         }
 
-        // Обновляем список всех шагов
         const stepsList = document.getElementById('steps-list');
         stepsList.innerHTML = '';
 
@@ -1894,11 +1657,9 @@
           stepsList.appendChild(stepDiv);
         });
 
-        // Обновляем кнопки
         document.getElementById('prev-step-btn').disabled = this.currentStep === 0;
         document.getElementById('next-step-btn').disabled = this.currentStep === this.currentRoutePrompts.length - 1;
 
-        // Добавляем обработчики для кнопок озвучки отдельных шагов
         document.querySelectorAll('.speak-step-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -2082,15 +1843,12 @@
         this.ctx.translate(this.offsetX, this.offsetY);
         this.ctx.scale(this.scale, this.scale);
 
-        // Стены
         this.drawWalls();
 
-        // Маршрут
         if (this.currentRoute && this.currentRoute.length > 1) {
           this.drawRoute();
         }
 
-        // Точки
         this.drawPoints();
 
         this.ctx.restore();
@@ -2199,8 +1957,6 @@
         setTimeout(() => this.errorMessage.classList.remove('active'), 3000);
       }
 
-      // === УЛУЧШЕННЫЙ МЕТОД SPEAK С НАСТРОЙКАМИ ГОЛОСА ===
-
       speak(text) {
         return new Promise((resolve) => {
           if (!text) {
@@ -2210,10 +1966,8 @@
 
           console.log('🗣️ Озвучиваю:', text);
 
-          // Останавливаем предыдущую речь
           window.speechSynthesis.cancel();
 
-          // Обработка ударений через заглавные буквы
           let processedText = text
             .replace(/,/g, ', ')
             .replace(/\./g, '. ')
@@ -2229,14 +1983,11 @@
             utterance.pitch = this.voicePitch;
             utterance.volume = this.voiceVolume;
 
-            // Выбираем голос, если выбран конкретный
             if (this.selectedVoice) {
               utterance.voice = this.selectedVoice;
               console.log('✅ Использую выбранный голос:', this.selectedVoice.name);
             } else {
-              // Иначе ищем лучший русский голос
               const voices = window.speechSynthesis.getVoices();
-
               const preferredVoices = [
                 'Microsoft Irina', 'Microsoft Mikhail', 'Microsoft Pavel',
                 'Milena', 'Yuri', 'Katya', 'Google русский'
@@ -2343,7 +2094,6 @@
       }
     }
 
-    // Функции для полноэкранного режима
     window.toggleFullscreen = function() {
       document.body.classList.add('fullscreen-mode');
     };
@@ -2352,7 +2102,6 @@
       document.body.classList.remove('fullscreen-mode');
     };
 
-    // Глобальные функции для переключения режимов
     window.switchQRMode = function(mode) {
       document.querySelectorAll('.qr-tab').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.qr-content').forEach(content => content.classList.remove('active'));

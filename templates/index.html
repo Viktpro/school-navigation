@@ -180,19 +180,21 @@
       color: white;
     }
 
-    /* Кнопка для слабовидящих */
+    /* Компактная кнопка для слабовидящих */
     .accessibility-btn {
+      width: 40px;
+      height: 40px;
       background: #2d3748;
       color: white;
       border: none;
-      border-radius: 50px;
-      padding: 0.5rem 1.2rem;
+      border-radius: 50%;
       cursor: pointer;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 5px;
+      justify-content: center;
       transition: all 0.3s;
+      font-size: 1.2rem;
     }
 
     .accessibility-btn:hover {
@@ -398,7 +400,6 @@
       text-decoration: underline;
     }
 
-    /* Адаптивность */
     @media (max-width: 768px) {
       .hero-title {
         font-size: 2rem;
@@ -416,11 +417,16 @@
         width: 100%;
         justify-content: center;
       }
+
+      .accessibility-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Шапка с навигацией -->
   <header class="modern-header">
     <div class="header-container">
       <div class="logo-section">
@@ -437,17 +443,15 @@
         <a href="/" class="nav-link active">Главная</a>
         <a href="/viewer" class="nav-link">Навигатор</a>
         <a href="/admin" class="nav-link">Админка</a>
-        <!-- Кнопка режима для слабовидящих -->
-        <button class="accessibility-btn" onclick="toggleAccessibilityMode()">
-          <span>👁️</span> Режим для слабовидящих
+        <!-- Компактная кнопка режима для слабовидящих -->
+        <button class="accessibility-btn" onclick="toggleAccessibilityMode()" title="Режим для слабовидящих">
+          👁️
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Основной контент -->
   <div class="main-container">
-    <!-- Герой-секция -->
     <div class="hero-section">
       <h1 class="hero-title">Как пройти в кабинет?</h1>
       <p class="hero-subtitle">
@@ -455,7 +459,6 @@
       </p>
     </div>
 
-    <!-- Карточки перехода -->
     <div class="cards-grid">
       <div class="card">
         <div class="card-icon">🗺️</div>
@@ -472,7 +475,6 @@
       </div>
     </div>
 
-    <!-- Пошаговая инструкция -->
     <div class="instructions-section">
       <h2 class="section-title">Как пользоваться навигатором</h2>
 
@@ -516,19 +518,13 @@
   <div class="notification" id="notification"></div>
 
   <script>
-    // ===== РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ =====
     function toggleAccessibilityMode() {
       document.body.classList.toggle('visually-impaired');
-
-      // Сохраняем настройку в localStorage
       const isEnabled = document.body.classList.contains('visually-impaired');
       localStorage.setItem('visuallyImpairedMode', isEnabled ? 'enabled' : 'disabled');
-
-      // Показываем уведомление
       showNotification(isEnabled ? '👁️ Режим для слабовидящих включен' : '👁️ Обычный режим');
     }
 
-    // Проверяем сохраненную настройку при загрузке
     if (localStorage.getItem('visuallyImpairedMode') === 'enabled') {
       document.body.classList.add('visually-impaired');
     }
@@ -537,7 +533,6 @@
       const notification = document.getElementById('notification');
       notification.textContent = message;
       notification.style.display = 'block';
-
       setTimeout(() => {
         notification.style.display = 'none';
       }, 3000);

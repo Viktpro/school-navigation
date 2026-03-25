@@ -219,19 +219,21 @@
       color: white;
     }
 
-    /* Кнопка для слабовидящих */
+    /* Компактная кнопка для слабовидящих */
     .accessibility-btn {
+      width: 40px;
+      height: 40px;
       background: #2d3748;
       color: white;
       border: none;
-      border-radius: 8px;
-      padding: 0.5rem 1rem;
+      border-radius: 50%;
       cursor: pointer;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 5px;
+      justify-content: center;
       transition: all 0.3s;
+      font-size: 1.2rem;
     }
 
     .accessibility-btn:hover {
@@ -652,6 +654,12 @@
       .prompt-actions {
         justify-content: flex-end;
       }
+
+      .accessibility-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -669,9 +677,9 @@
         <a href="/" class="nav-link">Главная</a>
         <a href="/viewer" class="nav-link">Навигатор</a>
         <a href="/admin" class="nav-link active">Админка</a>
-        <!-- Кнопка режима для слабовидящих -->
-        <button class="accessibility-btn" onclick="toggleAccessibilityMode()">
-          <span>👁️</span> Режим для слабовидящих
+        <!-- Компактная кнопка режима для слабовидящих -->
+        <button class="accessibility-btn" onclick="toggleAccessibilityMode()" title="Режим для слабовидящих">
+          👁️
         </button>
       </div>
     </div>
@@ -746,7 +754,6 @@
           <button onclick="hideAddForm()" style="padding: 10px 20px; background: #cbd5e0; border: none; border-radius: 8px;">Отмена</button>
         </div>
 
-        <!-- Таблица локаций -->
         <div style="overflow-x: auto;">
           <table>
             <thead>
@@ -758,9 +765,7 @@
                 <th>Действия</th>
               </tr>
             </thead>
-            <tbody id="points-table">
-              <!-- Будут загружены через JS -->
-            </tbody>
+            <tbody id="points-table"></tbody>
           </table>
         </div>
       </div>
@@ -785,9 +790,7 @@
                 <th>Действия</th>
               </tr>
             </thead>
-            <tbody id="routes-table">
-              <!-- Будут загружены через JS -->
-            </tbody>
+            <tbody id="routes-table"></tbody>
           </table>
         </div>
       </div>
@@ -807,7 +810,6 @@
         </div>
 
         <div id="prompts-container" class="prompts-list">
-          <!-- Подсказки будут загружаться сюда -->
           <div style="text-align: center; padding: 20px; color: #718096;">
             Выберите маршрут для редактирования
           </div>
@@ -823,27 +825,29 @@
     <p>© МБОУ СОШ №1</p>
   </footer>
 
-  <div class="notification" id="notification">Сохранено!</div>
+  <div class="notification" id="notification"></div>
 
   <script>
-    // ===== РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ =====
     function toggleAccessibilityMode() {
       document.body.classList.toggle('visually-impaired');
-
-      // Сохраняем настройку в localStorage
       const isEnabled = document.body.classList.contains('visually-impaired');
       localStorage.setItem('visuallyImpairedMode', isEnabled ? 'enabled' : 'disabled');
-
-      // Показываем уведомление
       showNotification(isEnabled ? '👁️ Режим для слабовидящих включен' : '👁️ Обычный режим');
     }
 
-    // Проверяем сохраненную настройку при загрузке
     if (localStorage.getItem('visuallyImpairedMode') === 'enabled') {
       document.body.classList.add('visually-impaired');
     }
 
-    // Проверка пароля
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
     function checkPassword() {
       const password = document.getElementById('password-input').value;
       if (password === 'МБОУСОШ1') {
@@ -862,7 +866,6 @@
       document.getElementById('login-error').style.display = 'none';
     }
 
-    // Загрузка данных
     async function loadData() {
       await loadPoints();
       await loadRoutes();
@@ -874,10 +877,8 @@
       try {
         const response = await fetch('/api/points');
         const points = await response.json();
-
         const tbody = document.getElementById('points-table');
         tbody.innerHTML = '';
-
         points.forEach(point => {
           const row = tbody.insertRow();
           row.innerHTML = `
@@ -900,19 +901,14 @@
       try {
         const response = await fetch('/api/routes');
         const routes = await response.json();
-
         const pointsRes = await fetch('/api/points');
         const points = await pointsRes.json();
-
         const tbody = document.getElementById('routes-table');
         tbody.innerHTML = '';
-
         Object.entries(routes).forEach(([key, route]) => {
           const start = points.find(p => p.id === route.startId);
           const end = points.find(p => p.id === route.endId);
-
           if (!start || !end) return;
-
           const row = tbody.insertRow();
           row.innerHTML = `
             <td>${start.name}</td>
@@ -933,10 +929,8 @@
       try {
         const response = await fetch('/api/stats');
         const stats = await response.json();
-
         document.getElementById('total-points').textContent = stats.total_points || 0;
         document.getElementById('total-routes').textContent = stats.total_routes || 0;
-
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('today-stats').textContent = stats.daily_stats?.[today] || 0;
         document.getElementById('total-navigations').textContent = stats.total_navigations || 0;
@@ -945,7 +939,6 @@
       }
     }
 
-    // ===== РЕДАКТОР ГОЛОСОВЫХ ПОДСКАЗОК =====
     let points = [];
     let routes = {};
     let currentRouteKey = '';
@@ -955,20 +948,15 @@
       try {
         const pointsRes = await fetch('/api/points');
         points = await pointsRes.json();
-
         const routesRes = await fetch('/api/routes');
         routes = await routesRes.json();
-
         const voiceRes = await fetch('/api/voice-prompts');
         const voicePrompts = await voiceRes.json();
-
         const select = document.getElementById('voice-route-select');
         select.innerHTML = '<option value="">Выберите маршрут...</option>';
-
         Object.entries(routes).forEach(([key, route]) => {
           const start = points.find(p => p.id === route.startId);
           const end = points.find(p => p.id === route.endId);
-
           if (start && end) {
             const option = document.createElement('option');
             option.value = key;
@@ -977,7 +965,6 @@
             select.appendChild(option);
           }
         });
-
         select.addEventListener('change', (e) => {
           if (e.target.value) {
             loadRoutePrompts(e.target.value);
@@ -987,7 +974,6 @@
             document.getElementById('save-voice-btn').style.display = 'none';
           }
         });
-
       } catch (error) {
         console.error('Ошибка загрузки голосовых маршрутов:', error);
       }
@@ -995,17 +981,13 @@
 
     async function loadRoutePrompts(routeKey) {
       currentRouteKey = routeKey;
-
       try {
         const response = await fetch(`/api/voice-prompts/${routeKey}`);
         currentPrompts = await response.json();
-
         if (!currentPrompts || currentPrompts.length === 0) {
           currentPrompts = [''];
         }
-
         renderPrompts();
-
         document.getElementById('add-prompt-btn').style.display = 'block';
         document.getElementById('save-voice-btn').style.display = 'block';
       } catch (error) {
@@ -1016,11 +998,9 @@
     function renderPrompts() {
       const container = document.getElementById('prompts-container');
       container.innerHTML = '';
-
       currentPrompts.forEach((prompt, index) => {
         const promptDiv = document.createElement('div');
         promptDiv.className = 'prompt-item';
-
         promptDiv.innerHTML = `
           <input type="text" class="prompt-input" value="${escapeHtml(prompt)}" placeholder="Например: Поверните налево" data-index="${index}">
           <div class="prompt-actions">
@@ -1028,7 +1008,6 @@
             <button class="prompt-btn delete" onclick="deletePrompt(${index})">🗑️</button>
           </div>
         `;
-
         container.appendChild(promptDiv);
       });
     }
@@ -1052,33 +1031,26 @@
     }
 
     async function saveVoicePrompts() {
-      // Собираем все значения из полей ввода
       const inputs = document.querySelectorAll('.prompt-input');
       const newPrompts = [];
-
       inputs.forEach(input => {
         const value = input.value.trim();
         if (value) {
           newPrompts.push(value);
         }
       });
-
       if (newPrompts.length === 0) {
         newPrompts.push('');
       }
-
       try {
         const response = await fetch(`/api/voice-prompts/${currentRouteKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompts: newPrompts })
         });
-
         if (response.ok) {
           showNotification('✅ Подсказки сохранены');
           currentPrompts = newPrompts;
-
-          // Обновляем метку в списке
           const select = document.getElementById('voice-route-select');
           const option = select.querySelector(`option[value="${currentRouteKey}"]`);
           if (option) {
@@ -1095,7 +1067,6 @@
 
     function speakPrompt(text) {
       if (!text) return;
-
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'ru-RU';
       utterance.rate = 0.9;
@@ -1106,19 +1077,14 @@
     function testSelectedRoute() {
       const select = document.getElementById('voice-route-select');
       const routeKey = select.value;
-
       if (!routeKey) {
         alert('Выберите маршрут');
         return;
       }
-
       const start = points.find(p => p.id === routes[routeKey]?.startId);
       const end = points.find(p => p.id === routes[routeKey]?.endId);
-
       if (start && end) {
         speakPrompt(`Маршрут от ${start.name} до ${end.name}`);
-
-        // Проигрываем все подсказки с интервалом
         if (currentPrompts && currentPrompts.length > 0) {
           currentPrompts.forEach((prompt, index) => {
             if (prompt) {
@@ -1133,24 +1099,10 @@
 
     function editVoicePrompts(routeKey) {
       document.getElementById('voice-editor-panel').scrollIntoView({ behavior: 'smooth' });
-
       const select = document.getElementById('voice-route-select');
       select.value = routeKey;
-
-      // Триггерим событие change
       const event = new Event('change', { bubbles: true });
       select.dispatchEvent(event);
-    }
-
-    function showNotification(message, type = 'success') {
-      const notification = document.getElementById('notification');
-      notification.textContent = message;
-      notification.style.background = type === 'success' ? '#48bb78' : '#f56565';
-      notification.style.display = 'block';
-
-      setTimeout(() => {
-        notification.style.display = 'none';
-      }, 3000);
     }
 
     function showAddForm() {
@@ -1170,7 +1122,6 @@
         y: parseInt(document.getElementById('point-y').value),
         description: document.getElementById('point-desc').value
       };
-
       try {
         await fetch('/api/points', {
           method: 'POST',
@@ -1186,7 +1137,6 @@
 
     async function deletePoint(id) {
       if (!confirm('Удалить эту точку?')) return;
-
       try {
         await fetch(`/api/points/${id}`, { method: 'DELETE' });
         loadPoints();
@@ -1197,7 +1147,6 @@
 
     async function deleteRoute(key) {
       if (!confirm('Удалить этот маршрут?')) return;
-
       try {
         const routes = await (await fetch('/api/routes')).json();
         delete routes[key];
