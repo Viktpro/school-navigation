@@ -163,7 +163,7 @@
     .modern-header {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      padding: 1rem 2rem;
+      padding: 0.8rem 2rem;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       border-bottom: 3px solid #f39c12;
     }
@@ -174,14 +174,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .logo-section {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1rem;
     }
 
     .logo-image img {
@@ -190,24 +190,37 @@
     }
 
     .logo-text {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 600;
       color: #2d3748;
     }
 
+    /* Гамбургер-меню для телефонов */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #4a5568;
+      padding: 0.5rem;
+    }
+
     .nav-links {
       display: flex;
-      gap: 1rem;
+      gap: 0.5rem;
       align-items: center;
       flex-wrap: wrap;
+      transition: all 0.3s ease;
     }
 
     .nav-link {
       color: #4a5568;
       text-decoration: none;
       padding: 0.5rem 1rem;
-      border-radius: 8px;
+      border-radius: 50px;
       transition: all 0.3s;
+      font-size: 1rem;
     }
 
     .nav-link:hover {
@@ -221,8 +234,8 @@
 
     /* Компактная кнопка для слабовидящих */
     .accessibility-btn {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       background: #2d3748;
       color: white;
       border: none;
@@ -233,7 +246,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.3s;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     .accessibility-btn:hover {
@@ -245,6 +258,75 @@
       background: #ffff00;
       color: #000000;
       border: 2px solid #ffff00;
+    }
+
+    /* Адаптивное меню для телефонов */
+    @media (max-width: 768px) {
+      .modern-header {
+        padding: 0.6rem 1rem;
+      }
+
+      .logo-image img {
+        height: 40px;
+      }
+
+      .logo-text {
+        font-size: 0.85rem;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 65px;
+        right: -280px;
+        width: 250px;
+        flex-direction: column;
+        background: white;
+        box-shadow: -2px 0 15px rgba(0,0,0,0.15);
+        padding: 1.2rem;
+        border-radius: 16px 0 0 16px;
+        z-index: 200;
+        transition: right 0.3s ease;
+        gap: 0.8rem;
+        align-items: flex-start;
+      }
+
+      .nav-links.open {
+        right: 0;
+      }
+
+      .nav-link {
+        width: 100%;
+        text-align: left;
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+      }
+
+      .accessibility-btn {
+        margin-top: 0.5rem;
+        width: 40px;
+        height: 40px;
+      }
+
+      body.visually-impaired .nav-links {
+        background: #000000;
+        border-left: 3px solid #ffff00;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        width: 220px;
+        top: 60px;
+      }
+
+      .nav-link {
+        font-size: 0.95rem;
+        padding: 0.5rem 0.8rem;
+      }
     }
 
     /* Основной контейнер */
@@ -626,41 +708,6 @@
       padding: 2rem;
       color: rgba(255, 255, 255, 0.8);
     }
-
-    @media (max-width: 768px) {
-      .header-container {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav-links {
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      table {
-        font-size: 14px;
-      }
-
-      th, td {
-        padding: 8px;
-      }
-
-      .prompt-item {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .prompt-actions {
-        justify-content: flex-end;
-      }
-
-      .accessibility-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 1rem;
-      }
-    }
   </style>
 </head>
 <body>
@@ -673,14 +720,14 @@
         <div class="logo-text">МБОУ СОШ №1</div>
       </div>
 
-      <div class="nav-links">
+      <!-- Кнопка гамбургер (только на телефонах) -->
+      <button class="menu-toggle" id="menu-toggle" aria-label="Меню">☰</button>
+
+      <div class="nav-links" id="nav-links">
         <a href="/" class="nav-link">Главная</a>
         <a href="/viewer" class="nav-link">Навигатор</a>
         <a href="/admin" class="nav-link active">Админка</a>
-        <!-- Компактная кнопка режима для слабовидящих -->
-        <button class="accessibility-btn" onclick="toggleAccessibilityMode()" title="Режим для слабовидящих">
-          👁️
-        </button>
+        <button class="accessibility-btn" onclick="toggleAccessibilityMode()" title="Режим для слабовидящих">👁️</button>
       </div>
     </div>
   </header>
@@ -727,7 +774,6 @@
         <h2>Управление локациями</h2>
         <button class="add-button" onclick="showAddForm()">+ Добавить локацию</button>
 
-        <!-- Форма добавления (скрыта) -->
         <div id="add-form" style="display: none; margin-bottom: 20px;">
           <input type="text" id="point-name" placeholder="Название" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #e2e8f0; border-radius: 8px;">
           <select id="point-category" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #e2e8f0; border-radius: 8px;">
@@ -755,18 +801,12 @@
         </div>
 
         <div style="overflow-x: auto;">
-          <table>
+           <table>
             <thead>
-              <tr>
-                <th>Название</th>
-                <th>Категория</th>
-                <th>Этаж</th>
-                <th>Координаты</th>
-                <th>Действия</th>
-              </tr>
+              <tr><th>Название</th><th>Категория</th><th>Этаж</th><th>Координаты</th><th>Действия</th></tr>
             </thead>
             <tbody id="points-table"></tbody>
-          </table>
+           </table>
         </div>
       </div>
 
@@ -781,17 +821,12 @@
         </div>
 
         <div style="overflow-x: auto;">
-          <table>
+           <table>
             <thead>
-              <tr>
-                <th>Откуда</th>
-                <th>Куда</th>
-                <th>Точек пути</th>
-                <th>Действия</th>
-              </tr>
+              <tr><th>Откуда</th><th>Куда</th><th>Точек пути</th><th>Действия</th></tr>
             </thead>
             <tbody id="routes-table"></tbody>
-          </table>
+           </table>
         </div>
       </div>
 
@@ -810,9 +845,7 @@
         </div>
 
         <div id="prompts-container" class="prompts-list">
-          <div style="text-align: center; padding: 20px; color: #718096;">
-            Выберите маршрут для редактирования
-          </div>
+          <div style="text-align: center; padding: 20px; color: #718096;">Выберите маршрут для редактирования</div>
         </div>
 
         <button class="add-prompt-btn" id="add-prompt-btn" onclick="addPrompt()" style="display: none;">+ Добавить подсказку</button>
@@ -828,6 +861,23 @@
   <div class="notification" id="notification"></div>
 
   <script>
+    // Гамбургер-меню
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+          navLinks.classList.remove('open');
+        }
+      });
+    }
+
+    // Режим для слабовидящих
     function toggleAccessibilityMode() {
       document.body.classList.toggle('visually-impaired');
       const isEnabled = document.body.classList.contains('visually-impaired');
@@ -881,16 +931,7 @@
         tbody.innerHTML = '';
         points.forEach(point => {
           const row = tbody.insertRow();
-          row.innerHTML = `
-            <td>${point.name}</td>
-            <td>${point.category}</td>
-            <td>${point.floor}</td>
-            <td>(${point.x}, ${point.y})</td>
-            <td>
-              <button class="action-button edit" onclick="editPoint('${point.id}')">✏️</button>
-              <button class="action-button delete" onclick="deletePoint('${point.id}')">🗑️</button>
-            </td>
-          `;
+          row.innerHTML = `<td>${point.name}</td><td>${point.category}</td><td>${point.floor}</td><td>(${point.x}, ${point.y})</td><td><button class="action-button edit" onclick="editPoint('${point.id}')">✏️</button><button class="action-button delete" onclick="deletePoint('${point.id}')">🗑️</button></td>`;
         });
       } catch (error) {
         console.error('Ошибка загрузки:', error);
@@ -910,15 +951,7 @@
           const end = points.find(p => p.id === route.endId);
           if (!start || !end) return;
           const row = tbody.insertRow();
-          row.innerHTML = `
-            <td>${start.name}</td>
-            <td>${end.name}</td>
-            <td>${route.points.length}</td>
-            <td>
-              <button class="action-button voice" onclick="editVoicePrompts('${key}')">🎤 Голос</button>
-              <button class="action-button delete" onclick="deleteRoute('${key}')">🗑️</button>
-            </td>
-          `;
+          row.innerHTML = `<td>${start.name}</td><td>${end.name}</td><td>${route.points.length}</td><td><button class="action-button voice" onclick="editVoicePrompts('${key}')">🎤 Голос</button><button class="action-button delete" onclick="deleteRoute('${key}')">🗑️</button></td>`;
         });
       } catch (error) {
         console.error('Ошибка загрузки маршрутов:', error);
@@ -1001,13 +1034,7 @@
       currentPrompts.forEach((prompt, index) => {
         const promptDiv = document.createElement('div');
         promptDiv.className = 'prompt-item';
-        promptDiv.innerHTML = `
-          <input type="text" class="prompt-input" value="${escapeHtml(prompt)}" placeholder="Например: Поверните налево" data-index="${index}">
-          <div class="prompt-actions">
-            <button class="prompt-btn play" onclick="speakPrompt('${escapeHtml(prompt)}')" ${!prompt ? 'disabled' : ''}>🔊</button>
-            <button class="prompt-btn delete" onclick="deletePrompt(${index})">🗑️</button>
-          </div>
-        `;
+        promptDiv.innerHTML = `<input type="text" class="prompt-input" value="${escapeHtml(prompt)}" placeholder="Например: Поверните налево" data-index="${index}"><div class="prompt-actions"><button class="prompt-btn play" onclick="speakPrompt('${escapeHtml(prompt)}')" ${!prompt ? 'disabled' : ''}>🔊</button><button class="prompt-btn delete" onclick="deletePrompt(${index})">🗑️</button></div>`;
         container.appendChild(promptDiv);
       });
     }
@@ -1105,13 +1132,8 @@
       select.dispatchEvent(event);
     }
 
-    function showAddForm() {
-      document.getElementById('add-form').style.display = 'block';
-    }
-
-    function hideAddForm() {
-      document.getElementById('add-form').style.display = 'none';
-    }
+    function showAddForm() { document.getElementById('add-form').style.display = 'block'; }
+    function hideAddForm() { document.getElementById('add-form').style.display = 'none'; }
 
     async function savePoint() {
       const point = {
@@ -1123,16 +1145,10 @@
         description: document.getElementById('point-desc').value
       };
       try {
-        await fetch('/api/points', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(point)
-        });
+        await fetch('/api/points', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(point) });
         hideAddForm();
         loadPoints();
-      } catch (error) {
-        alert('Ошибка сохранения');
-      }
+      } catch (error) { alert('Ошибка сохранения'); }
     }
 
     async function deletePoint(id) {
@@ -1140,9 +1156,7 @@
       try {
         await fetch(`/api/points/${id}`, { method: 'DELETE' });
         loadPoints();
-      } catch (error) {
-        alert('Ошибка удаления');
-      }
+      } catch (error) { alert('Ошибка удаления'); }
     }
 
     async function deleteRoute(key) {
@@ -1150,21 +1164,13 @@
       try {
         const routes = await (await fetch('/api/routes')).json();
         delete routes[key];
-        await fetch('/api/routes', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(routes)
-        });
+        await fetch('/api/routes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(routes) });
         loadRoutes();
         loadVoiceRoutes();
-      } catch (error) {
-        alert('Ошибка удаления');
-      }
+      } catch (error) { alert('Ошибка удаления'); }
     }
 
-    function editPoint(id) {
-      alert('Редактирование будет доступно в следующей версии');
-    }
+    function editPoint(id) { alert('Редактирование будет доступно в следующей версии'); }
   </script>
 </body>
 </html>
