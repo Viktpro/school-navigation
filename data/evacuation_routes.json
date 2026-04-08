@@ -1,0 +1,698 @@
+{
+  "route_1775560199611": {
+    "name": "🚨 ЭВАКУАЦИОННЫЙ МАРШРУТ",
+    "points": [
+      {
+        "floor": 1,
+        "x": 357,
+        "y": -550
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 352,
+        "y": -712
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 557,
+        "y": -713
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 556,
+        "y": -855
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 557,
+        "y": -713
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 665,
+        "y": -712
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 669,
+        "y": -553
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 665,
+        "y": -712
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 799,
+        "y": -711
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 800,
+        "y": -804
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 996,
+        "y": -803
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 801,
+        "y": -804
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 799,
+        "y": -711
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1006,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1009,
+        "y": -554
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1006,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1171,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1171,
+        "y": -954
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1171,
+        "y": -709
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1354,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1357,
+        "y": -560
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1354,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1418,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1414,
+        "y": -895
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1415,
+        "y": -845
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1294,
+        "y": -847
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1295,
+        "y": -846
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1295,
+        "y": -846
+      }
+    ],
+    "type": "evacuation",
+    "color": "#dc2626"
+  },
+  "route_1775560545770": {
+    "name": "🚨 ЭВАКУАЦИОННЫЙ МАРШРУТ",
+    "points": [
+      {
+        "floor": 1,
+        "x": 1339,
+        "y": -856
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1346,
+        "y": -846
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1336,
+        "y": -836
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1345,
+        "y": -847
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1415,
+        "y": -845
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1415,
+        "y": -818
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1408,
+        "y": -828
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1415,
+        "y": -817
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1422,
+        "y": -828
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1415,
+        "y": -817
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1418,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1400,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1409,
+        "y": -717
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1400,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1411,
+        "y": -702
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1399,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1354,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1170,
+        "y": -709
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1171,
+        "y": -733
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1164,
+        "y": -729
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1171,
+        "y": -733
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1180,
+        "y": -728
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1171,
+        "y": -732
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1171,
+        "y": -709
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1054,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1045,
+        "y": -717
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1055,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1046,
+        "y": -703
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 1055,
+        "y": -710
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 829,
+        "y": -711
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 820,
+        "y": -720
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 828,
+        "y": -711
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 819,
+        "y": -704
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 830,
+        "y": -711
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 799,
+        "y": -711
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 800,
+        "y": -775
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 793,
+        "y": -786
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 800,
+        "y": -775
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 809,
+        "y": -785
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 800,
+        "y": -776
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 800,
+        "y": -805
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 980,
+        "y": -804
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 986,
+        "y": -815
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 980,
+        "y": -803
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 987,
+        "y": -794
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 980,
+        "y": -803
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 800,
+        "y": -804
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 799,
+        "y": -711
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 710,
+        "y": -712
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 702,
+        "y": -718
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 710,
+        "y": -712
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 705,
+        "y": -703
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 711,
+        "y": -712
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 565,
+        "y": -713
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 582,
+        "y": -713
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 574,
+        "y": -720
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 581,
+        "y": -713
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 575,
+        "y": -706
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 581,
+        "y": -713
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 558,
+        "y": -714
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 557,
+        "y": -767
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 549,
+        "y": -777
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 557,
+        "y": -767
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 565,
+        "y": -777
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 557,
+        "y": -768
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 557,
+        "y": -713
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 448,
+        "y": -712
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 440,
+        "y": -720
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 448,
+        "y": -712
+      },
+      {
+        "floor": 1,
+        "pointId": null,
+        "pointName": null,
+        "x": 440,
+        "y": -704
+      }
+    ],
+    "type": "evacuation",
+    "color": "#dc2626"
+  }
+}

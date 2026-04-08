@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Редактор маршрутов</title>
   <style>
@@ -13,126 +13,72 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #eef2f7;
-      color: #2c3e50;
-    }
-
-    header {
-      background-color: #34495e;
-      color: #ecf0f1;
-      text-align: center;
-      padding: 1em 0;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .main-container {
       display: flex;
-      max-width: 1600px;
-      margin: 20px auto;
-      gap: 20px;
-      padding: 0 20px;
+      height: 100vh;
     }
 
+    /* Левая панель */
     .control-panel {
-      flex: 0 0 380px;
-      background-color: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      padding: 1.5em;
-      height: fit-content;
-      max-height: calc(100vh - 120px);
+      width: 360px;
+      background: #2d2d2d;
+      border-right: 1px solid #404040;
+      display: flex;
+      flex-direction: column;
       overflow-y: auto;
+      padding: 20px;
     }
 
-    .map-panel {
-      flex: 1;
-      background-color: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      padding: 1.5em;
-    }
-
-    .map-container {
-      position: relative;
-      width: 100%;
-      height: 650px;
-      background: #f5f7fa;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #d0d7de;
-    }
-
-    #mapCanvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      background: #f8fafc;
-      cursor: crosshair;
-    }
-
-    .tool-section {
-      margin-bottom: 20px;
+    .panel-section {
+      margin-bottom: 25px;
       padding-bottom: 20px;
-      border-bottom: 1px solid #ecf0f1;
+      border-bottom: 1px solid #404040;
     }
 
-    h2 {
-      font-size: 1.3em;
+    .panel-section h3 {
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Кнопки типа маршрута */
+    .route-type-buttons {
+      display: flex;
+      gap: 10px;
       margin-bottom: 15px;
-      color: #34495e;
     }
 
-    h3 {
-      font-size: 1em;
-      margin-bottom: 10px;
-      color: #7f8c8d;
-    }
-
-    select, button {
-      padding: 0.8em;
-      font-size: 0.95em;
-      border-radius: 6px;
-      border: 1.5px solid #bdc3c7;
-      width: 100%;
-      margin-bottom: 10px;
-      background: white;
-    }
-
-    button {
-      background-color: #2980b9;
-      color: white;
-      border: none;
+    .route-type-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #404040;
+      border-radius: 8px;
+      background: #2d2d2d;
+      color: #fff;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: bold;
       transition: all 0.2s;
     }
 
-    button:hover:not(:disabled) {
-      background-color: #1c5980;
+    .route-type-btn.normal.active {
+      background: #0078d4;
+      border-color: #0078d4;
     }
 
-    button.danger {
-      background-color: #e74c3c;
+    .route-type-btn.evacuation.active {
+      background: #dc2626;
+      border-color: #dc2626;
     }
 
-    button.danger:hover {
-      background-color: #c0392b;
-    }
-
-    button.success {
-      background-color: #27ae60;
-    }
-
-    button.success:hover {
-      background-color: #1e8449;
-    }
-
-    button:disabled {
-      background-color: #bdc3c7;
-      cursor: not-allowed;
-    }
-
+    /* Инструменты */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -142,60 +88,113 @@
 
     .tool-btn {
       padding: 10px;
-      border: 2px solid #ecf0f1;
-      border-radius: 8px;
-      background: white;
+      border: 1px solid #404040;
+      border-radius: 6px;
+      background: #2d2d2d;
+      color: #fff;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
-      font-weight: 600;
-      color: #2c3e50;
-      font-size: 0.9em;
     }
 
     .tool-btn.active {
-      border-color: #2980b9;
-      background-color: #ebf5ff;
-      color: #2980b9;
+      background: #0078d4;
+      border-color: #0078d4;
     }
 
     .tool-btn:hover {
-      background-color: #f8f9fa;
+      background: #404040;
     }
 
-    .routes-list {
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ecf0f1;
+    /* Кнопки действий */
+    .action-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
       border-radius: 6px;
-      margin-top: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: all 0.2s;
+    }
+
+    .action-btn.primary {
+      background: #0078d4;
+      color: white;
+    }
+
+    .action-btn.primary:hover {
+      background: #005a9e;
+    }
+
+    .action-btn.success {
+      background: #4caf50;
+      color: white;
+    }
+
+    .action-btn.success:hover {
+      background: #45a049;
+    }
+
+    .action-btn.danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .action-btn.danger:hover {
+      background: #b91c1c;
+    }
+
+    .action-btn.warning {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .action-btn.warning:hover {
+      background: #d97706;
+    }
+
+    /* Списки маршрутов */
+    .routes-list {
+      max-height: 250px;
+      overflow-y: auto;
+      border: 1px solid #404040;
+      border-radius: 6px;
+      margin-bottom: 10px;
     }
 
     .route-item {
-      padding: 12px;
-      border-bottom: 1px solid #ecf0f1;
+      padding: 10px;
+      border-bottom: 1px solid #404040;
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .route-item:hover {
-      background-color: #f0f7ff;
+      background: #363636;
     }
 
     .route-item.selected {
-      background-color: #d4e6f1;
-      border-left: 4px solid #2980b9;
+      background: #1e3a5f;
+      border-left: 3px solid #0078d4;
+    }
+
+    .route-item.evacuation.selected {
+      border-left-color: #dc2626;
+      background: #3d1a1a;
     }
 
     .route-name {
-      font-weight: 600;
-      font-size: 0.95em;
+      font-weight: bold;
       margin-bottom: 5px;
     }
 
+    .route-name.normal { color: #0078d4; }
+    .route-name.evacuation { color: #dc2626; }
+
     .route-points {
-      font-size: 0.8em;
-      color: #7f8c8d;
+      font-size: 11px;
+      color: #888;
     }
 
     .route-actions {
@@ -209,61 +208,65 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 0.8em;
-      font-weight: 600;
-    }
-
-    .edit-btn {
-      background-color: #f39c12;
-      color: white;
-    }
-
-    .delete-btn {
-      background-color: #e74c3c;
-      color: white;
-    }
-
-    .voice-btn {
-      background-color: #9b59b6;
-      color: white;
-    }
-
-    .floor-selector {
-      position: absolute;
-      left: 20px;
-      bottom: 20px;
-      background: #ffffff;
-      border: 1px solid #d0d7de;
-      border-radius: 30px;
-      display: flex;
-      overflow: hidden;
-      z-index: 10;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .floor-btn {
-      padding: 10px 20px;
-      border: none;
-      background: transparent;
-      color: #5f6b7a;
-      cursor: pointer;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: bold;
     }
 
-    .floor-btn:hover {
-      background: #f0f2f5;
+    .route-action-btn.edit { background: #f59e0b; color: white; }
+    .route-action-btn.delete { background: #dc2626; color: white; }
+    .route-action-btn.move { background: #0078d4; color: white; }
+
+    /* Выбор точек */
+    .select-group {
+      margin-bottom: 15px;
     }
 
-    .floor-btn.active {
-      background: #2980b9;
-      color: white;
+    .select-label {
+      font-size: 12px;
+      color: #aaa;
+      margin-bottom: 5px;
+      display: block;
     }
 
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #404040;
+      border-radius: 6px;
+      background: #363636;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    /* Статус */
+    .status-bar {
+      margin-top: 15px;
+      padding: 10px;
+      background: #363636;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #aaa;
+      border-left: 3px solid #0078d4;
+    }
+
+    /* Правая панель - карта */
+    .map-panel {
+      flex: 1;
+      position: relative;
+      background: #1e1e1e;
+    }
+
+    #mapCanvas {
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+    }
+
+    /* Элементы управления картой */
     .map-controls {
       position: absolute;
-      bottom: 20px;
       right: 20px;
+      top: 20px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -273,942 +276,979 @@
     .map-control-btn {
       width: 44px;
       height: 44px;
-      border: none;
-      border-radius: 50%;
-      background: #ffffff;
-      color: #34495e;
+      background: #2d2d2d;
+      border: 1px solid #404040;
+      border-radius: 8px;
+      color: #fff;
       font-size: 18px;
       cursor: pointer;
-      border: 1px solid #d0d7de;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: all 0.2s;
     }
 
     .map-control-btn:hover {
-      background: #f0f2f5;
+      background: #404040;
     }
 
+    /* Переключение этажей */
+    .floor-selector {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      background: #2d2d2d;
+      border: 1px solid #404040;
+      border-radius: 30px;
+      display: flex;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .floor-btn {
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      color: #aaa;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .floor-btn:hover {
+      background: #404040;
+    }
+
+    .floor-btn.active {
+      background: #0078d4;
+      color: white;
+    }
+
+    /* Подсказка */
     .point-tooltip {
       position: absolute;
-      background: #ffffff;
-      color: #2c3e50;
-      padding: 8px 12px;
+      background: #2d2d2d;
+      color: #fff;
+      padding: 6px 12px;
       border-radius: 6px;
-      font-size: 14px;
-      border: 1px solid #d0d7de;
+      font-size: 12px;
+      border: 1px solid #404040;
       pointer-events: none;
       z-index: 20;
       display: none;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .status-bar {
-      margin-top: 15px;
-      padding: 10px;
-      background-color: #f8f9fa;
-      border-radius: 6px;
-      font-size: 0.9em;
-      color: #2c3e50;
-      border-left: 4px solid #2980b9;
-    }
-
-    .info-box {
-      background-color: #f8f9fa;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 0.9em;
-      margin-bottom: 15px;
-      border-left: 4px solid #f39c12;
-      line-height: 1.5;
-    }
-
-    .voice-button-container {
-      display: flex;
-      gap: 5px;
-      margin-bottom: 10px;
-    }
-
-    .voice-button-container button {
-      flex: 1;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🛤️ Редактор маршрутов</h1>
-  </header>
-
   <div class="main-container">
     <!-- Левая панель -->
     <div class="control-panel">
-      <div class="tool-section">
-        <h2>🎯 Выбор точек</h2>
-        <div class="info-box">
-          <strong>Как создать маршрут:</strong><br>
-          1. Выберите начальную и конечную точки<br>
-          2. Нажмите "Начать рисование"<br>
-          3. Кликайте на карте для добавления точек<br>
-          4. Двойной клик - завершить<br>
-          5. Нажмите "Сохранить маршрут"
+      <div class="panel-section">
+        <h3>🎯 ТИП МАРШРУТА</h3>
+        <div class="route-type-buttons">
+          <button class="route-type-btn normal active" onclick="setRouteType('normal')">
+            🔵 ОБЫЧНЫЙ
+          </button>
+          <button class="route-type-btn evacuation" onclick="setRouteType('evacuation')">
+            🔴 ЭВАКУАЦИОННЫЙ
+          </button>
         </div>
-
-        <label>Начальная точка:</label>
-        <select id="start-point">
-          <option value="">Выберите...</option>
-        </select>
-
-        <label style="margin-top: 10px; display: block;">Конечная точка:</label>
-        <select id="end-point">
-          <option value="">Выберите...</option>
-        </select>
       </div>
 
-      <div class="tool-section">
-        <h2>🛠️ Инструменты</h2>
+      <div class="panel-section">
+        <h3>🛠️ ИНСТРУМЕНТЫ</h3>
         <div class="tools-grid">
-          <button class="tool-btn active" id="tool-select" data-tool="select">🖱️ Выбрать</button>
-          <button class="tool-btn" id="tool-draw" data-tool="draw">✏️ Рисовать</button>
-          <button class="tool-btn" id="tool-edit" data-tool="edit">✋ Редактировать</button>
+          <button class="tool-btn active" onclick="setTool('draw')">✏️ РИСОВАТЬ</button>
+          <button class="tool-btn" onclick="setTool('move')">✋ ДВИГАТЬ</button>
+          <button class="tool-btn" onclick="setTool('erase')">🗑️ СТЕРЕТЬ</button>
         </div>
 
-        <button class="success" id="start-drawing" disabled>✏️ Начать рисование</button>
-        <button class="success" id="save-route" disabled>💾 Сохранить маршрут</button>
-        <button class="danger" id="cancel-drawing">❌ Отменить рисование</button>
+        <button class="action-btn warning" id="cancelDrawBtn" style="display: none;" onclick="cancelDrawing()">
+          ❌ ОТМЕНИТЬ РИСОВАНИЕ
+        </button>
       </div>
 
-      <div class="tool-section">
-        <h2>📋 Сохраненные маршруты</h2>
-        <div class="routes-list" id="routes-list"></div>
-        <div class="voice-button-container">
-          <button class="success" id="configure-voice" disabled>🎤 Настроить голос</button>
-          <button class="danger" id="delete-all-routes">🗑️ Удалить все</button>
+      <div class="panel-section">
+        <h3>📍 ВЫБОР ТОЧЕК (для быстрого маршрута)</h3>
+        <div class="select-group">
+          <label class="select-label">🚩 ОТКУДА</label>
+          <select id="startPointSelect">
+            <option value="">Выберите...</option>
+          </select>
         </div>
+        <div class="select-group">
+          <label class="select-label">🏁 КУДА</label>
+          <select id="endPointSelect">
+            <option value="">Выберите...</option>
+          </select>
+        </div>
+        <button class="action-btn primary" id="buildQuickRouteBtn" disabled>
+          🚀 ПОСТРОИТЬ БЫСТРЫЙ МАРШРУТ
+        </button>
       </div>
 
-      <div class="status-bar" id="status-bar">
-        Готов к работе. Выберите инструмент.
+      <div class="panel-section">
+        <h3>📋 СОХРАНЕННЫЕ МАРШРУТЫ</h3>
+        <div class="routes-list" id="routesList"></div>
+        <button class="action-btn success" id="saveCurrentRouteBtn" style="display: none;" onclick="saveCurrentRoute()">
+          💾 СОХРАНИТЬ ТЕКУЩИЙ МАРШРУТ
+        </button>
+        <button class="action-btn danger" onclick="deleteAllRoutes()">
+          🗑️ УДАЛИТЬ ВСЕ
+        </button>
+      </div>
+
+      <div class="status-bar" id="statusBar">
+        ✅ Готов к работе. Выберите тип маршрута и начните рисовать.
       </div>
     </div>
 
-    <!-- Правая панель с картой -->
+    <!-- Правая панель - карта -->
     <div class="map-panel">
-      <h2>🗺️ Карта школы</h2>
-      <div class="map-container">
-        <canvas id="mapCanvas"></canvas>
+      <canvas id="mapCanvas"></canvas>
 
-        <div class="map-controls">
-          <button class="map-control-btn" id="zoomIn">➕</button>
-          <button class="map-control-btn" id="zoomOut">➖</button>
-          <button class="map-control-btn" id="fitView">⛶</button>
-        </div>
-
-        <div class="floor-selector">
-          <button class="floor-btn active" data-floor="1">1</button>
-          <button class="floor-btn" data-floor="2">2</button>
-          <button class="floor-btn" data-floor="3">3</button>
-        </div>
-
-        <div class="point-tooltip" id="pointTooltip"></div>
+      <div class="map-controls">
+        <button class="map-control-btn" onclick="zoomIn()">➕</button>
+        <button class="map-control-btn" onclick="zoomOut()">➖</button>
+        <button class="map-control-btn" onclick="fitView()">⛶</button>
       </div>
+
+      <div class="floor-selector">
+        <button class="floor-btn active" data-floor="1" onclick="changeFloor(1)">1</button>
+        <button class="floor-btn" data-floor="2" onclick="changeFloor(2)">2</button>
+        <button class="floor-btn" data-floor="3" onclick="changeFloor(3)">3</button>
+      </div>
+
+      <div class="point-tooltip" id="pointTooltip"></div>
     </div>
   </div>
 
   <script>
-    class RouteEditor {
-      constructor() {
-        this.canvas = document.getElementById('mapCanvas');
-        this.ctx = this.canvas.getContext('2d');
+    // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
+    let points = [];
+    let walls = {1: [], 2: [], 3: []};
+    let routes = {};           // обычные маршруты
+    let evacuationRoutes = {}; // эвакуационные маршруты
 
-        this.resizeCanvas();
+    let currentFloor = 1;
+    let currentRouteType = 'normal';
+    let currentTool = 'draw';
 
-        this.points = [];
-        this.walls = {1: [], 2: [], 3: []};
-        this.routes = {};
-        this.currentFloor = 1;
+    // Текущий рисуемый маршрут
+    let isDrawing = false;
+    let currentRoutePoints = [];
 
-        this.currentRoute = {
-          startId: null,
-          endId: null,
-          points: []
-        };
-        this.isDrawing = false;
-        this.selectedRouteKey = null;
-        this.editingPointIndex = -1;
-        this.isDraggingPoint = false;
+    // Выбранный маршрут
+    let selectedRouteKey = null;
+    let isDraggingPoint = false;
+    let dragPointIndex = -1;
 
-        this.currentTool = 'select';
+    // Параметры карты
+    let offsetX = 0, offsetY = 0, scale = 1;
+    let isPanning = false, lastX = 0, lastY = 0;
 
-        this.offsetX = 0;
-        this.offsetY = 0;
-        this.scale = 1;
-        this.isDragging = false;
-        this.lastX = 0;
-        this.lastY = 0;
+    // DOM элементы
+    const canvas = document.getElementById('mapCanvas');
+    const ctx = canvas.getContext('2d');
+    const tooltip = document.getElementById('pointTooltip');
+    const statusBar = document.getElementById('statusBar');
 
-        this.hoveredPoint = null;
-        this.tooltip = document.getElementById('pointTooltip');
+    // ========== ИНИЦИАЛИЗАЦИЯ ==========
+    function resizeCanvas() {
+      canvas.width = window.innerWidth - 360;
+      canvas.height = window.innerHeight;
+      draw();
+    }
 
-        this.startPointSelect = document.getElementById('start-point');
-        this.endPointSelect = document.getElementById('end-point');
-        this.startDrawingBtn = document.getElementById('start-drawing');
-        this.saveRouteBtn = document.getElementById('save-route');
-        this.cancelDrawingBtn = document.getElementById('cancel-drawing');
-        this.deleteAllBtn = document.getElementById('delete-all-routes');
-        this.configureVoiceBtn = document.getElementById('configure-voice');
-        this.statusBar = document.getElementById('status-bar');
-        this.routesList = document.getElementById('routes-list');
+    async function loadData() {
+      try {
+        const pointsRes = await fetch('/api/points');
+        points = await pointsRes.json();
 
-        this.init();
-      }
-
-      resizeCanvas() {
-        this.canvas.width = this.canvas.parentElement.clientWidth;
-        this.canvas.height = this.canvas.parentElement.clientHeight;
-      }
-
-      async init() {
-        await this.loadData();
-        await this.loadRoutes();
-        this.setupControls();
-        this.setupMouseEvents();
-        this.fitToScreen();
-        this.populateSelects();
-        this.renderRoutesList();
-
-        window.addEventListener('resize', () => {
-          this.resizeCanvas();
-          this.fitToScreen();
-        });
-      }
-
-      async loadData() {
-        try {
-          const pointsRes = await fetch('/api/points');
-          this.points = await pointsRes.json();
-
-          const wallsRes = await fetch('/api/load-map');
-          const wallsData = await wallsRes.json();
-
-          if (wallsData.floors) {
-            this.walls = {
-              1: wallsData.floors[1]?.walls || [],
-              2: wallsData.floors[2]?.walls || [],
-              3: wallsData.floors[3]?.walls || []
-            };
-          }
-        } catch (error) {
-          console.error('Ошибка загрузки:', error);
-        }
-      }
-
-      async loadRoutes() {
-        try {
-          const routesRes = await fetch('/api/routes');
-          this.routes = await routesRes.json();
-        } catch (error) {
-          console.error('Ошибка загрузки маршрутов:', error);
-          this.routes = {};
-        }
-      }
-
-      async saveRoutes() {
-        try {
-          await fetch('/api/routes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.routes)
-          });
-          this.updateStatus('✅ Маршруты сохранены');
-        } catch (error) {
-          console.error('Ошибка сохранения:', error);
-          this.updateStatus('❌ Ошибка сохранения');
-        }
-      }
-
-      populateSelects() {
-        this.startPointSelect.innerHTML = '<option value="">Выберите...</option>';
-        this.endPointSelect.innerHTML = '<option value="">Выберите...</option>';
-
-        const sortedPoints = [...this.points].sort((a, b) => a.name.localeCompare(b.name));
-
-        sortedPoints.forEach(point => {
-          const icon = this.getCategoryIcon(point.category);
-          const optionText = `${icon} ${point.name} (${point.floor} этаж)`;
-
-          const option1 = document.createElement('option');
-          option1.value = point.id;
-          option1.textContent = optionText;
-          this.startPointSelect.appendChild(option1);
-
-          const option2 = document.createElement('option');
-          option2.value = point.id;
-          option2.textContent = optionText;
-          this.endPointSelect.appendChild(option2);
-        });
-      }
-
-      getCategoryIcon(category) {
-        const icons = {
-          'entrance': '🚪',
-          'classroom': '📚',
-          'toilet': '🚻',
-          'cafeteria': '🍽️',
-          'stair': '⬆️',
-          'elevator': '🛗',
-          'hall': '🏛️',
-          'library': '📖'
-        };
-        return icons[category] || '📍';
-      }
-
-      setupControls() {
-        document.getElementById('zoomIn').addEventListener('click', () => {
-          this.scale = Math.min(this.scale * 1.2, 3);
-          this.draw();
-        });
-
-        document.getElementById('zoomOut').addEventListener('click', () => {
-          this.scale = Math.max(this.scale / 1.2, 0.3);
-          this.draw();
-        });
-
-        document.getElementById('fitView').addEventListener('click', () => {
-          this.fitToScreen();
-        });
-
-        document.querySelectorAll('.floor-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            document.querySelectorAll('.floor-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            this.currentFloor = parseInt(btn.dataset.floor);
-            this.fitToScreen();
-          });
-        });
-
-        document.querySelectorAll('[data-tool]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            document.querySelectorAll('[data-tool]').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            this.currentTool = btn.dataset.tool;
-            this.updateStatus(`Режим: ${btn.textContent.trim()}`);
-          });
-        });
-
-        this.startPointSelect.addEventListener('change', () => this.updateDrawingButton());
-        this.endPointSelect.addEventListener('change', () => this.updateDrawingButton());
-
-        this.startDrawingBtn.addEventListener('click', () => this.startDrawing());
-        this.saveRouteBtn.addEventListener('click', () => this.saveCurrentRoute());
-        this.cancelDrawingBtn.addEventListener('click', () => this.cancelDrawing());
-        this.deleteAllBtn.addEventListener('click', () => this.deleteAllRoutes());
-
-        this.configureVoiceBtn.addEventListener('click', () => this.configureVoice());
-      }
-
-      updateDrawingButton() {
-        this.startDrawingBtn.disabled = !(this.startPointSelect.value && this.endPointSelect.value);
-      }
-
-      startDrawing() {
-        this.isDrawing = true;
-        this.currentRoute = {
-          startId: this.startPointSelect.value,
-          endId: this.endPointSelect.value,
-          points: []
-        };
-
-        const startPoint = this.points.find(p => p.id === this.currentRoute.startId);
-        if (startPoint) {
-          this.currentRoute.points.push({
-            x: startPoint.x,
-            y: startPoint.y,
-            floor: startPoint.floor,
-            pointId: startPoint.id,
-            pointName: startPoint.name
-          });
-        }
-
-        this.updateStatus('✏️ Рисуйте маршрут: кликайте для добавления точек, двойной клик для завершения');
-        this.draw();
-      }
-
-      cancelDrawing() {
-        this.isDrawing = false;
-        this.currentRoute.points = [];
-        this.updateStatus('Рисование отменено');
-        this.draw();
-      }
-
-      saveCurrentRoute() {
-        if (this.currentRoute.points.length < 2) {
-          alert('Нарисуйте путь сначала!');
-          return;
-        }
-
-        const endPoint = this.points.find(p => p.id === this.currentRoute.endId);
-        if (endPoint) {
-          const hasEnd = this.currentRoute.points.some(p => p.pointId === endPoint.id);
-          if (!hasEnd) {
-            this.currentRoute.points.push({
-              x: endPoint.x,
-              y: endPoint.y,
-              floor: endPoint.floor,
-              pointId: endPoint.id,
-              pointName: endPoint.name
-            });
+        const wallsRes = await fetch('/api/load-map');
+        const wallsData = await wallsRes.json();
+        if (wallsData.floors) {
+          for (let i = 1; i <= 3; i++) {
+            walls[i] = wallsData.floors[i]?.walls || [];
           }
         }
 
-        const routeKey = `${this.currentRoute.startId}_${this.currentRoute.endId}`;
+        const routesRes = await fetch('/api/routes');
+        routes = await routesRes.json();
 
-        this.routes[routeKey] = {
-          startId: this.currentRoute.startId,
-          endId: this.currentRoute.endId,
-          points: this.currentRoute.points.map(p => ({ ...p }))
+        const evacRes = await fetch('/api/evacuation-routes');
+        evacuationRoutes = await evacRes.json();
+
+        populateSelects();
+        renderRoutesList();
+        fitToScreen();
+        updateStatus('✅ Данные загружены');
+      } catch (error) {
+        console.error('Ошибка:', error);
+        updateStatus('❌ Ошибка загрузки');
+      }
+    }
+
+    function populateSelects() {
+      const startSelect = document.getElementById('startPointSelect');
+      const endSelect = document.getElementById('endPointSelect');
+
+      startSelect.innerHTML = '<option value="">Выберите...</option>';
+      endSelect.innerHTML = '<option value="">Выберите...</option>';
+
+      const sortedPoints = [...points].sort((a, b) => a.name.localeCompare(b.name));
+
+      sortedPoints.forEach(point => {
+        const option = document.createElement('option');
+        option.value = point.id;
+        option.textContent = `${point.name} (${point.floor} этаж)`;
+        startSelect.appendChild(option.cloneNode(true));
+        endSelect.appendChild(option);
+      });
+
+      startSelect.addEventListener('change', () => {
+        document.getElementById('buildQuickRouteBtn').disabled = !(startSelect.value && endSelect.value);
+      });
+
+      endSelect.addEventListener('change', () => {
+        document.getElementById('buildQuickRouteBtn').disabled = !(startSelect.value && endSelect.value);
+      });
+    }
+
+    // ========== УПРАВЛЕНИЕ ==========
+    function setRouteType(type) {
+      currentRouteType = type;
+      document.querySelectorAll('.route-type-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.route-type-btn.${type}`).classList.add('active');
+      updateStatus(`Тип маршрута: ${type === 'normal' ? '🔵 Обычный' : '🔴 ЭВАКУАЦИОННЫЙ'}`);
+    }
+
+    function setTool(tool) {
+      currentTool = tool;
+      document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      updateStatus(`Режим: ${tool === 'draw' ? 'Рисование' : tool === 'move' ? 'Перемещение' : 'Стирание'}`);
+    }
+
+    function changeFloor(floor) {
+      currentFloor = floor;
+      document.querySelectorAll('.floor-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (parseInt(btn.dataset.floor) === floor) btn.classList.add('active');
+      });
+      draw();
+    }
+
+    // ========== РИСОВАНИЕ МАРШРУТА ==========
+    function startDrawing(x, y) {
+      isDrawing = true;
+      currentRoutePoints = [{x: Math.round(x), y: Math.round(y), floor: currentFloor}];
+      document.getElementById('cancelDrawBtn').style.display = 'block';
+      document.getElementById('saveCurrentRouteBtn').style.display = 'block';
+      updateStatus('✏️ Рисуйте: кликайте для добавления точек, двойной клик для завершения');
+      draw();
+    }
+
+    function addPointToRoute(x, y) {
+      if (!isDrawing) return;
+
+      const nearbyPoint = findNearestPoint(x, y, 15);
+      if (nearbyPoint) {
+        currentRoutePoints.push({
+          x: nearbyPoint.x,
+          y: nearbyPoint.y,
+          floor: nearbyPoint.floor,
+          pointId: nearbyPoint.id,
+          pointName: nearbyPoint.name
+        });
+      } else {
+        currentRoutePoints.push({
+          x: Math.round(x),
+          y: Math.round(y),
+          floor: currentFloor,
+          pointId: null,
+          pointName: null
+        });
+      }
+      draw();
+      updateStatus(`➕ Добавлена точка ${currentRoutePoints.length}`);
+    }
+
+    async function finishDrawing() {
+      if (!isDrawing || currentRoutePoints.length < 2) {
+        cancelDrawing();
+        return;
+      }
+
+      const typeText = currentRouteType === 'normal' ? 'обычный' : 'ЭВАКУАЦИОННЫЙ';
+      const defaultName = currentRouteType === 'normal' ? 'Новый маршрут' : '🚨 ЭВАКУАЦИОННЫЙ МАРШРУТ';
+      const name = prompt(`Введите название ${typeText} маршрута:`, defaultName);
+
+      if (name) {
+        const routeKey = `route_${Date.now()}`;
+        const routeData = {
+          name: name,
+          points: [...currentRoutePoints],
+          type: currentRouteType
         };
 
-        this.saveRoutes();
-        this.renderRoutesList();
-        this.cancelDrawing();
-      }
-
-      deleteAllRoutes() {
-        if (confirm('Удалить все маршруты?')) {
-          this.routes = {};
-          this.saveRoutes();
-          this.renderRoutesList();
-          this.draw();
-        }
-      }
-
-      configureVoice() {
-        if (this.selectedRouteKey) {
-          window.location.href = `/route-voice-editor?route=${this.selectedRouteKey}`;
+        if (currentRouteType === 'normal') {
+          routes[routeKey] = routeData;
         } else {
-          alert('Сначала выберите маршрут из списка');
+          evacuationRoutes[routeKey] = routeData;
         }
+
+        await saveAllRoutes();
+        renderRoutesList();
+        updateStatus(`✅ Маршрут "${name}" сохранен (${currentRoutePoints.length} точек)`);
       }
 
-      setupMouseEvents() {
-        this.canvas.addEventListener('mousedown', (e) => {
-          const rect = this.canvas.getBoundingClientRect();
-          const x = (e.clientX - rect.left - this.offsetX) / this.scale;
-          const y = (e.clientY - rect.top - this.offsetY) / this.scale;
+      cancelDrawing();
+    }
 
-          if (e.ctrlKey) {
-            this.isDragging = true;
-            this.lastX = e.clientX;
-            this.lastY = e.clientY;
+    function cancelDrawing() {
+      isDrawing = false;
+      currentRoutePoints = [];
+      document.getElementById('cancelDrawBtn').style.display = 'none';
+      document.getElementById('saveCurrentRouteBtn').style.display = 'none';
+      draw();
+      updateStatus('Рисование отменено');
+    }
+
+    async function saveCurrentRoute() {
+      if (currentRoutePoints.length < 2) {
+        alert('Нарисуйте маршрут сначала (минимум 2 точки)');
+        return;
+      }
+      await finishDrawing();
+    }
+
+    // ========== РЕДАКТИРОВАНИЕ ==========
+    function startEditing(x, y) {
+      if (!selectedRouteKey) {
+        // Пытаемся выбрать маршрут
+        selectRoute(x, y);
+        if (!selectedRouteKey) return;
+      }
+
+      const route = getRouteByKey(selectedRouteKey);
+      if (!route) return;
+
+      let minDist = 20;
+      let foundIndex = -1;
+
+      route.points.forEach((point, index) => {
+        const dist = Math.sqrt(Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2));
+        if (dist < minDist) {
+          minDist = dist;
+          foundIndex = index;
+        }
+      });
+
+      if (foundIndex >= 0) {
+        dragPointIndex = foundIndex;
+        isDraggingPoint = true;
+        updateStatus(`✋ Перемещайте точку ${foundIndex + 1}`);
+      }
+    }
+
+    function dragPoint(e) {
+      if (!isDraggingPoint || dragPointIndex < 0) return;
+
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left - offsetX) / scale;
+      const y = (e.clientY - rect.top - offsetY) / scale;
+
+      const route = getRouteByKey(selectedRouteKey);
+      if (route && route.points[dragPointIndex]) {
+        route.points[dragPointIndex].x = Math.round(x);
+        route.points[dragPointIndex].y = Math.round(y);
+
+        const nearbyPoint = findNearestPoint(x, y, 15);
+        if (nearbyPoint) {
+          route.points[dragPointIndex].pointId = nearbyPoint.id;
+          route.points[dragPointIndex].pointName = nearbyPoint.name;
+        }
+
+        draw();
+      }
+    }
+
+    function stopEditing() {
+      if (isDraggingPoint) {
+        saveAllRoutes();
+        updateStatus('✅ Точка перемещена');
+      }
+      isDraggingPoint = false;
+      dragPointIndex = -1;
+    }
+
+    // ========== УДАЛЕНИЕ ==========
+    function eraseAt(x, y) {
+      // Удаляем точку из маршрута
+      for (const [key, route] of Object.entries({...routes, ...evacuationRoutes})) {
+        for (let i = 0; i < route.points.length; i++) {
+          const point = route.points[i];
+          const dist = Math.sqrt(Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2));
+          if (dist < 20 / scale) {
+            if (confirm(`Удалить точку из маршрута "${route.name}"?`)) {
+              route.points.splice(i, 1);
+              if (route.points.length < 2) {
+                delete routes[key];
+                delete evacuationRoutes[key];
+                if (selectedRouteKey === key) selectedRouteKey = null;
+              }
+              saveAllRoutes();
+              renderRoutesList();
+              draw();
+              updateStatus('✅ Точка удалена');
+            }
             return;
           }
-
-          switch(this.currentTool) {
-            case 'draw':
-              if (this.isDrawing) {
-                this.addPointToRoute(x, y);
-              }
-              break;
-            case 'edit':
-              this.startEditing(x, y);
-              break;
-            case 'select':
-              this.selectRoute(x, y);
-              break;
-          }
-        });
-
-        this.canvas.addEventListener('dblclick', () => {
-          if (this.isDrawing) {
-            this.isDrawing = false;
-            this.saveRouteBtn.disabled = false;
-            this.updateStatus('Рисование завершено. Нажмите "Сохранить маршрут"');
-          }
-        });
-
-        this.canvas.addEventListener('mousemove', (e) => {
-          if (this.isDragging) {
-            const dx = e.clientX - this.lastX;
-            const dy = e.clientY - this.lastY;
-            this.offsetX += dx;
-            this.offsetY += dy;
-            this.lastX = e.clientX;
-            this.lastY = e.clientY;
-            this.draw();
-          } else if (this.isDraggingPoint && this.selectedRouteKey && this.editingPointIndex >= 0) {
-            this.dragPoint(e);
-          } else {
-            this.checkHover(e);
-          }
-        });
-
-        this.canvas.addEventListener('mouseup', () => {
-          if (this.isDraggingPoint && this.selectedRouteKey) {
-            this.saveRoutes();
-          }
-          this.isDragging = false;
-          this.isDraggingPoint = false;
-          this.editingPointIndex = -1;
-        });
-
-        this.canvas.addEventListener('wheel', (e) => {
-          e.preventDefault();
-
-          const rect = this.canvas.getBoundingClientRect();
-          const mouseX = e.clientX - rect.left;
-          const mouseY = e.clientY - rect.top;
-
-          const worldX = (mouseX - this.offsetX) / this.scale;
-          const worldY = (mouseY - this.offsetY) / this.scale;
-
-          const delta = e.deltaY > 0 ? 0.9 : 1.1;
-          const newScale = Math.min(Math.max(0.3, this.scale * delta), 3);
-
-          this.offsetX = mouseX - worldX * newScale;
-          this.offsetY = mouseY - worldY * newScale;
-          this.scale = newScale;
-
-          this.draw();
-        });
-      }
-
-      addPointToRoute(x, y) {
-        const nearbyPoint = this.findNearestPoint(x, y, 15);
-
-        if (nearbyPoint) {
-          this.currentRoute.points.push({
-            x: nearbyPoint.x,
-            y: nearbyPoint.y,
-            floor: nearbyPoint.floor,
-            pointId: nearbyPoint.id,
-            pointName: nearbyPoint.name
-          });
-        } else {
-          this.currentRoute.points.push({
-            x: Math.round(x),
-            y: Math.round(y),
-            floor: this.currentFloor,
-            pointId: null,
-            pointName: null
-          });
         }
-        this.draw();
       }
+    }
 
-      startEditing(x, y) {
-        if (!this.selectedRouteKey) return;
+    function deleteRoute(key) {
+      if (confirm('Удалить этот маршрут?')) {
+        delete routes[key];
+        delete evacuationRoutes[key];
+        if (selectedRouteKey === key) selectedRouteKey = null;
+        saveAllRoutes();
+        renderRoutesList();
+        draw();
+        updateStatus('✅ Маршрут удален');
+      }
+    }
 
-        const route = this.routes[this.selectedRouteKey];
-        if (!route) return;
+    function deleteAllRoutes() {
+      if (confirm('Удалить ВСЕ маршруты?')) {
+        routes = {};
+        evacuationRoutes = {};
+        selectedRouteKey = null;
+        saveAllRoutes();
+        renderRoutesList();
+        draw();
+        updateStatus('✅ Все маршруты удалены');
+      }
+    }
 
-        let minDist = 20;
-        let foundIndex = -1;
+    // ========== ВЫБОР МАРШРУТА ==========
+    function selectRoute(x, y) {
+      let minDist = 20;
+      let foundKey = null;
 
-        route.points.forEach((point, index) => {
-          const dist = Math.sqrt(
-            Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2)
-          );
+      for (const [key, route] of Object.entries({...routes, ...evacuationRoutes})) {
+        for (let i = 0; i < route.points.length - 1; i++) {
+          const p1 = route.points[i];
+          const p2 = route.points[i + 1];
+          const dist = pointToLineDistance(x, y, p1.x, p1.y, p2.x, p2.y);
           if (dist < minDist) {
             minDist = dist;
-            foundIndex = index;
-          }
-        });
-
-        if (foundIndex >= 0) {
-          this.editingPointIndex = foundIndex;
-          this.isDraggingPoint = true;
-        }
-      }
-
-      dragPoint(e) {
-        if (!this.selectedRouteKey || this.editingPointIndex < 0) return;
-
-        const rect = this.canvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left - this.offsetX) / this.scale;
-        const y = (e.clientY - rect.top - this.offsetY) / this.scale;
-
-        const route = this.routes[this.selectedRouteKey];
-        if (route && route.points[this.editingPointIndex]) {
-          route.points[this.editingPointIndex].x = Math.round(x);
-          route.points[this.editingPointIndex].y = Math.round(y);
-
-          const nearbyPoint = this.findNearestPoint(x, y, 15);
-          if (nearbyPoint) {
-            route.points[this.editingPointIndex].pointId = nearbyPoint.id;
-            route.points[this.editingPointIndex].pointName = nearbyPoint.name;
-          } else {
-            route.points[this.editingPointIndex].pointId = null;
-            route.points[this.editingPointIndex].pointName = null;
-          }
-
-          this.draw();
-        }
-      }
-
-      selectRoute(x, y) {
-        let minDist = 20;
-        let selectedKey = null;
-
-        for (const [key, route] of Object.entries(this.routes)) {
-          for (let i = 0; i < route.points.length - 1; i++) {
-            const p1 = route.points[i];
-            const p2 = route.points[i + 1];
-
-            const dist = this.pointToLineDistance(x, y, p1.x, p1.y, p2.x, p2.y);
-            if (dist < minDist) {
-              minDist = dist;
-              selectedKey = key;
-            }
+            foundKey = key;
           }
         }
-
-        if (selectedKey) {
-          this.selectedRouteKey = selectedKey;
-          this.configureVoiceBtn.disabled = false;
-          this.renderRoutesList();
-          this.draw();
-          this.updateStatus(`Выбран маршрут`);
-        } else {
-          this.selectedRouteKey = null;
-          this.configureVoiceBtn.disabled = true;
-        }
       }
 
-      findNearestPoint(x, y, threshold = 20) {
-        const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
-        let nearest = null;
-        let minDist = Infinity;
+      if (foundKey) {
+        selectedRouteKey = foundKey;
+        renderRoutesList();
+        draw();
+        updateStatus(`🔍 Выбран маршрут: ${getRouteByKey(foundKey)?.name}`);
+      } else {
+        selectedRouteKey = null;
+        renderRoutesList();
+        draw();
+      }
+    }
 
-        floorPoints.forEach(point => {
-          const dist = Math.sqrt(
-            Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2)
-          );
-          if (dist < threshold && dist < minDist) {
-            minDist = dist;
-            nearest = point;
-          }
-        });
+    function selectRouteByKey(key) {
+      selectedRouteKey = key;
+      renderRoutesList();
+      draw();
+      updateStatus(`🔍 Выбран маршрут: ${getRouteByKey(key)?.name}`);
+    }
 
-        return nearest;
+    function getRouteByKey(key) {
+      return routes[key] || evacuationRoutes[key];
+    }
+
+    // ========== БЫСТРЫЙ МАРШРУТ ==========
+    async function buildQuickRoute() {
+      const startId = document.getElementById('startPointSelect').value;
+      const endId = document.getElementById('endPointSelect').value;
+
+      if (!startId || !endId) {
+        alert('Выберите начальную и конечную точки');
+        return;
       }
 
-      pointToLineDistance(px, py, x1, y1, x2, y2) {
-        const A = px - x1;
-        const B = py - y1;
-        const C = x2 - x1;
-        const D = y2 - y1;
+      const startPoint = points.find(p => p.id === startId);
+      const endPoint = points.find(p => p.id === endId);
 
-        const dot = A * C + B * D;
-        const len_sq = C * C + D * D;
-        let param = -1;
+      if (!startPoint || !endPoint) return;
 
-        if (len_sq !== 0) param = dot / len_sq;
+      // Создаем прямой маршрут
+      const routeKey = `quick_${Date.now()}`;
+      const routeData = {
+        name: `${startPoint.name} → ${endPoint.name}`,
+        points: [
+          {x: startPoint.x, y: startPoint.y, floor: startPoint.floor, pointId: startPoint.id, pointName: startPoint.name},
+          {x: endPoint.x, y: endPoint.y, floor: endPoint.floor, pointId: endPoint.id, pointName: endPoint.name}
+        ],
+        type: currentRouteType
+      };
 
-        let xx, yy;
-
-        if (param < 0) {
-          xx = x1;
-          yy = y1;
-        } else if (param > 1) {
-          xx = x2;
-          yy = y2;
-        } else {
-          xx = x1 + param * C;
-          yy = y1 + param * D;
-        }
-
-        const dx = px - xx;
-        const dy = py - yy;
-        return Math.sqrt(dx * dx + dy * dy);
+      if (currentRouteType === 'normal') {
+        routes[routeKey] = routeData;
+      } else {
+        evacuationRoutes[routeKey] = routeData;
       }
 
-      fitToScreen() {
-        const walls = this.walls[this.currentFloor];
-        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      await saveAllRoutes();
+      renderRoutesList();
+      selectedRouteKey = routeKey;
+      draw();
+      updateStatus(`✅ Быстрый маршрут создан: ${routeData.name}`);
+    }
 
-        walls.forEach(wall => {
-          minX = Math.min(minX, wall.x1, wall.x2);
-          minY = Math.min(minY, wall.y1, wall.y2);
-          maxX = Math.max(maxX, wall.x1, wall.x2);
-          maxY = Math.max(maxY, wall.y1, wall.y2);
+    // ========== СОХРАНЕНИЕ ==========
+    async function saveAllRoutes() {
+      try {
+        await fetch('/api/routes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(routes)
         });
 
-        const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
-        floorPoints.forEach(point => {
-          minX = Math.min(minX, point.x);
-          minY = Math.min(minY, point.y);
-          maxX = Math.max(maxX, point.x);
-          maxY = Math.max(maxY, point.y);
+        await fetch('/api/evacuation-routes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(evacuationRoutes)
         });
 
-        if (minX === Infinity) {
-          this.offsetX = this.canvas.width / 2 - 400;
-          this.offsetY = this.canvas.height / 2 - 300;
-          this.scale = 1;
-          this.draw();
-          return;
+        updateStatus('✅ Все маршруты сохранены');
+      } catch (error) {
+        console.error('Ошибка сохранения:', error);
+        updateStatus('❌ Ошибка сохранения');
+      }
+    }
+
+    // ========== ОТРИСОВКА КАРТЫ ==========
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(offsetX, offsetY);
+      ctx.scale(scale, scale);
+
+      drawGrid();
+      drawWalls();
+      drawRoutes(routes, '#0078d4', 3);
+      drawRoutes(evacuationRoutes, '#dc2626', 5);
+
+      if (selectedRouteKey) {
+        drawSelectedRoute(getRouteByKey(selectedRouteKey));
+      }
+
+      if (isDrawing && currentRoutePoints.length > 0) {
+        drawCurrentRoute();
+      }
+
+      drawPoints();
+
+      ctx.restore();
+    }
+
+    function drawGrid() {
+      ctx.strokeStyle = '#333';
+      ctx.lineWidth = 0.5 / scale;
+      const step = 50;
+      const startX = -offsetX / scale;
+      const startY = -offsetY / scale;
+      const endX = startX + canvas.width / scale;
+      const endY = startY + canvas.height / scale;
+
+      for (let x = Math.floor(startX / step) * step; x < endX; x += step) {
+        ctx.beginPath();
+        ctx.moveTo(x, startY);
+        ctx.lineTo(x, endY);
+        ctx.stroke();
+      }
+      for (let y = Math.floor(startY / step) * step; y < endY; y += step) {
+        ctx.beginPath();
+        ctx.moveTo(startX, y);
+        ctx.lineTo(endX, y);
+        ctx.stroke();
+      }
+    }
+
+    function drawWalls() {
+      ctx.strokeStyle = '#4a90e2';
+      ctx.lineWidth = 4 / scale;
+      walls[currentFloor].forEach(wall => {
+        ctx.beginPath();
+        ctx.moveTo(wall.x1, wall.y1);
+        ctx.lineTo(wall.x2, wall.y2);
+        ctx.stroke();
+      });
+    }
+
+    function drawRoutes(routesData, color, width) {
+      for (const [key, route] of Object.entries(routesData)) {
+        const pointsList = route.points;
+        if (pointsList.length < 2) continue;
+
+        const isSelected = key === selectedRouteKey;
+        ctx.strokeStyle = isSelected ? (color === '#0078d4' ? '#f59e0b' : '#ff8888') : color;
+        ctx.lineWidth = (isSelected ? width + 2 : width) / scale;
+        ctx.globalAlpha = isSelected ? 1 : 0.6;
+
+        ctx.beginPath();
+        ctx.moveTo(pointsList[0].x, pointsList[0].y);
+        for (let i = 1; i < pointsList.length; i++) {
+          ctx.lineTo(pointsList[i].x, pointsList[i].y);
         }
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
 
+    function drawSelectedRoute(route) {
+      if (!route || route.points.length < 2) return;
+
+      const color = route.type === 'normal' ? '#0078d4' : '#dc2626';
+
+      // Белая обводка для выделения
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 8 / scale;
+      ctx.beginPath();
+      ctx.moveTo(route.points[0].x, route.points[0].y);
+      for (let i = 1; i < route.points.length; i++) {
+        ctx.lineTo(route.points[i].x, route.points[i].y);
+      }
+      ctx.stroke();
+
+      // Основная линия
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 5 / scale;
+      ctx.beginPath();
+      ctx.moveTo(route.points[0].x, route.points[0].y);
+      for (let i = 1; i < route.points.length; i++) {
+        ctx.lineTo(route.points[i].x, route.points[i].y);
+      }
+      ctx.stroke();
+
+      // Точки
+      route.points.forEach((point, index) => {
+        ctx.fillStyle = index === 0 ? '#4caf50' : (index === route.points.length - 1 ? '#f44336' : color);
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 6 / scale, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2 / scale;
+        ctx.stroke();
+      });
+    }
+
+    function drawCurrentRoute() {
+      if (currentRoutePoints.length < 2) return;
+
+      const color = currentRouteType === 'normal' ? '#0078d4' : '#dc2626';
+
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 4 / scale;
+      ctx.setLineDash([8 / scale, 4 / scale]);
+
+      ctx.beginPath();
+      ctx.moveTo(currentRoutePoints[0].x, currentRoutePoints[0].y);
+      for (let i = 1; i < currentRoutePoints.length; i++) {
+        ctx.lineTo(currentRoutePoints[i].x, currentRoutePoints[i].y);
+      }
+      if (lastMousePoint) {
+        ctx.lineTo(lastMousePoint.x, lastMousePoint.y);
+      }
+      ctx.stroke();
+
+      ctx.fillStyle = color;
+      currentRoutePoints.forEach(point => {
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 5 / scale, 0, 2 * Math.PI);
+        ctx.fill();
+      });
+
+      ctx.setLineDash([]);
+    }
+
+    let lastMousePoint = null;
+
+    function drawPoints() {
+      const floorPoints = points.filter(p => p.floor === currentFloor);
+
+      floorPoints.forEach(point => {
+        let color = '#95a5a6';
+        if (point.category === 'classroom') color = '#3498db';
+        else if (point.category === 'entrance') color = '#27ae60';
+        else if (point.category === 'toilet') color = '#e67e22';
+        else if (point.category === 'cafeteria') color = '#e74c3c';
+
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 7 / scale, 0, 2 * Math.PI);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2 / scale;
+        ctx.stroke();
+
+        if (scale > 0.7) {
+          ctx.fillStyle = 'white';
+          ctx.font = `10px Arial`;
+          ctx.fillText(point.name, point.x + 8, point.y - 5);
+        }
+      });
+    }
+
+    // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+    function findNearestPoint(x, y, threshold) {
+      const floorPoints = points.filter(p => p.floor === currentFloor);
+      let nearest = null;
+      let minDist = Infinity;
+
+      floorPoints.forEach(point => {
+        const dist = Math.sqrt(Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2));
+        if (dist < threshold && dist < minDist) {
+          minDist = dist;
+          nearest = point;
+        }
+      });
+      return nearest;
+    }
+
+    function pointToLineDistance(px, py, x1, y1, x2, y2) {
+      const A = px - x1;
+      const B = py - y1;
+      const C = x2 - x1;
+      const D = y2 - y1;
+      const dot = A * C + B * D;
+      const len_sq = C * C + D * D;
+      let param = -1;
+      if (len_sq !== 0) param = dot / len_sq;
+      let xx, yy;
+      if (param < 0) { xx = x1; yy = y1; }
+      else if (param > 1) { xx = x2; yy = y2; }
+      else { xx = x1 + param * C; yy = y1 + param * D; }
+      const dx = px - xx;
+      const dy = py - yy;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function renderRoutesList() {
+      const container = document.getElementById('routesList');
+      container.innerHTML = '';
+
+      for (const [key, route] of Object.entries(routes)) {
+        const div = document.createElement('div');
+        div.className = `route-item ${key === selectedRouteKey ? 'selected' : ''}`;
+        div.innerHTML = `
+          <div class="route-name normal">🔵 ${route.name}</div>
+          <div class="route-points">📌 ${route.points.length} точек</div>
+          <div class="route-actions">
+            <button class="route-action-btn edit" onclick="selectRouteByKey('${key}')">👁️</button>
+            <button class="route-action-btn move" onclick="selectRouteForMove('${key}')">✋</button>
+            <button class="route-action-btn delete" onclick="deleteRoute('${key}')">🗑️</button>
+          </div>
+        `;
+        container.appendChild(div);
+      }
+
+      for (const [key, route] of Object.entries(evacuationRoutes)) {
+        const div = document.createElement('div');
+        div.className = `route-item evacuation ${key === selectedRouteKey ? 'selected' : ''}`;
+        div.innerHTML = `
+          <div class="route-name evacuation">🔴 ${route.name}</div>
+          <div class="route-points">📌 ${route.points.length} точек</div>
+          <div class="route-actions">
+            <button class="route-action-btn edit" onclick="selectRouteByKey('${key}')">👁️</button>
+            <button class="route-action-btn move" onclick="selectRouteForMove('${key}')">✋</button>
+            <button class="route-action-btn delete" onclick="deleteRoute('${key}')">🗑️</button>
+          </div>
+        `;
+        container.appendChild(div);
+      }
+
+      if (Object.keys(routes).length === 0 && Object.keys(evacuationRoutes).length === 0) {
+        container.innerHTML = '<div style="padding: 10px; text-align: center; color: #666;">Нет маршрутов</div>';
+      }
+    }
+
+    function selectRouteForMove(key) {
+      selectedRouteKey = key;
+      setTool('move');
+      renderRoutesList();
+      draw();
+      updateStatus(`✋ Режим перемещения для маршрута: ${getRouteByKey(key)?.name}`);
+    }
+
+    function updateStatus(msg) {
+      statusBar.innerHTML = msg;
+    }
+
+    // ========== УПРАВЛЕНИЕ КАРТОЙ ==========
+    function zoomIn() {
+      scale = Math.min(scale * 1.2, 3);
+      draw();
+    }
+
+    function zoomOut() {
+      scale = Math.max(scale / 1.2, 0.3);
+      draw();
+    }
+
+    function fitToScreen() {
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+      walls[currentFloor].forEach(w => {
+        minX = Math.min(minX, w.x1, w.x2);
+        minY = Math.min(minY, w.y1, w.y2);
+        maxX = Math.max(maxX, w.x1, w.x2);
+        maxY = Math.max(maxY, w.y1, w.y2);
+      });
+
+      points.filter(p => p.floor === currentFloor).forEach(p => {
+        minX = Math.min(minX, p.x);
+        minY = Math.min(minY, p.y);
+        maxX = Math.max(maxX, p.x);
+        maxY = Math.max(maxY, p.y);
+      });
+
+      if (minX === Infinity) {
+        offsetX = canvas.width / 2 - 400;
+        offsetY = canvas.height / 2 - 300;
+        scale = 1;
+      } else {
         const padding = 50;
         minX -= padding;
         minY -= padding;
         maxX += padding;
         maxY += padding;
-
         const mapWidth = maxX - minX;
         const mapHeight = maxY - minY;
-
-        const scaleX = this.canvas.width / mapWidth;
-        const scaleY = this.canvas.height / mapHeight;
-        this.scale = Math.min(scaleX, scaleY) * 0.9;
-
+        scale = Math.min(canvas.width / mapWidth, canvas.height / mapHeight) * 0.9;
+        scale = Math.min(Math.max(scale, 0.3), 3);
         const centerX = (minX + maxX) / 2;
         const centerY = (minY + maxY) / 2;
-
-        this.offsetX = this.canvas.width / 2 - centerX * this.scale;
-        this.offsetY = this.canvas.height / 2 - centerY * this.scale;
-
-        this.draw();
+        offsetX = canvas.width / 2 - centerX * scale;
+        offsetY = canvas.height / 2 - centerY * scale;
       }
-
-      draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        this.ctx.save();
-        this.ctx.translate(this.offsetX, this.offsetY);
-        this.ctx.scale(this.scale, this.scale);
-
-        // Сетка
-        this.drawGrid();
-
-        // Стены
-        this.drawWalls();
-
-        // Сохраненные маршруты
-        this.drawRoutes();
-
-        // Текущий рисуемый маршрут
-        this.drawCurrentRoute();
-
-        // Точки
-        this.drawPoints();
-
-        this.ctx.restore();
-      }
-
-      drawGrid() {
-        this.ctx.strokeStyle = '#e0e4e9';
-        this.ctx.lineWidth = 0.5 / this.scale;
-
-        for (let x = 0; x < 2000; x += 50) {
-          this.ctx.beginPath();
-          this.ctx.moveTo(x, -1000);
-          this.ctx.lineTo(x, 2000);
-          this.ctx.stroke();
-        }
-
-        for (let y = 0; y < 2000; y += 50) {
-          this.ctx.beginPath();
-          this.ctx.moveTo(-1000, y);
-          this.ctx.lineTo(2000, y);
-          this.ctx.stroke();
-        }
-      }
-
-      drawWalls() {
-        const walls = this.walls[this.currentFloor] || [];
-        this.ctx.strokeStyle = '#2c3e50';
-        this.ctx.lineWidth = 4 / this.scale;
-
-        walls.forEach(wall => {
-          this.ctx.beginPath();
-          this.ctx.moveTo(wall.x1, wall.y1);
-          this.ctx.lineTo(wall.x2, wall.y2);
-          this.ctx.stroke();
-        });
-      }
-
-      drawRoutes() {
-        for (const [key, route] of Object.entries(this.routes)) {
-          if (route.points && route.points.length > 1) {
-            const isSelected = key === this.selectedRouteKey;
-            this.ctx.strokeStyle = isSelected ? '#f39c12' : '#95a5a6';
-            this.ctx.lineWidth = (isSelected ? 6 : 3) / this.scale;
-            this.ctx.globalAlpha = isSelected ? 1 : 0.4;
-
-            this.ctx.beginPath();
-            this.ctx.moveTo(route.points[0].x, route.points[0].y);
-            for (let i = 1; i < route.points.length; i++) {
-              this.ctx.lineTo(route.points[i].x, route.points[i].y);
-            }
-            this.ctx.stroke();
-
-            if (isSelected) {
-              route.points.forEach((point, index) => {
-                this.ctx.fillStyle = index === 0 ? '#27ae60' : (index === route.points.length - 1 ? '#e74c3c' : '#f39c12');
-                this.ctx.beginPath();
-                this.ctx.arc(point.x, point.y, 6 / this.scale, 0, 2 * Math.PI);
-                this.ctx.fill();
-                this.ctx.strokeStyle = 'white';
-                this.ctx.lineWidth = 2 / this.scale;
-                this.ctx.stroke();
-              });
-            }
-          }
-        }
-        this.ctx.globalAlpha = 1;
-      }
-
-      drawCurrentRoute() {
-        if (this.currentRoute.points.length > 1) {
-          this.ctx.strokeStyle = '#e74c3c';
-          this.ctx.lineWidth = 4 / this.scale;
-          this.ctx.setLineDash([10 / this.scale, 5 / this.scale]);
-
-          this.ctx.beginPath();
-          this.ctx.moveTo(this.currentRoute.points[0].x, this.currentRoute.points[0].y);
-          for (let i = 1; i < this.currentRoute.points.length; i++) {
-            this.ctx.lineTo(this.currentRoute.points[i].x, this.currentRoute.points[i].y);
-          }
-          this.ctx.stroke();
-          this.ctx.setLineDash([]);
-
-          this.currentRoute.points.forEach((point, index) => {
-            this.ctx.fillStyle = index === 0 ? '#27ae60' : (index === this.currentRoute.points.length - 1 ? '#e74c3c' : '#3498db');
-            this.ctx.beginPath();
-            this.ctx.arc(point.x, point.y, 6 / this.scale, 0, 2 * Math.PI);
-            this.ctx.fill();
-            this.ctx.strokeStyle = 'white';
-            this.ctx.lineWidth = 2 / this.scale;
-            this.ctx.stroke();
-          });
-        }
-      }
-
-      drawPoints() {
-        const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
-
-        floorPoints.forEach(point => {
-          const isHovered = this.hoveredPoint?.id === point.id;
-
-          let color = '#95a5a6';
-          if (point.category === 'classroom') color = '#3498db';
-          else if (point.category === 'entrance') color = '#27ae60';
-          else if (point.category === 'toilet') color = '#e67e22';
-          else if (point.category === 'cafeteria') color = '#e74c3c';
-
-          const size = isHovered ? 10 : 8;
-
-          this.ctx.shadowColor = 'rgba(0,0,0,0.1)';
-          this.ctx.shadowBlur = 8 / this.scale;
-
-          this.ctx.beginPath();
-          this.ctx.arc(point.x, point.y, size / this.scale, 0, 2 * Math.PI);
-          this.ctx.fillStyle = color;
-          this.ctx.fill();
-
-          this.ctx.shadowBlur = 0;
-          this.ctx.strokeStyle = 'white';
-          this.ctx.lineWidth = 2 / this.scale;
-          this.ctx.stroke();
-        });
-      }
-
-      checkHover(e) {
-        const rect = this.canvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left - this.offsetX) / this.scale;
-        const y = (e.clientY - rect.top - this.offsetY) / this.scale;
-
-        const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
-        let found = null;
-
-        for (let point of floorPoints) {
-          const dist = Math.sqrt(
-            Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2)
-          );
-          if (dist < 20 / this.scale) {
-            found = point;
-            break;
-          }
-        }
-
-        if (found) {
-          this.hoveredPoint = found;
-          this.tooltip.style.display = 'block';
-          this.tooltip.style.left = (e.clientX + 10) + 'px';
-          this.tooltip.style.top = (e.clientY + 10) + 'px';
-          this.tooltip.textContent = `${found.name} (${found.floor} этаж)`;
-        } else {
-          this.hoveredPoint = null;
-          this.tooltip.style.display = 'none';
-        }
-      }
-
-      renderRoutesList() {
-        this.routesList.innerHTML = '';
-
-        for (const [key, route] of Object.entries(this.routes)) {
-          const startPoint = this.points.find(p => p.id === route.startId);
-          const endPoint = this.points.find(p => p.id === route.endId);
-
-          const div = document.createElement('div');
-          div.className = `route-item ${key === this.selectedRouteKey ? 'selected' : ''}`;
-
-          div.innerHTML = `
-            <div class="route-name">
-              ${startPoint?.name || '?'} → ${endPoint?.name || '?'}
-            </div>
-            <div class="route-points">
-              Точек: ${route.points.length}
-            </div>
-            <div class="route-actions">
-              <button class="route-action-btn edit-btn" onclick="window.editor.selectRouteByKey('${key}')">👁️</button>
-              <button class="route-action-btn voice-btn" onclick="window.editor.configureVoiceForRoute('${key}')">🎤</button>
-              <button class="route-action-btn delete-btn" onclick="window.editor.deleteRoute('${key}')">🗑️</button>
-            </div>
-          `;
-
-          div.onclick = (e) => {
-            if (!e.target.closest('button')) {
-              this.selectRouteByKey(key);
-            }
-          };
-
-          this.routesList.appendChild(div);
-        }
-      }
-
-      selectRouteByKey(key) {
-        this.selectedRouteKey = key;
-        this.configureVoiceBtn.disabled = false;
-        this.renderRoutesList();
-        this.draw();
-        this.updateStatus('Маршрут выбран');
-      }
-
-      configureVoiceForRoute(key) {
-        window.location.href = `/route-voice-editor?route=${key}`;
-      }
-
-      deleteRoute(key) {
-        if (confirm('Удалить этот маршрут?')) {
-          delete this.routes[key];
-          if (this.selectedRouteKey === key) {
-            this.selectedRouteKey = null;
-            this.configureVoiceBtn.disabled = true;
-          }
-          this.saveRoutes();
-          this.renderRoutesList();
-          this.draw();
-        }
-      }
-
-      updateStatus(message) {
-        this.statusBar.textContent = message;
-      }
+      draw();
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      window.editor = new RouteEditor();
+    // ========== МЫШЬ ==========
+    function getCanvasCoords(e) {
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left - offsetX) / scale;
+      const y = (e.clientY - rect.top - offsetY) / scale;
+      return { x, y };
+    }
+
+    canvas.addEventListener('mousedown', (e) => {
+      if (e.ctrlKey || e.button === 1) {
+        isPanning = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        return;
+      }
+
+      const { x, y } = getCanvasCoords(e);
+
+      if (currentTool === 'draw') {
+        if (!isDrawing) startDrawing(x, y);
+        else addPointToRoute(x, y);
+      } else if (currentTool === 'move') {
+        startEditing(x, y);
+      } else if (currentTool === 'erase') {
+        eraseAt(x, y);
+      }
     });
+
+    canvas.addEventListener('mousemove', (e) => {
+      const { x, y } = getCanvasCoords(e);
+
+      if (isPanning) {
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        offsetX += dx;
+        offsetY += dy;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        draw();
+      } else if (isDraggingPoint) {
+        dragPoint(e);
+      } else if (isDrawing) {
+        lastMousePoint = {x: Math.round(x), y: Math.round(y)};
+        draw();
+      } else {
+        // Подсказка
+        const point = findNearestPoint(x, y, 20);
+        if (point) {
+          tooltip.style.display = 'block';
+          tooltip.style.left = (e.clientX + 10) + 'px';
+          tooltip.style.top = (e.clientY + 10) + 'px';
+          tooltip.textContent = `${point.name} (${point.floor} этаж)`;
+        } else {
+          tooltip.style.display = 'none';
+        }
+      }
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      if (isDraggingPoint) stopEditing();
+      isPanning = false;
+    });
+
+    canvas.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      if (isDrawing) finishDrawing();
+    });
+
+    canvas.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      const worldX = (mouseX - offsetX) / scale;
+      const worldY = (mouseY - offsetY) / scale;
+      const delta = e.deltaY > 0 ? 0.9 : 1.1;
+      const newScale = Math.min(Math.max(scale * delta, 0.3), 3);
+      offsetX = mouseX - worldX * newScale;
+      offsetY = mouseY - worldY * newScale;
+      scale = newScale;
+      draw();
+    });
+
+    // ========== ЗАПУСК ==========
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      fitToScreen();
+    });
+
+    // Глобальные функции
+    window.setRouteType = setRouteType;
+    window.setTool = setTool;
+    window.changeFloor = changeFloor;
+    window.saveCurrentRoute = saveCurrentRoute;
+    window.cancelDrawing = cancelDrawing;
+    window.deleteAllRoutes = deleteAllRoutes;
+    window.deleteRoute = deleteRoute;
+    window.selectRouteByKey = selectRouteByKey;
+    window.selectRouteForMove = selectRouteForMove;
+    window.buildQuickRoute = buildQuickRoute;
+    window.zoomIn = zoomIn;
+    window.zoomOut = zoomOut;
+    window.fitView = fitToScreen;
+
+    document.getElementById('buildQuickRouteBtn').addEventListener('click', buildQuickRoute);
+
+    resizeCanvas();
+    loadData();
+    setRouteType('normal');
+    setTool('draw');
   </script>
 </body>
 </html>

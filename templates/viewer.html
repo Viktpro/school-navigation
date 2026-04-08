@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#667eea">
-  <title>Навигатор | МБОУ СОШ №1</title>
+  <title>Навигатор | МБОУ СОШ №1 | Голосовой помощник</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -22,35 +22,120 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       color: #2d3748;
-      /* Предотвращаем резиновый эффект на iOS */
       overscroll-behavior: none;
       -webkit-overflow-scrolling: touch;
     }
 
-    /* СКРЫВАЕМ СКРОЛЛБАР НО ОСТАВЛЯЕМ ПРОКРУТКУ */
-    /* Для Webkit браузеров (Chrome, Safari, Edge) */
-    ::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-      background: transparent;
-      display: none;
+    ::-webkit-scrollbar { width: 0; height: 0; background: transparent; display: none; }
+    * { scrollbar-width: none; }
+
+    /* ========== РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ (ЧЕРНО-ЖЕЛТЫЙ) ========== */
+    body.visually-impaired {
+      background: #000000 !important;
+      font-size: 18px;
+      line-height: 1.6;
     }
 
-    /* Для Firefox */
-    * {
-      scrollbar-width: none;
+    body.visually-impaired * {
+      font-family: Arial, Helvetica, sans-serif !important;
     }
 
-    /* Для Internet Explorer и Edge */
-    body {
-      -ms-overflow-style: none;
+    body.visually-impaired .modern-header {
+      background: #000000 !important;
+      border-bottom: 3px solid #ffff00 !important;
+    }
+
+    body.visually-impaired .logo-text,
+    body.visually-impaired .school-fullname,
+    body.visually-impaired .school-city,
+    body.visually-impaired .nav-link,
+    body.visually-impaired h1,
+    body.visually-impaired h2,
+    body.visually-impaired h3,
+    body.visually-impaired p,
+    body.visually-impaired span,
+    body.visually-impaired .control-panel,
+    body.visually-impaired .map-panel,
+    body.visually-impaired .current-step,
+    body.visually-impaired .evacuation-card,
+    body.visually-impaired .location-card,
+    body.visually-impaired .voice-settings-panel,
+    body.visually-impaired .navigation-panel,
+    body.visually-impaired .step-item,
+    body.visually-impaired .step-text {
+      color: #ffff00 !important;
+      background: #000000 !important;
+    }
+
+    body.visually-impaired .control-panel,
+    body.visually-impaired .map-panel,
+    body.visually-impaired .voice-settings-panel,
+    body.visually-impaired .navigation-panel,
+    body.visually-impaired .step-item {
+      border-color: #ffff00 !important;
+    }
+
+    body.visually-impaired .nav-link {
+      background: #000000;
+      border: 2px solid #ffff00;
+      color: #ffff00 !important;
+    }
+
+    body.visually-impaired .nav-link:hover {
+      background: #ffff00;
+      color: #000000 !important;
+    }
+
+    body.visually-impaired .nav-link.active {
+      background: #ffff00;
+      color: #000000 !important;
+    }
+
+    body.visually-impaired button {
+      background: #000000 !important;
+      color: #ffff00 !important;
+      border: 2px solid #ffff00 !important;
+      font-weight: bold;
+    }
+
+    body.visually-impaired button:hover {
+      background: #ffff00 !important;
+      color: #000000 !important;
+    }
+
+    body.visually-impaired select {
+      background: #000000;
+      color: #ffff00;
+      border: 2px solid #ffff00;
+    }
+
+    body.visually-impaired .point-tooltip {
+      background: #000000;
+      color: #ffff00;
+      border: 2px solid #ffff00;
+    }
+
+    body.visually-impaired .evacuation-btn {
+      background: #000000 !important;
+      border: 3px solid #ffff00 !important;
+      color: #ffff00 !important;
+    }
+
+    body.visually-impaired .evacuation-btn:hover {
+      background: #ffff00 !important;
+      color: #000000 !important;
+    }
+
+    body.visually-impaired .accessibility-btn {
+      background: #ffff00;
+      color: #000000;
+      border: none;
     }
 
     /* Шапка */
     .modern-header {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      color: #1a202c;
       padding: 1rem 2rem;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       position: sticky;
@@ -93,39 +178,25 @@
 
     .school-city {
       font-size: 0.9rem;
-      font-weight: 400;
       color: #718096;
     }
 
-    /* Гамбургер-меню */
     .menu-toggle {
       display: none;
       background: none;
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
-      color: #4a5568;
       padding: 0.5rem;
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      transition: all 0.2s;
-      touch-action: manipulation;
-    }
-
-    .menu-toggle:hover {
-      background: #edf2f7;
-    }
-
-    .menu-toggle:active {
-      transform: scale(0.95);
     }
 
     .nav-links {
       display: flex;
       align-items: center;
       gap: 1rem;
-      transition: all 0.3s ease;
     }
 
     .nav-link {
@@ -135,7 +206,6 @@
       padding: 0.5rem 1.2rem;
       border-radius: 50px;
       transition: all 0.3s ease;
-      touch-action: manipulation;
     }
 
     .nav-link:hover {
@@ -148,7 +218,6 @@
       color: white;
     }
 
-    /* Кнопка для слабовидящих */
     .accessibility-btn {
       width: 40px;
       height: 40px;
@@ -160,9 +229,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s;
       font-size: 1.2rem;
-      touch-action: manipulation;
+      transition: all 0.3s;
     }
 
     .accessibility-btn:hover {
@@ -170,33 +238,12 @@
       transform: scale(1.05);
     }
 
-    /* Адаптивное меню для телефонов */
     @media (max-width: 768px) {
-      .modern-header {
-        padding: 0.8rem 1rem;
-      }
-
-      .logo-image img {
-        height: 45px;
-      }
-
-      .school-fullname {
-        font-size: 1rem;
-      }
-
-      .school-city {
-        font-size: 0.75rem;
-      }
-
-      .header-container {
-        justify-content: space-between;
-      }
-
-      .menu-toggle {
-        display: block;
-        order: 2;
-      }
-
+      .modern-header { padding: 0.8rem 1rem; }
+      .logo-image img { height: 45px; }
+      .school-fullname { font-size: 1rem; }
+      .school-city { font-size: 0.75rem; }
+      .menu-toggle { display: block; order: 2; }
       .nav-links {
         position: fixed;
         top: 70px;
@@ -213,30 +260,17 @@
         align-items: flex-start;
         order: 3;
       }
-
-      .nav-links.open {
-        right: 0;
-      }
-
-      .nav-link {
-        width: 100%;
-        text-align: left;
-        padding: 0.6rem 1rem;
-      }
-
-      .accessibility-btn {
-        margin-top: 0.5rem;
-      }
+      .nav-links.open { right: 0; }
+      .nav-link { width: 100%; text-align: left; padding: 0.6rem 1rem; }
+      .accessibility-btn { margin-top: 0.5rem; }
     }
 
-    /* Основной контейнер */
     .main-container {
       display: flex;
       max-width: 1400px;
       margin: 20px auto;
       gap: 20px;
       padding: 0 20px;
-      transition: all 0.3s ease;
     }
 
     .control-panel {
@@ -248,17 +282,12 @@
       height: fit-content;
       max-height: calc(100vh - 120px);
       overflow-y: auto;
-      transition: all 0.3s ease;
-      z-index: 10;
-      /* Скрываем скроллбар внутри панели */
       scrollbar-width: none;
-      -ms-overflow-style: none;
+      display: flex;
+      flex-direction: column;
     }
 
-    .control-panel::-webkit-scrollbar {
-      display: none;
-      width: 0;
-    }
+    .control-panel::-webkit-scrollbar { display: none; }
 
     .map-panel {
       flex: 1;
@@ -266,105 +295,6 @@
       border-radius: 20px;
       padding: 1.5rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    /* Полноэкранный режим */
-    .fullscreen-mode {
-      overflow: hidden;
-    }
-
-    .fullscreen-mode .modern-header,
-    .fullscreen-mode .control-panel,
-    .fullscreen-mode footer {
-      display: none;
-    }
-
-    .fullscreen-mode .main-container {
-      margin: 0;
-      padding: 0;
-      max-width: 100%;
-      height: 100vh;
-    }
-
-    .fullscreen-mode .map-panel {
-      border-radius: 0;
-      padding: 0;
-      height: 100vh;
-      width: 100vw;
-    }
-
-    .fullscreen-mode .map-container {
-      height: 100vh;
-      width: 100vw;
-      border-radius: 0;
-      border: none;
-    }
-
-    .fullscreen-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 44px;
-      height: 44px;
-      border: none;
-      border-radius: 50%;
-      background: white;
-      color: #4a5568;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      border: 1px solid #e2e8f0;
-      touch-action: manipulation;
-    }
-
-    .fullscreen-btn:hover {
-      background: #667eea;
-      color: white;
-      transform: scale(1.1);
-    }
-
-    .fullscreen-btn:active {
-      transform: scale(0.95);
-    }
-
-    .exit-fullscreen-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 44px;
-      height: 44px;
-      border: none;
-      border-radius: 50%;
-      background: #e53e3e;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      z-index: 20;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      touch-action: manipulation;
-    }
-
-    .exit-fullscreen-btn:hover {
-      background: #c53030;
-      transform: scale(1.1);
-    }
-
-    .fullscreen-mode .exit-fullscreen-btn {
-      display: flex;
-    }
-
-    .fullscreen-mode .fullscreen-btn {
-      display: none;
     }
 
     h2 {
@@ -389,7 +319,6 @@
       font-size: 1rem;
       margin: 0.5rem 0;
       font-family: 'Inter', sans-serif;
-      touch-action: manipulation;
     }
 
     button {
@@ -400,24 +329,249 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
+    button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3); }
+    button:disabled { background: #cbd5e0; cursor: not-allowed; transform: none; }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    /* КНОПКА ЭВАКУАЦИИ */
+    .evacuation-btn {
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      animation: pulse 2s infinite;
+    }
+    .evacuation-btn:hover { transform: scale(1.02); box-shadow: 0 0 25px rgba(220, 38, 38, 0.5); }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
     }
 
-    button:active {
-      transform: translateY(0px);
+    /* Карточка эвакуации */
+    .evacuation-card {
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: none;
+      color: white;
+      animation: slideIn 0.3s ease;
+    }
+    .evacuation-card.active { display: block; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .evacuation-exit {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .evacuation-cancel {
+      width: 100%;
+      padding: 0.5rem;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      margin-top: 0.5rem;
     }
 
-    button:disabled {
-      background: #cbd5e0;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
+    /* Модальное окно */
+    .evacuation-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+    .evacuation-modal.active { display: flex; }
+
+    .evacuation-modal-content {
+      background: white;
+      border-radius: 24px;
+      max-width: 400px;
+      width: 90%;
+      padding: 1.5rem;
+      text-align: center;
+      animation: modalSlideIn 0.3s ease;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    @keyframes modalSlideIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    /* Стили для QR-сканера */
+    .evacuation-modal-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .evacuation-modal-title { font-size: 1.5rem; font-weight: 700; color: #dc2626; margin-bottom: 0.5rem; }
+    .evacuation-modal-warning {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 0.75rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+    .evacuation-modal-buttons { display: flex; gap: 1rem; }
+    .evacuation-modal-buttons button { flex: 1; margin: 0; padding: 0.8rem; }
+    .evacuation-confirm-btn { background: linear-gradient(135deg, #dc2626, #991b1b) !important; }
+    .evacuation-cancel-btn { background: #cbd5e0 !important; color: #4a5568 !important; }
+
+    /* Глобальное уведомление */
+    .global-evacuation-toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #dc2626;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      animation: slideDown 0.5s ease;
+    }
+    .global-evacuation-toast.active { display: flex; }
+    @keyframes slideDown { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
+
+    /* Панель настроек голоса (ВНИЗУ) - РАСШИРЕННАЯ */
+    .voice-settings-panel {
+      background: #f7fafc;
+      border-radius: 16px;
+      padding: 1rem;
+      margin-top: auto;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 0;
+    }
+
+    .voice-settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .voice-settings-title {
+      font-weight: 600;
+      color: #2d3748;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .voice-settings-content {
+      display: none;
+      margin-top: 12px;
+    }
+    .voice-settings-content.show {
+      display: block;
+    }
+
+    .setting-row {
+      margin-bottom: 12px;
+    }
+    .setting-row label {
+      display: block;
+      font-size: 0.8rem;
+      color: #718096;
+      margin-bottom: 4px;
+    }
+    .setting-row select, .setting-row input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      background: white;
+    }
+    .setting-row input[type="range"] {
+      padding: 0;
+    }
+    .value-display {
+      font-size: 0.8rem;
+      color: #4a90e2;
+      margin-left: 8px;
+    }
+
+    .voice-preview {
+      background: #e2e8f0;
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.8rem;
+      margin-top: 8px;
+      color: #4a5568;
+    }
+
+    /* Маленькая кнопка увеличения карты */
+    .fullscreen-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: white;
+      color: #4a5568;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      border: 1px solid #e2e8f0;
+    }
+    .fullscreen-btn:hover { background: #667eea; color: white; transform: scale(1.05); }
+
+    .exit-fullscreen-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: #e53e3e;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      z-index: 20;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .exit-fullscreen-btn:hover { background: #c53030; transform: scale(1.05); }
+    .fullscreen-mode .exit-fullscreen-btn { display: flex; }
+    .fullscreen-mode .fullscreen-btn { display: none; }
+
+    /* QR-сканер */
     .qr-container {
       position: relative;
       width: 100%;
@@ -428,18 +582,13 @@
       margin: 10px 0;
       border: 2px dashed #cbd5e0;
     }
-
-    #qr-reader {
-      width: 100%;
-      min-height: 300px;
-    }
+    #qr-reader { width: 100%; min-height: 300px; }
 
     .qr-tabs {
       display: flex;
       gap: 10px;
       margin-bottom: 15px;
     }
-
     .qr-tab {
       flex: 1;
       padding: 10px;
@@ -449,22 +598,14 @@
       font-weight: 600;
       color: #4a5568;
       cursor: pointer;
-      transition: all 0.3s;
-      touch-action: manipulation;
     }
-
     .qr-tab.active {
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
     }
 
-    .qr-content {
-      display: none;
-    }
-
-    .qr-content.active {
-      display: block;
-    }
+    .qr-content { display: none; }
+    .qr-content.active { display: block; }
 
     .qr-placeholder {
       display: flex;
@@ -476,11 +617,6 @@
       color: #718096;
       min-height: 250px;
     }
-
-    .qr-placeholder p {
-      margin: 10px 0;
-    }
-
     .camera-button {
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
@@ -491,15 +627,7 @@
       font-weight: 600;
       cursor: pointer;
       margin-top: 15px;
-      transition: all 0.3s;
-      touch-action: manipulation;
     }
-
-    .camera-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-    }
-
     .file-input {
       width: 100%;
       padding: 20px;
@@ -508,39 +636,14 @@
       cursor: pointer;
       text-align: center;
       margin: 10px 0;
-      touch-action: manipulation;
     }
-
-    .file-input:hover {
-      border-color: #667eea;
-      background: #f0f4ff;
-    }
-
-    .camera-error {
-      color: #e53e3e;
-      margin-top: 10px;
-      font-size: 0.9rem;
-    }
-
-    #current-location {
-      margin-top: 10px;
-      padding: 10px;
-      background: #f0fff0;
-      border-left: 4px solid #48bb78;
-      border-radius: 8px;
-      display: none;
-    }
-
-    #current-location.active {
-      display: block;
-    }
+    .camera-error { color: #e53e3e; margin-top: 10px; font-size: 0.9rem; }
 
     .or-divider {
       text-align: center;
       margin: 15px 0;
       position: relative;
     }
-
     .or-divider::before,
     .or-divider::after {
       content: '';
@@ -550,16 +653,19 @@
       height: 1px;
       background: #e2e8f0;
     }
-
     .or-divider::before { left: 0; }
     .or-divider::after { right: 0; }
+    .or-divider span { background: white; padding: 0 10px; color: #a0aec0; }
 
-    .or-divider span {
-      background: white;
-      padding: 0 10px;
-      color: #a0aec0;
-      font-size: 0.9rem;
+    #current-location {
+      margin-top: 10px;
+      padding: 10px;
+      background: #f0fff0;
+      border-left: 4px solid #48bb78;
+      border-radius: 8px;
+      display: none;
     }
+    #current-location.active { display: block; }
 
     .map-container {
       position: relative;
@@ -571,7 +677,6 @@
       border: 1px solid #e2e8f0;
       touch-action: none;
     }
-
     #mapCanvas {
       width: 100%;
       height: 100%;
@@ -579,10 +684,7 @@
       cursor: grab;
       touch-action: none;
     }
-
-    #mapCanvas:active {
-      cursor: grabbing;
-    }
+    #mapCanvas:active { cursor: grabbing; }
 
     .map-controls {
       position: absolute;
@@ -593,7 +695,6 @@
       gap: 8px;
       z-index: 10;
     }
-
     .map-control-btn {
       width: 44px;
       height: 44px;
@@ -604,22 +705,7 @@
       font-size: 1.2rem;
       cursor: pointer;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      touch-action: manipulation;
       border: 1px solid #e2e8f0;
-    }
-
-    .map-control-btn:hover {
-      background: #667eea;
-      color: white;
-      transform: scale(1.1);
-    }
-
-    .map-control-btn:active {
-      transform: scale(0.95);
     }
 
     .floor-selector {
@@ -632,8 +718,8 @@
       overflow: hidden;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
       border: 1px solid #e2e8f0;
+      z-index: 10;
     }
-
     .floor-btn {
       padding: 10px 20px;
       border: none;
@@ -641,18 +727,7 @@
       color: #4a5568;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
-      touch-action: manipulation;
     }
-
-    .floor-btn:hover {
-      background: #edf2f7;
-    }
-
-    .floor-btn:active {
-      background: #cbd5e0;
-    }
-
     .floor-btn.active {
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
@@ -671,14 +746,15 @@
       border: 1px solid #e2e8f0;
     }
 
-    /* Стили для навигации */
     .navigation-panel {
       background: #f7fafc;
       border-radius: 16px;
       padding: 20px;
       margin-top: 20px;
       border: 1px solid #e2e8f0;
+      display: none;
     }
+    .navigation-panel.active { display: block; }
 
     .current-step {
       background: #4a90e2;
@@ -688,7 +764,30 @@
       margin-bottom: 15px;
     }
 
-    .step-badge {
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .step-item.active {
+      background: #ebf8ff;
+      border-color: #4a90e2;
+    }
+
+    .step-number {
       width: 24px;
       height: 24px;
       background: #cbd5e0;
@@ -701,30 +800,13 @@
       font-weight: bold;
     }
 
-    .step-badge.active {
+    .step-number.active {
       background: #4a90e2;
     }
 
-    .step-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      background: #f7fafc;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-      touch-action: manipulation;
-    }
-
-    .step-item:hover {
-      background: #edf2f7;
-    }
-
-    .step-item.active {
-      background: #ebf8ff;
-      border-color: #4a90e2;
+    .step-text {
+      flex: 1;
+      font-size: 0.9rem;
     }
 
     .success-message, .error-message {
@@ -733,16 +815,8 @@
       margin-top: 10px;
       display: none;
     }
-
-    .success-message {
-      background: #f0fff4;
-      color: #276749;
-    }
-
-    .error-message {
-      background: #fff5f5;
-      color: #c53030;
-    }
+    .success-message { background: #f0fff4; color: #276749; }
+    .error-message { background: #fff5f5; color: #c53030; }
 
     .notification {
       position: fixed;
@@ -757,16 +831,9 @@
       z-index: 1000;
       animation: slideUp 0.3s ease;
     }
-
     @keyframes slideUp {
-      from {
-        transform: translateY(100px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     footer {
@@ -777,41 +844,9 @@
     }
 
     @media (max-width: 768px) {
-      .main-container {
-        flex-direction: column;
-      }
-
-      .map-container {
-        height: 400px;
-      }
-
-      .fullscreen-mode .map-container {
-        height: 100vh;
-      }
-
-      .control-panel {
-        flex: auto;
-        max-height: none;
-        overflow-y: visible;
-      }
-    }
-
-    /* Режим для слабовидящих */
-    body.visually-impaired {
-      font-size: 1.2rem;
-    }
-
-    body.visually-impaired .modern-header,
-    body.visually-impaired .control-panel,
-    body.visually-impaired .map-panel {
-      background: #000;
-      color: #ff0;
-    }
-
-    body.visually-impaired button,
-    body.visually-impaired select {
-      font-size: 1.2rem;
-      padding: 12px;
+      .main-container { flex-direction: column; }
+      .map-container { height: 400px; }
+      .control-panel { flex: auto; max-height: none; }
     }
   </style>
 </head>
@@ -827,14 +862,13 @@
           <div class="school-city">г. Большой Камень</div>
         </div>
       </div>
-
       <div style="display: flex; align-items: center; gap: 0.5rem;">
-        <button class="menu-toggle" id="menu-toggle" aria-label="Меню">☰</button>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
         <div class="nav-links" id="nav-links">
           <a href="/" class="nav-link">Главная</a>
           <a href="/viewer" class="nav-link active">Навигатор</a>
           <a href="/admin" class="nav-link">Админка</a>
-          <button class="accessibility-btn" onclick="toggleAccessibilityMode()" title="Режим для слабовидящих">👁️</button>
+          <button class="accessibility-btn" onclick="toggleAccessibilityMode()">👁️</button>
         </div>
       </div>
     </div>
@@ -844,39 +878,62 @@
     <div class="control-panel">
       <h2>Ваше местоположение</h2>
 
+      <div id="globalEvacuationToast" class="global-evacuation-toast">
+        <span>🚨</span>
+        <span id="evacuationMessage">ВНИМАНИЕ! ЭВАКУАЦИЯ!</span>
+        <span>🚨</span>
+      </div>
+
+      <button class="evacuation-btn" id="evacuationBtn">
+        🚨 ЭВАКУАЦИЯ 🚨
+      </button>
+
+      <div class="evacuation-card" id="evacuationCard">
+        <div style="font-weight: bold;">🚨 РЕЖИМ ЭВАКУАЦИИ АКТИВЕН 🚨</div>
+        <div class="evacuation-exit" id="evacuationExitName">Следуйте по красному маршруту</div>
+        <button class="evacuation-cancel" id="cancelEvacuationBtn">Отменить эвакуацию</button>
+      </div>
+
+      <div id="evacuationModal" class="evacuation-modal">
+        <div class="evacuation-modal-content">
+          <div class="evacuation-modal-icon">🚨</div>
+          <div class="evacuation-modal-title">Подтверждение эвакуации</div>
+          <div class="evacuation-modal-warning">
+            ⚠️ Ложный вызов может вызвать панику. Используйте только при реальной угрозе.
+          </div>
+          <div class="evacuation-modal-buttons">
+            <button class="evacuation-cancel-btn" onclick="closeEvacuationModal()">Отмена</button>
+            <button class="evacuation-confirm-btn" onclick="confirmEvacuation()">Да, запустить</button>
+          </div>
+        </div>
+      </div>
+
       <div class="scan-section">
         <h3>Сканировать QR-код</h3>
-
         <div class="qr-tabs">
           <button class="qr-tab active" onclick="switchQRMode('camera')">📷 Камера</button>
           <button class="qr-tab" onclick="switchQRMode('file')">📁 Загрузить файл</button>
         </div>
-
         <div id="camera-mode" class="qr-content active">
-          <div class="qr-container" id="qr-container">
+          <div class="qr-container">
             <div id="qr-reader"></div>
             <div id="camera-placeholder" class="qr-placeholder" style="display: none;">
               <p>📷 Нажмите кнопку ниже, чтобы включить камеру</p>
               <button class="camera-button" onclick="startCamera()">Включить камеру</button>
-              <div id="camera-error" class="camera-error"></div>
             </div>
           </div>
         </div>
-
         <div id="file-mode" class="qr-content">
           <div class="qr-container">
             <div class="qr-placeholder">
               <p>📁 Выберите изображение с QR-кодом</p>
               <input type="file" id="qr-file-input" class="file-input" accept="image/*">
-              <div id="file-error" class="camera-error"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="or-divider">
-        <span>или</span>
-      </div>
+      <div class="or-divider"><span>или</span></div>
 
       <div class="manual-section">
         <h3>Выбрать на карте</h3>
@@ -889,106 +946,374 @@
       <div id="current-location"></div>
 
       <h2 style="margin-top: 20px;">Куда идем?</h2>
-      <select id="destination">
+      <select id="destinationSelect">
         <option value="">Выберите пункт назначения...</option>
       </select>
-      <button id="find-route" disabled>Построить маршрут</button>
+      <button id="findRouteBtn" disabled>Построить маршрут</button>
 
-      <!-- Панель навигации с пошаговым отображением -->
-      <div id="navigation-panel" class="navigation-panel" style="display: none;">
-        <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0;">
-          <div style="font-size: 1.1rem; font-weight: 600; color: #2d3748;" id="route-title">Кухня → Г164</div>
-          <div style="font-size: 0.9rem; color: #718096;" id="route-progress">Шаг 1 из 5</div>
+      <div id="navigationPanel" class="navigation-panel">
+        <div class="current-step" id="currentStepDisplay">
+          <div id="currentStepText"></div>
         </div>
-
-        <div class="current-step">
-          <div style="font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px;">СЕЙЧАС</div>
-          <div style="font-size: 1.3rem; font-weight: 600; margin-bottom: 5px;" id="current-step-text">Выйдите из кухни</div>
-          <div style="font-size: 0.9rem; opacity: 0.9;" id="current-step-detail">в столовую</div>
-        </div>
-
-        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-          <button id="prev-step-btn" style="flex: 1; padding: 12px; background: #cbd5e0; color: #4a5568; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;" disabled>◀ Предыдущий</button>
-          <button id="next-step-btn" style="flex: 1; padding: 12px; background: #4a90e2; color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;">Следующий ▶</button>
-        </div>
-
-        <div style="margin-top: 15px;">
-          <div style="font-size: 0.9rem; font-weight: 600; color: #4a5568; margin-bottom: 10px;">📋 ВЕСЬ МАРШРУТ:</div>
-          <div id="steps-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
-        </div>
-
-        <button id="voice-navigation-btn" style="margin-top: 20px; padding: 12px 20px; background: #48bb78; color: white; border: none; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;">
-          <span>🎤</span> Озвучить весь маршрут
-        </button>
-
-        <button id="test-voice-btn" style="margin-top: 10px; padding: 8px; background: #f39c12; color: white; border: none; border-radius: 50px; font-size: 0.9rem; cursor: pointer; width: 100%;">
-          🔈 Тест голоса
-        </button>
+        <div id="stepsList" class="steps-list"></div>
+        <button id="voiceRouteBtn" style="margin-top: 15px; padding: 10px;">🎤 Озвучить маршрут</button>
       </div>
 
-      <div id="success-message" class="success-message"></div>
-      <div id="error-message" class="error-message"></div>
+      <!-- Панель настроек голоса (ВНИЗУ) - РАСШИРЕННАЯ -->
+      <div class="voice-settings-panel" id="voiceSettingsPanel">
+        <div class="voice-settings-header" onclick="toggleVoiceSettings()">
+          <div class="voice-settings-title">
+            <span>🎤</span> Настройки голоса
+          </div>
+          <span id="voiceSettingsArrow">▼</span>
+        </div>
+        <div class="voice-settings-content" id="voiceSettingsContent">
+          <div class="setting-row">
+            <label>🌐 Язык</label>
+            <select id="languageSelect">
+              <option value="ru-RU">🇷🇺 Русский</option>
+              <option value="en-US">🇺🇸 English (US)</option>
+              <option value="en-GB">🇬🇧 English (UK)</option>
+              <option value="de-DE">🇩🇪 Deutsch</option>
+              <option value="fr-FR">🇫🇷 Français</option>
+              <option value="es-ES">🇪🇸 Español</option>
+              <option value="it-IT">🇮🇹 Italiano</option>
+              <option value="ja-JP">🇯🇵 日本語</option>
+              <option value="ko-KR">🇰🇷 한국어</option>
+              <option value="zh-CN">🇨🇳 中文</option>
+            </select>
+          </div>
+
+          <div class="setting-row">
+            <label>👤 Выбор голоса (мужской/женский)</label>
+            <select id="genderSelect">
+              <option value="auto">🎭 Автоматически (рекомендуется)</option>
+              <option value="female">👩 Женский голос</option>
+              <option value="male">👨 Мужской голос</option>
+            </select>
+          </div>
+
+          <div class="setting-row">
+            <label>🗣️ Конкретный голос</label>
+            <select id="voiceSelect">
+              <option value="default">✨ Автоматически (по языку)</option>
+            </select>
+          </div>
+
+          <div class="setting-row">
+            <label>🎵 Тембр (высота тона): <span id="pitchValue" class="value-display">1.0</span></label>
+            <input type="range" id="pitchSlider" min="0.5" max="2" step="0.05" value="1.0" oninput="document.getElementById('pitchValue').textContent=this.value">
+          </div>
+
+          <div class="setting-row">
+            <label>⚡ Скорость речи: <span id="rateValue" class="value-display">0.9</span></label>
+            <input type="range" id="rateSlider" min="0.5" max="2" step="0.1" value="0.9" oninput="document.getElementById('rateValue').textContent=this.value">
+          </div>
+
+          <div class="setting-row">
+            <label>🔊 Громкость: <span id="volumeValue" class="value-display">1.0</span></label>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="1.0" oninput="document.getElementById('volumeValue').textContent=this.value">
+          </div>
+
+          <div class="voice-preview" id="voicePreview">
+            💡 Выберите настройки и нажмите "Тест голоса"
+          </div>
+
+          <button id="testVoiceBtn" style="margin-top: 10px; padding: 8px; background: #48bb78;">🔊 ТЕСТ ГОЛОСА</button>
+          <button id="saveVoiceSettingsBtn" style="margin-top: 5px; padding: 8px; background: #4a90e2;">💾 Сохранить настройки</button>
+        </div>
+      </div>
+
+      <div id="successMessage" class="success-message"></div>
+      <div id="errorMessage" class="error-message"></div>
     </div>
 
     <div class="map-panel">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; position: relative;">
-        <h2 style="margin-bottom: 0; border-bottom: none;">Карта школы</h2>
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem; position: relative;">
         <button class="fullscreen-btn" id="fullscreen-btn" onclick="toggleFullscreen()">⛶</button>
         <button class="exit-fullscreen-btn" id="exit-fullscreen-btn" onclick="exitFullscreen()">✕</button>
       </div>
       <div class="map-container">
         <canvas id="mapCanvas"></canvas>
-
         <div class="map-controls">
-          <button class="map-control-btn" id="zoomIn" title="Приблизить">+</button>
-          <button class="map-control-btn" id="zoomOut" title="Отдалить">−</button>
-          <button class="map-control-btn" id="fitView" title="Показать всё">⤢</button>
+          <button class="map-control-btn" id="zoomIn">+</button>
+          <button class="map-control-btn" id="zoomOut">−</button>
+          <button class="map-control-btn" id="fitView">⤢</button>
         </div>
-
         <div class="floor-selector">
-          <button class="floor-btn active" data-floor="1">1</button>
-          <button class="floor-btn" data-floor="2">2</button>
-          <button class="floor-btn" data-floor="3">3</button>
+          <button class="floor-btn active" data-floor="1" onclick="changeFloor(1)">1</button>
+          <button class="floor-btn" data-floor="2" onclick="changeFloor(2)">2</button>
+          <button class="floor-btn" data-floor="3" onclick="changeFloor(3)">3</button>
         </div>
-
         <div class="point-tooltip" id="pointTooltip"></div>
       </div>
     </div>
   </div>
 
   <footer>
-    <p>© МБОУ СОШ №1</p>
+    <p>МБОУ СОШ №1</p>
   </footer>
 
   <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
   <script>
-    // Гамбургер-меню
-    const menuToggle = document.getElementById('menu-toggle');
-    const navLinks = document.getElementById('nav-links');
+    // ==================== МНОГОЯЗЫЧНЫЙ ГОЛОС С ВЫБОРОМ МУЖСКОГО/ЖЕНСКОГО ГОЛОСА ====================
+    let availableVoices = [];
+    let voiceSettings = {
+      voiceName: 'default',
+      gender: 'auto',
+      rate: 0.9,
+      pitch: 1.0,
+      volume: 1.0,
+      language: 'ru-RU'
+    };
 
-    if (menuToggle) {
-      menuToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        navLinks.classList.toggle('open');
+    // Функция получения текста для теста на выбранном языке
+    function getTestMessageByLanguage(langCode) {
+      const messages = {
+        'ru-RU': 'Здравствуйте! Это тест голосового помощника. Теперь я говорю по-русски. Настройки скорости, тембра и громкости работают отлично.',
+        'en-US': 'Hello! This is a voice assistant test. I am speaking English. Speed, pitch and volume settings are working perfectly.',
+        'en-GB': 'Hello! This is a voice assistant test. I am speaking British English. Settings are fully functional.',
+        'de-DE': 'Guten Tag! Dies ist ein Test des Sprachassistenten. Ich spreche jetzt Deutsch. Geschwindigkeit, Tonhöhe und Lautstärke funktionieren einwandfrei.',
+        'fr-FR': 'Bonjour ! Ceci est un test de l\'assistant vocal. Je parle français. Les réglages de vitesse, de hauteur et de volume fonctionnent parfaitement.',
+        'es-ES': '¡Hola! Esta es una prueba del asistente de voz. Estoy hablando español. La velocidad, el tono y el volumen funcionan correctamente.',
+        'it-IT': 'Ciao! Questo è un test dell\'assistente vocale. Parlo italiano. Velocità, tono e volume funzionano alla grande.',
+        'ja-JP': 'こんにちは！音声アシスタントのテストです。日本語を話しています。速度、ピッチ、ボリュームの設定は完璧に動作しています。',
+        'ko-KR': '안녕하세요! 음성 어시스턴트 테스트입니다. 한국어로 말하고 있습니다. 속도, 음높이, 볼륨 설정이 완벽하게 작동합니다.',
+        'zh-CN': '你好！这是语音助手测试。我现在说中文。语速、音调和音量设置都完美运行。'
+      };
+      return messages[langCode] || `Voice test in ${langCode}. Settings are active.`;
+    }
+
+    // Функция определения пола голоса
+    function getVoiceGender(voiceName) {
+      const name = voiceName.toLowerCase();
+      if (name.includes('female') || name.includes('woman') || name.includes('girl') ||
+          name.includes('samantha') || name.includes('victoria') || name.includes('女生') ||
+          name.includes('女性') || name.includes('femenino') || name.includes('féminin') ||
+          name.includes('weiblich') || name.includes('donna')) {
+        return 'female';
+      }
+      if (name.includes('male') || name.includes('man') || name.includes('boy') ||
+          name.includes('david') || name.includes('男生') || name.includes('男性') ||
+          name.includes('masculino') || name.includes('masculin') || name.includes('männlich') ||
+          name.includes('uomo')) {
+        return 'male';
+      }
+      return 'unknown';
+    }
+
+    // Фильтрация голосов по полу
+    function filterVoicesByGender(voices, gender, targetLang) {
+      if (gender === 'auto') return voices;
+
+      return voices.filter(voice => {
+        const voiceGender = getVoiceGender(voice.name);
+        if (gender === 'female') return voiceGender === 'female';
+        if (gender === 'male') return voiceGender === 'male';
+        return true;
       });
+    }
 
-      document.addEventListener('click', (e) => {
-        if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-          navLinks.classList.remove('open');
+    // Выбор лучшего голоса на основе настроек
+    function selectBestVoice(voices, targetLang, gender) {
+      if (!voices || voices.length === 0) return null;
+
+      // Сначала ищем голоса, точно соответствующие языку
+      let matchingVoices = voices.filter(v => v.lang === targetLang);
+
+      // Затем ищем голоса, начинающиеся с нужного языка
+      if (matchingVoices.length === 0) {
+        matchingVoices = voices.filter(v => v.lang.startsWith(targetLang.split('-')[0]));
+      }
+
+      // Если ничего не найдено, берем все голоса
+      if (matchingVoices.length === 0) {
+        matchingVoices = voices;
+      }
+
+      // Фильтруем по полу
+      let filteredVoices = filterVoicesByGender(matchingVoices, gender, targetLang);
+
+      if (filteredVoices.length === 0) {
+        filteredVoices = matchingVoices;
+      }
+
+      // Приоритет: сначала localService, потом остальные
+      const localVoice = filteredVoices.find(v => v.localService === true);
+      if (localVoice) return localVoice;
+
+      return filteredVoices[0];
+    }
+
+    // ГЛАВНАЯ ФУНКЦИЯ ОЗВУЧИВАНИЯ (с поддержкой выбора голоса по полу)
+    function speakWithSettings(text) {
+      return new Promise((resolve) => {
+        if (!text) { resolve(); return; }
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = voiceSettings.language;
+        utterance.rate = voiceSettings.rate;
+        utterance.pitch = voiceSettings.pitch;
+        utterance.volume = voiceSettings.volume;
+
+        // Выбираем голос
+        if (voiceSettings.voiceName !== 'default' && availableVoices.length > 0) {
+          let selectedVoice = availableVoices.find(v => v.name === voiceSettings.voiceName);
+
+          // Если выбранный голос не подходит по полу, ищем подходящий
+          if (selectedVoice && voiceSettings.gender !== 'auto') {
+            const voiceGender = getVoiceGender(selectedVoice.name);
+            if ((voiceSettings.gender === 'female' && voiceGender !== 'female') ||
+                (voiceSettings.gender === 'male' && voiceGender !== 'male')) {
+              // Ищем подходящий голос
+              const betterVoice = selectBestVoice(availableVoices, voiceSettings.language, voiceSettings.gender);
+              if (betterVoice) selectedVoice = betterVoice;
+            }
+          }
+
+          if (selectedVoice) utterance.voice = selectedVoice;
+        } else if (availableVoices.length > 0) {
+          // Автоматический выбор голоса с учетом пола
+          const autoVoice = selectBestVoice(availableVoices, voiceSettings.language, voiceSettings.gender);
+          if (autoVoice) utterance.voice = autoVoice;
         }
+
+        utterance.onend = resolve;
+        utterance.onerror = resolve;
+
+        setTimeout(() => window.speechSynthesis.speak(utterance), 50);
       });
     }
 
-    // Режим для слабовидящих
-    function toggleAccessibilityMode() {
-      document.body.classList.toggle('visually-impaired');
-      const isEnabled = document.body.classList.contains('visually-impaired');
-      localStorage.setItem('visuallyImpairedMode', isEnabled ? 'enabled' : 'disabled');
-      showNotification(isEnabled ? '👁️ Режим для слабовидящих включен' : '👁️ Обычный режим');
+    // ТЕСТ ГОЛОСА
+    function testVoice() {
+      const lang = document.getElementById('languageSelect').value;
+      const testText = getTestMessageByLanguage(lang);
+
+      // Обновляем настройки перед тестом
+      voiceSettings.gender = document.getElementById('genderSelect').value;
+      voiceSettings.rate = parseFloat(document.getElementById('rateSlider').value);
+      voiceSettings.pitch = parseFloat(document.getElementById('pitchSlider').value);
+      voiceSettings.volume = parseFloat(document.getElementById('volumeSlider').value);
+      voiceSettings.language = lang;
+      voiceSettings.voiceName = document.getElementById('voiceSelect').value;
+
+      const genderText = voiceSettings.gender === 'female' ? 'женский голос' : (voiceSettings.gender === 'male' ? 'мужской голос' : 'автоматический выбор');
+      document.getElementById('voicePreview').innerHTML = `🎤 Тест: ${genderText}, скорость: ${voiceSettings.rate}, тембр: ${voiceSettings.pitch}`;
+
+      speakWithSettings(testText);
+      showNotification(`🔊 Тест голоса (${genderText}) на языке: ${lang}`);
     }
 
-    if (localStorage.getItem('visuallyImpairedMode') === 'enabled') {
-      document.body.classList.add('visually-impaired');
+    function loadVoiceSettings() {
+      const saved = localStorage.getItem('voiceSettings');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          voiceSettings = { ...voiceSettings, ...parsed };
+          document.getElementById('rateSlider').value = voiceSettings.rate;
+          document.getElementById('pitchSlider').value = voiceSettings.pitch;
+          document.getElementById('volumeSlider').value = voiceSettings.volume;
+          document.getElementById('languageSelect').value = voiceSettings.language;
+          document.getElementById('genderSelect').value = voiceSettings.gender || 'auto';
+          document.getElementById('rateValue').textContent = voiceSettings.rate;
+          document.getElementById('pitchValue').textContent = voiceSettings.pitch;
+          document.getElementById('volumeValue').textContent = voiceSettings.volume;
+        } catch(e) { console.error(e); }
+      }
+
+      // Обновляем отображение слайдеров
+      const rateSlider = document.getElementById('rateSlider');
+      const pitchSlider = document.getElementById('pitchSlider');
+      const volumeSlider = document.getElementById('volumeSlider');
+      rateSlider.oninput = () => { document.getElementById('rateValue').textContent = rateSlider.value; };
+      pitchSlider.oninput = () => { document.getElementById('pitchValue').textContent = pitchSlider.value; };
+      volumeSlider.oninput = () => { document.getElementById('volumeValue').textContent = volumeSlider.value; };
+    }
+
+    function saveVoiceSettings() {
+      voiceSettings.rate = parseFloat(document.getElementById('rateSlider').value);
+      voiceSettings.pitch = parseFloat(document.getElementById('pitchSlider').value);
+      voiceSettings.volume = parseFloat(document.getElementById('volumeSlider').value);
+      voiceSettings.language = document.getElementById('languageSelect').value;
+      voiceSettings.gender = document.getElementById('genderSelect').value;
+      voiceSettings.voiceName = document.getElementById('voiceSelect').value;
+      localStorage.setItem('voiceSettings', JSON.stringify(voiceSettings));
+
+      const genderText = voiceSettings.gender === 'female' ? 'женский' : (voiceSettings.gender === 'male' ? 'мужской' : 'автоматический');
+      showNotification(`✅ Настройки голоса сохранены (${genderText} голос)`);
+
+      const confirmMsg = voiceSettings.language.startsWith('ru') ? `Настройки сохранены, выбран ${genderText} голос` : 'Settings saved';
+      speakWithSettings(confirmMsg);
+    }
+
+    function updateVoiceList() {
+      availableVoices = window.speechSynthesis.getVoices();
+      const select = document.getElementById('voiceSelect');
+      const currentValue = select.value;
+      const currentGender = document.getElementById('genderSelect').value;
+      const currentLang = document.getElementById('languageSelect').value;
+
+      select.innerHTML = '<option value="default">✨ Автоматически (по языку и полу)</option>';
+
+      // Фильтруем голоса по выбранному языку для удобства
+      let voicesToShow = availableVoices;
+
+      // Группируем по языку
+      const voicesByLang = {};
+      voicesToShow.forEach(voice => {
+        const langCode = voice.lang.split('-')[0];
+        if (!voicesByLang[langCode]) voicesByLang[langCode] = [];
+        voicesByLang[langCode].push(voice);
+      });
+
+      const langOrder = ['ru', 'en', 'de', 'fr', 'es', 'it', 'ja', 'ko', 'zh'];
+      for (const lang of langOrder) {
+        if (voicesByLang[lang] && voicesByLang[lang].length > 0) {
+          const group = document.createElement('optgroup');
+          const langNames = { ru:'🇷🇺 Русские голоса', en:'🇬🇧 English voices', de:'🇩🇪 Deutsche Stimmen', fr:'🇫🇷 Voix françaises', es:'🇪🇸 Voces en español', it:'🇮🇹 Voci italiane', ja:'🇯🇵 日本語の音声', ko:'🇰🇷 한국어 음성', zh:'🇨🇳 中文语音' };
+          group.label = langNames[lang] || `🌐 ${lang.toUpperCase()}`;
+
+          // Сортируем голоса: женские, мужские, остальные
+          const femaleVoices = [];
+          const maleVoices = [];
+          const otherVoices = [];
+
+          voicesByLang[lang].forEach(voice => {
+            const gender = getVoiceGender(voice.name);
+            if (gender === 'female') femaleVoices.push(voice);
+            else if (gender === 'male') maleVoices.push(voice);
+            else otherVoices.push(voice);
+          });
+
+          [...femaleVoices, ...maleVoices, ...otherVoices].forEach(voice => {
+            const option = document.createElement('option');
+            option.value = voice.name;
+            const genderIcon = getVoiceGender(voice.name) === 'female' ? '👩 ' : (getVoiceGender(voice.name) === 'male' ? '👨 ' : '🎭 ');
+            option.textContent = `${genderIcon}${voice.name} (${voice.lang})`;
+            group.appendChild(option);
+          });
+          select.appendChild(group);
+        }
+      }
+
+      if (currentValue !== 'default' && Array.from(select.options).some(opt => opt.value === currentValue)) {
+        select.value = currentValue;
+        voiceSettings.voiceName = currentValue;
+      }
+
+      // Обновляем превью
+      const genderText = currentGender === 'female' ? 'женский' : (currentGender === 'male' ? 'мужской' : 'автоматический');
+      document.getElementById('voicePreview').innerHTML = `💡 Выбран ${genderText} голос. Нажмите "Тест голоса" для проверки.`;
+    }
+
+    function toggleVoiceSettings() {
+      const content = document.getElementById('voiceSettingsContent');
+      const arrow = document.getElementById('voiceSettingsArrow');
+      content.classList.toggle('show');
+      arrow.textContent = content.classList.contains('show') ? '▲' : '▼';
     }
 
     function showNotification(message) {
@@ -999,62 +1324,80 @@
       setTimeout(() => notification.remove(), 3000);
     }
 
+    // Гамбургер-меню
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+      document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+          navLinks.classList.remove('open');
+        }
+      });
+    }
+
+    // Режим для слабовидящих
+    function toggleAccessibilityMode() {
+      document.body.classList.toggle('visually-impaired');
+      localStorage.setItem('visuallyImpairedMode', document.body.classList.contains('visually-impaired') ? 'enabled' : 'disabled');
+      showNotification(document.body.classList.contains('visually-impaired') ? '👁️ Режим для слабовидящих включен' : '👁️ Обычный режим');
+    }
+    if (localStorage.getItem('visuallyImpairedMode') === 'enabled') {
+      document.body.classList.add('visually-impaired');
+    }
+
+    function showGlobalEvacuationToast(message) {
+      const toast = document.getElementById('globalEvacuationToast');
+      document.getElementById('evacuationMessage').textContent = message || '🚨 ВНИМАНИЕ! ЭВАКУАЦИЯ!';
+      toast.classList.add('active');
+      setTimeout(() => toast.classList.remove('active'), 10000);
+    }
+
+    function openEvacuationModal() { document.getElementById('evacuationModal').classList.add('active'); }
+    function closeEvacuationModal() { document.getElementById('evacuationModal').classList.remove('active'); }
+
+    let mapInstance;
+
     class SchoolMap {
       constructor() {
         this.canvas = document.getElementById('mapCanvas');
         this.ctx = this.canvas.getContext('2d');
-
         this.resizeCanvas();
-
         this.points = [];
         this.walls = {1: [], 2: [], 3: []};
         this.routes = {};
+        this.evacuationRoutes = {};
         this.currentFloor = 1;
-
         this.currentLocation = null;
-        this.destination = null;
         this.currentRoute = null;
         this.currentRoutePrompts = [];
         this.currentStep = 0;
-
-        // Параметры камеры
+        this.isEvacuationMode = false;
         this.offsetX = 0;
         this.offsetY = 0;
         this.scale = 1;
         this.minScale = 0.3;
         this.maxScale = 5;
-
-        // Для перетаскивания
         this.isDragging = false;
         this.lastX = 0;
         this.lastY = 0;
-
-        // Для мультитач
         this.touchDistance = 0;
-        this.touchCenter = { x: 0, y: 0 };
-
-        this.hoveredPoint = null;
         this.tooltip = document.getElementById('pointTooltip');
-
         this.manualLocationSelect = document.getElementById('manual-location');
         this.setLocationBtn = document.getElementById('set-manual-location');
-        this.destinationSelect = document.getElementById('destination');
-        this.findRouteBtn = document.getElementById('find-route');
+        this.destinationSelect = document.getElementById('destinationSelect');
+        this.findRouteBtn = document.getElementById('findRouteBtn');
         this.currentLocationDiv = document.getElementById('current-location');
-        this.navigationPanel = document.getElementById('navigation-panel');
-        this.successMessage = document.getElementById('success-message');
-        this.errorMessage = document.getElementById('error-message');
-
-        // Для QR-сканера
+        this.navigationPanel = document.getElementById('navigationPanel');
+        this.successMessage = document.getElementById('successMessage');
+        this.errorMessage = document.getElementById('errorMessage');
+        this.evacuationBtn = document.getElementById('evacuationBtn');
+        this.evacuationCard = document.getElementById('evacuationCard');
+        this.cancelEvacuationBtn = document.getElementById('cancelEvacuationBtn');
         this.qrScanner = null;
         this.qrReader = document.getElementById('qr-reader');
         this.cameraPlaceholder = document.getElementById('camera-placeholder');
-        this.cameraError = document.getElementById('camera-error');
         this.fileInput = document.getElementById('qr-file-input');
-        this.fileError = document.getElementById('file-error');
-
-        // Для полноэкранного режима
-        this.isFullscreen = false;
 
         this.init();
         this.requestCameraPermission();
@@ -1078,127 +1421,50 @@
 
         window.addEventListener('resize', () => {
           this.resizeCanvas();
-          if (!this.isFullscreen) {
-            this.fitToScreen();
-          } else {
-            this.draw();
-          }
-        });
-
-        document.addEventListener('fullscreenchange', () => this.handleFullscreenChange());
-        document.addEventListener('webkitfullscreenchange', () => this.handleFullscreenChange());
-        document.addEventListener('mozfullscreenchange', () => this.handleFullscreenChange());
-        document.addEventListener('MSFullscreenChange', () => this.handleFullscreenChange());
-      }
-
-      handleFullscreenChange() {
-        const isFullscreen = !!(document.fullscreenElement ||
-                               document.webkitFullscreenElement ||
-                               document.mozFullScreenElement ||
-                               document.msFullscreenElement);
-
-        if (isFullscreen) {
-          document.body.classList.add('fullscreen-mode');
-          this.isFullscreen = true;
-        } else {
-          document.body.classList.remove('fullscreen-mode');
-          this.isFullscreen = false;
           this.fitToScreen();
-        }
-
-        setTimeout(() => {
-          this.resizeCanvas();
-          this.draw();
-        }, 100);
+        });
       }
 
       setupTouchEvents() {
         this.canvas.addEventListener('touchstart', (e) => {
           e.preventDefault();
-
-          if (e.touches.length >= 1) {
-            e.stopPropagation();
-          }
-
           if (e.touches.length === 1) {
             this.isDragging = true;
             this.lastX = e.touches[0].clientX;
             this.lastY = e.touches[0].clientY;
           } else if (e.touches.length === 2) {
-            const touch1 = e.touches[0];
-            const touch2 = e.touches[1];
-
-            this.touchDistance = Math.hypot(
-              touch1.clientX - touch2.clientX,
-              touch1.clientY - touch2.clientY
-            );
-
-            this.touchCenter.x = (touch1.clientX + touch2.clientX) / 2;
-            this.touchCenter.y = (touch1.clientY + touch2.clientY) / 2;
+            const t1 = e.touches[0], t2 = e.touches[1];
+            this.touchDistance = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
           }
         }, { passive: false });
-
         this.canvas.addEventListener('touchmove', (e) => {
           e.preventDefault();
-
-          if (e.touches.length >= 1) {
-            e.stopPropagation();
-          }
-
           if (e.touches.length === 1 && this.isDragging) {
-            const dx = e.touches[0].clientX - this.lastX;
-            const dy = e.touches[0].clientY - this.lastY;
-
-            this.offsetX += dx;
-            this.offsetY += dy;
-
+            this.offsetX += e.touches[0].clientX - this.lastX;
+            this.offsetY += e.touches[0].clientY - this.lastY;
             this.lastX = e.touches[0].clientX;
             this.lastY = e.touches[0].clientY;
-
             this.draw();
           } else if (e.touches.length === 2) {
-            const touch1 = e.touches[0];
-            const touch2 = e.touches[1];
-
-            const newDistance = Math.hypot(
-              touch1.clientX - touch2.clientX,
-              touch1.clientY - touch2.clientY
-            );
-
+            const t1 = e.touches[0], t2 = e.touches[1];
+            const newDistance = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
             if (this.touchDistance > 0) {
               const rect = this.canvas.getBoundingClientRect();
-              const centerX = (touch1.clientX + touch2.clientX) / 2 - rect.left;
-              const centerY = (touch1.clientY + touch2.clientY) / 2 - rect.top;
-
+              const centerX = (t1.clientX + t2.clientX) / 2 - rect.left;
+              const centerY = (t1.clientY + t2.clientY) / 2 - rect.top;
               const worldX = (centerX - this.offsetX) / this.scale;
               const worldY = (centerY - this.offsetY) / this.scale;
-
               const scaleFactor = newDistance / this.touchDistance;
               const newScale = Math.min(Math.max(this.scale * scaleFactor, this.minScale), this.maxScale);
-
               this.offsetX = centerX - worldX * newScale;
               this.offsetY = centerY - worldY * newScale;
               this.scale = newScale;
             }
-
             this.touchDistance = newDistance;
             this.draw();
           }
         }, { passive: false });
-
-        this.canvas.addEventListener('touchend', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          this.isDragging = false;
-          this.touchDistance = 0;
-        });
-
-        this.canvas.addEventListener('touchcancel', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          this.isDragging = false;
-          this.touchDistance = 0;
-        });
+        this.canvas.addEventListener('touchend', (e) => { e.preventDefault(); this.isDragging = false; this.touchDistance = 0; });
       }
 
       async requestCameraPermission() {
@@ -1206,80 +1472,27 @@
           const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
           stream.getTracks().forEach(track => track.stop());
           this.showCameraPlaceholder();
-        } catch (err) {
-          console.log('Разрешение на камеру не получено:', err);
-          this.showCameraPlaceholder();
-          this.cameraError.textContent = 'Доступ к камере не разрешён. Вы можете использовать загрузку файла или выбрать точку из списка.';
-        }
+        } catch (err) { this.showCameraPlaceholder(); }
       }
 
-      showCameraPlaceholder() {
-        if (this.qrReader) {
-          this.qrReader.style.display = 'none';
-        }
-        if (this.cameraPlaceholder) {
-          this.cameraPlaceholder.style.display = 'flex';
-        }
-      }
-
-      hideCameraPlaceholder() {
-        if (this.cameraPlaceholder) {
-          this.cameraPlaceholder.style.display = 'none';
-        }
-        if (this.qrReader) {
-          this.qrReader.style.display = 'block';
-        }
-      }
+      showCameraPlaceholder() { if (this.qrReader) this.qrReader.style.display = 'none'; if (this.cameraPlaceholder) this.cameraPlaceholder.style.display = 'flex'; }
+      hideCameraPlaceholder() { if (this.cameraPlaceholder) this.cameraPlaceholder.style.display = 'none'; if (this.qrReader) this.qrReader.style.display = 'block'; }
 
       async startCamera() {
-        this.cameraError.textContent = '';
-
         try {
           const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
           stream.getTracks().forEach(track => track.stop());
-
           this.hideCameraPlaceholder();
-
           this.qrScanner = new Html5Qrcode("qr-reader");
-
-          const config = {
-            fps: 10,
-            qrbox: { width: 250, height: 250 },
-            aspectRatio: 1.0
-          };
-
-          await this.qrScanner.start(
-            { facingMode: "environment" },
-            config,
-            (decodedText) => this.handleQRScan(decodedText),
-            (error) => {
-              console.log('QR Scan status:', error);
-            }
-          );
-
-        } catch (err) {
-          console.error('Ошибка доступа к камере:', err);
-          this.cameraError.textContent = 'Не удалось получить доступ к камере. Пожалуйста, разрешите доступ в настройках браузера.';
-          this.showCameraPlaceholder();
-        }
+          await this.qrScanner.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 250 } }, (decodedText) => this.handleQRScan(decodedText), (error) => console.log(error));
+        } catch (err) { this.showCameraPlaceholder(); }
       }
 
       setupFileInput() {
         this.fileInput.addEventListener('change', (event) => {
           const file = event.target.files[0];
           if (!file) return;
-
-          this.fileError.textContent = 'Обработка файла...';
-
-          Html5Qrcode.scanFile(file, true)
-            .then(decodedText => {
-              this.fileError.textContent = '';
-              this.handleQRScan(decodedText);
-            })
-            .catch(err => {
-              console.error('Ошибка сканирования файла:', err);
-              this.fileError.textContent = 'Не удалось распознать QR-код в файле. Попробуйте другое изображение.';
-            });
+          Html5Qrcode.scanFile(file, true).then(decodedText => this.handleQRScan(decodedText)).catch(err => this.showError('Не удалось распознать QR-код'));
         });
       }
 
@@ -1287,187 +1500,80 @@
         try {
           const url = new URL(decodedText);
           const pointId = url.searchParams.get('point');
-
-          if (pointId) {
-            const point = this.points.find(p => p.id === pointId);
-            if (point) {
-              this.setLocation(pointId);
-
-              if (this.qrScanner) {
-                this.qrScanner.stop().then(() => {
-                  this.qrScanner = null;
-                  this.showCameraPlaceholder();
-                }).catch(() => {
-                  this.showCameraPlaceholder();
-                });
-              }
-
-              this.showSuccess(`QR-код распознан: ${point.name}`);
-            }
+          if (pointId && this.points.find(p => p.id === pointId)) {
+            this.setLocation(pointId);
+            if (this.qrScanner) this.qrScanner.stop().then(() => { this.qrScanner = null; this.showCameraPlaceholder(); });
+            this.showSuccess(`QR-код распознан`);
           }
-        } catch (e) {
-          console.error('Ошибка обработки QR-кода:', e);
-          this.showError('Неверный формат QR-кода');
-        }
-      }
-
-      stopQRScanner() {
-        if (this.qrScanner) {
-          this.qrScanner.stop().then(() => {
-            this.qrScanner = null;
-            this.showCameraPlaceholder();
-          }).catch(() => {
-            this.showCameraPlaceholder();
-          });
-        }
+        } catch (e) { this.showError('Неверный формат QR-кода'); }
       }
 
       async loadData() {
         try {
           const pointsRes = await fetch('/api/points');
           this.points = await pointsRes.json();
-          console.log('✅ Точки загружены:', this.points.length);
-
           const wallsRes = await fetch('/api/load-map');
           const wallsData = await wallsRes.json();
-
-          if (wallsData.floors) {
-            this.walls = {
-              1: wallsData.floors[1]?.walls || [],
-              2: wallsData.floors[2]?.walls || [],
-              3: wallsData.floors[3]?.walls || []
-            };
-          }
-        } catch (error) {
-          console.error('Ошибка загрузки:', error);
-          this.showError('Ошибка загрузки данных');
-        }
+          if (wallsData.floors) for (let i = 1; i <= 3; i++) this.walls[i] = wallsData.floors[i]?.walls || [];
+        } catch (error) { this.showError('Ошибка загрузки данных'); }
       }
 
       async loadRoutes() {
         try {
           const routesRes = await fetch('/api/routes');
           this.routes = await routesRes.json();
-          console.log('✅ Маршруты загружены:', Object.keys(this.routes).length);
-        } catch (error) {
-          console.error('Ошибка загрузки маршрутов:', error);
-          this.routes = {};
-        }
+          const evacRes = await fetch('/api/evacuation-routes');
+          this.evacuationRoutes = await evacRes.json();
+        } catch (error) { this.routes = {}; this.evacuationRoutes = {}; }
       }
 
       populateSelects() {
-        this.manualLocationSelect.innerHTML = '<option value="">Выберите ваше местоположение...</option>';
-        this.destinationSelect.innerHTML = '<option value="">Выберите пункт назначения...</option>';
-
-        const routePoints = new Set();
-        Object.values(this.routes).forEach(route => {
-          routePoints.add(route.startId);
-          routePoints.add(route.endId);
-        });
-
-        const pointsArray = Array.from(routePoints)
-          .map(id => this.points.find(p => p.id === id))
-          .filter(p => p)
-          .sort((a, b) => a.name.localeCompare(b.name));
-
-        if (pointsArray.length === 0) {
-          this.manualLocationSelect.innerHTML = '<option value="">Нет доступных маршрутов</option>';
-          this.destinationSelect.innerHTML = '<option value="">Нет доступных маршрутов</option>';
-          this.showError('Сначала создайте маршруты в редакторе');
-          return;
+        this.manualLocationSelect.innerHTML = '<option value="">Выберите...</option>';
+        this.destinationSelect.innerHTML = '<option value="">Выберите...</option>';
+        if (this.points.length > 0) {
+          this.points.sort((a,b) => a.name.localeCompare(b.name)).forEach(point => {
+            const optText = `${point.name} (${point.floor} эт.)`;
+            this.manualLocationSelect.appendChild(new Option(optText, point.id));
+            this.destinationSelect.appendChild(new Option(optText, point.id));
+          });
+        } else {
+          this.manualLocationSelect.innerHTML = '<option value="">Демо-режим</option>';
+          this.destinationSelect.innerHTML = '<option value="">Демо-режим</option>';
         }
-
-        pointsArray.forEach(point => {
-          const optionText = `${point.name} (${point.floor} этаж)`;
-
-          const option1 = document.createElement('option');
-          option1.value = point.id;
-          option1.textContent = optionText;
-          this.manualLocationSelect.appendChild(option1);
-
-          const option2 = document.createElement('option');
-          option2.value = point.id;
-          option2.textContent = optionText;
-          this.destinationSelect.appendChild(option2);
-        });
-
-        this.manualLocationSelect.disabled = false;
-        this.destinationSelect.disabled = false;
-        this.updateLocationButton();
-        this.updateFindRouteButton();
+        this.manualLocationSelect.onchange = () => this.setLocationBtn.disabled = !this.manualLocationSelect.value;
+        this.destinationSelect.onchange = () => this.findRouteBtn.disabled = !(this.currentLocation && this.destinationSelect.value);
       }
 
       setupControls() {
-        document.getElementById('zoomIn').addEventListener('click', () => {
-          this.scale = Math.min(this.scale * 1.2, this.maxScale);
-          this.draw();
-        });
+        document.getElementById('zoomIn').onclick = () => { this.scale = Math.min(this.scale * 1.2, this.maxScale); this.draw(); };
+        document.getElementById('zoomOut').onclick = () => { this.scale = Math.max(this.scale / 1.2, this.minScale); this.draw(); };
+        document.getElementById('fitView').onclick = () => this.fitToScreen();
+        document.querySelectorAll('.floor-btn').forEach(btn => btn.onclick = () => { this.currentFloor = parseInt(btn.dataset.floor); this.fitToScreen(); });
+        this.setLocationBtn.onclick = () => { if (this.manualLocationSelect.value) this.setLocation(this.manualLocationSelect.value); };
+        this.findRouteBtn.onclick = () => { if (this.destinationSelect.value && this.currentLocation) this.findRoute(); };
+        this.evacuationBtn.onclick = () => openEvacuationModal();
+        this.cancelEvacuationBtn.onclick = () => this.cancelEvacuation();
+        window.confirmEvacuation = () => { closeEvacuationModal(); this.startEvacuation(); };
+        window.closeEvacuationModal = closeEvacuationModal;
 
-        document.getElementById('zoomOut').addEventListener('click', () => {
-          this.scale = Math.max(this.scale / 1.2, this.minScale);
-          this.draw();
-        });
-
-        document.getElementById('fitView').addEventListener('click', () => {
-          this.fitToScreen();
-        });
-
-        document.querySelectorAll('.floor-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            document.querySelectorAll('.floor-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            this.currentFloor = parseInt(btn.dataset.floor);
-            this.fitToScreen();
-          });
-        });
-
-        this.manualLocationSelect.addEventListener('change', () => this.updateLocationButton());
-        this.setLocationBtn.addEventListener('click', () => {
-          const locationId = this.manualLocationSelect.value;
-          if (locationId) {
-            this.stopQRScanner();
-            this.setLocation(locationId);
-          }
-        });
-
-        this.destinationSelect.addEventListener('change', () => this.updateFindRouteButton());
-        this.findRouteBtn.addEventListener('click', () => {
-          const destinationId = this.destinationSelect.value;
-          if (destinationId && this.currentLocation) this.setDestination(destinationId);
-        });
-      }
-
-      updateLocationButton() {
-        this.setLocationBtn.disabled = !this.manualLocationSelect.value;
-      }
-
-      updateFindRouteButton() {
-        this.findRouteBtn.disabled = !(this.currentLocation && this.destinationSelect.value);
+        document.getElementById('testVoiceBtn').onclick = testVoice;
+        document.getElementById('saveVoiceSettingsBtn').onclick = saveVoiceSettings;
+        document.getElementById('genderSelect').onchange = () => updateVoiceList();
+        document.getElementById('languageSelect').onchange = () => updateVoiceList();
       }
 
       setLocation(pointId) {
         const point = this.points.find(p => p.id === pointId);
         if (point) {
           this.currentLocation = point;
-          this.currentLocationDiv.textContent = `Вы находитесь: ${point.name} (${point.floor} этаж)`;
+          this.currentLocationDiv.innerHTML = `📍 Вы находитесь: ${point.name} (${point.floor} этаж)`;
           this.currentLocationDiv.classList.add('active');
-          this.updateFindRouteButton();
+          this.findRouteBtn.disabled = !this.destinationSelect.value;
           this.centerOnPoint(point);
-          this.showSuccess(`Местоположение установлено`);
-
+          this.showSuccess(`Местоположение: ${point.name}`);
           this.currentRoute = null;
-          this.destination = null;
-          this.destinationSelect.value = "";
-          this.navigationPanel.style.display = 'none';
+          this.navigationPanel.classList.remove('active');
           this.draw();
-        }
-      }
-
-      setDestination(pointId) {
-        const point = this.points.find(p => p.id === pointId);
-        if (point) {
-          this.destination = point;
-          this.findRoute();
         }
       }
 
@@ -1475,612 +1581,149 @@
         this.offsetX = this.canvas.width / 2 - point.x * this.scale;
         this.offsetY = this.canvas.height / 2 - point.y * this.scale;
         this.currentFloor = point.floor;
-
-        document.querySelectorAll('.floor-btn').forEach(btn => {
-          btn.classList.toggle('active', parseInt(btn.dataset.floor) === point.floor);
-        });
-
+        document.querySelectorAll('.floor-btn').forEach(btn => btn.classList.toggle('active', parseInt(btn.dataset.floor) === point.floor));
         this.draw();
       }
 
       async findRoute() {
-        if (!this.currentLocation || !this.destination) return;
-
+        if (!this.currentLocation || !this.destinationSelect.value) return;
+        const endId = this.destinationSelect.value;
+        const endPoint = this.points.find(p => p.id === endId);
+        if (!endPoint) return;
         const startId = this.currentLocation.id;
-        const endId = this.destination.id;
-        const routeKey = `${startId}_${endId}`;
-        const reverseKey = `${endId}_${startId}`;
-
-        let routePoints = null;
-
-        if (this.routes[routeKey]) {
-          routePoints = this.routes[routeKey].points;
-        } else if (this.routes[reverseKey]) {
-          routePoints = [...this.routes[reverseKey].points].reverse();
-        }
-
+        let routePoints = this.routes[`${startId}_${endId}`]?.points || this.routes[`${endId}_${startId}`]?.points?.slice().reverse();
         if (routePoints && routePoints.length > 1) {
           this.currentRoute = routePoints;
-
-          try {
-            const response = await fetch(`/api/voice-prompts/${routeKey}`);
-            this.currentRoutePrompts = await response.json();
-
-            if (!this.currentRoutePrompts || this.currentRoutePrompts.length === 0) {
-              this.currentRoutePrompts = [
-                "Начало маршрута",
-                "Следуйте по коридору",
-                "Вы на месте"
-              ];
-            }
-          } catch (error) {
-            console.error('Ошибка загрузки подсказок:', error);
-            this.currentRoutePrompts = [
-              "Начало маршрута",
-              "Следуйте по коридору",
-              "Вы на месте"
-            ];
-          }
-
+          this.isEvacuationMode = false;
+          this.evacuationCard.classList.remove('active');
+          this.currentRoutePrompts = ["Начало маршрута", "Следуйте по коридору", "Вы на месте"];
           this.currentStep = 0;
           this.updateStepsDisplay();
-          this.navigationPanel.style.display = 'block';
-          this.showSuccess('Маршрут построен');
+          this.navigationPanel.classList.add('active');
           this.fitToRoute();
+          this.showSuccess('Маршрут построен');
+        } else this.showError('Маршрут не найден');
+        this.draw();
+      }
 
-          try {
-            const response = await fetch(`/api/voice-prompts/${routeKey}`);
-            const prompts = await response.json();
-            const voiceBtn = document.getElementById('voice-navigation-btn');
-            if (voiceBtn) {
-              if (prompts && prompts.length > 0) {
-                voiceBtn.style.background = '#48bb78';
-                voiceBtn.title = 'Есть голосовые подсказки';
-              } else {
-                voiceBtn.style.background = '#4a90e2';
-                voiceBtn.title = 'Нет голосовых подсказок';
-              }
-            }
-          } catch (error) {
-            console.log('Нет голосовых подсказок для этого маршрута');
-          }
-        } else {
-          this.currentRoute = null;
-          this.navigationPanel.style.display = 'none';
-          this.showError('Маршрут не найден');
-        }
+      async startEvacuation() {
+        this.showSuccess('🚨 ЗАПУСК ЭВАКУАЦИИ...');
+        try {
+          const response = await fetch('/api/evacuation/start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ current_point_id: this.currentLocation?.id }) });
+          const data = await response.json();
+          if (data.success && data.route?.points?.length >= 2) {
+            this.currentRoute = data.route.points;
+            this.isEvacuationMode = true;
+            this.evacuationCard.classList.add('active');
+            document.getElementById('evacuationExitName').innerHTML = `🚪 ${data.route.name || 'Следуйте по красному маршруту'}`;
+            this.currentRoutePrompts = ["🚨 ВНИМАНИЕ! ЭВАКУАЦИЯ!", "Следуйте по красному маршруту к выходу", "Сохраняйте спокойствие"];
+            this.currentStep = 0;
+            this.updateStepsDisplay();
+            this.navigationPanel.classList.add('active');
+            this.fitToRoute();
+            this.draw();
+            speakWithSettings("Внимание! Объявлена эвакуация! Следуйте по красному маршруту к выходу.");
+            showGlobalEvacuationToast('🚨 ЭВАКУАЦИЯ!');
+          } else this.showError('Нет эвакуационного маршрута');
+        } catch (error) { this.showError('Ошибка запуска эвакуации'); }
+      }
 
+      cancelEvacuation() {
+        this.isEvacuationMode = false;
+        this.currentRoute = null;
+        this.evacuationCard.classList.remove('active');
+        this.navigationPanel.classList.remove('active');
+        this.showSuccess('Режим эвакуации отменен');
         this.draw();
       }
 
       updateStepsDisplay() {
-        if (!this.currentRoutePrompts || this.currentRoutePrompts.length === 0) return;
-
+        if (!this.currentRoutePrompts?.length) return;
         const startName = this.currentLocation?.name || 'Начало';
-        const endName = this.destination?.name || 'Конец';
-        document.getElementById('route-title').textContent = `${startName} → ${endName}`;
-        document.getElementById('route-progress').textContent = `Шаг ${this.currentStep + 1} из ${this.currentRoutePrompts.length}`;
-
-        const currentPrompt = this.currentRoutePrompts[this.currentStep];
-        if (currentPrompt) {
-          const parts = currentPrompt.split(/[.,]/).map(s => s.trim());
-          if (parts.length > 1) {
-            document.getElementById('current-step-text').textContent = parts[0];
-            document.getElementById('current-step-detail').textContent = parts.slice(1).join(', ');
-          } else {
-            document.getElementById('current-step-text').textContent = currentPrompt;
-            document.getElementById('current-step-detail').textContent = '';
-          }
-        }
-
-        const stepsList = document.getElementById('steps-list');
+        const endName = this.isEvacuationMode ? 'ВЫХОД' : (this.destinationSelect.options[this.destinationSelect.selectedIndex]?.text.split(' (')[0] || 'Конец');
+        document.getElementById('currentStepText').innerHTML = `<strong>${startName}</strong> → <strong>${endName}</strong><br>Шаг ${this.currentStep+1}/${this.currentRoutePrompts.length}`;
+        const stepsList = document.getElementById('stepsList');
         stepsList.innerHTML = '';
-
-        this.currentRoutePrompts.forEach((prompt, index) => {
-          const stepDiv = document.createElement('div');
-          stepDiv.style.cssText = `
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: ${index === this.currentStep ? '#ebf8ff' : '#f7fafc'};
-            border: 2px solid ${index === this.currentStep ? '#4a90e2' : '#e2e8f0'};
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-          `;
-
-          stepDiv.innerHTML = `
-            <div style="width: 24px; height: 24px; background: ${index === this.currentStep ? '#4a90e2' : '#cbd5e0'}; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">${index + 1}</div>
-            <div style="flex: 1; font-size: 0.9rem;">${prompt}</div>
-            <button class="speak-step-btn" data-index="${index}" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 5px; display: ${index === this.currentStep ? 'block' : 'none'}; touch-action: manipulation;">🔊</button>
-          `;
-
-          stepDiv.addEventListener('click', (e) => {
-            if (!e.target.classList.contains('speak-step-btn')) {
-              this.goToStep(index);
-            }
-          });
-
-          stepsList.appendChild(stepDiv);
+        this.currentRoutePrompts.forEach((prompt, idx) => {
+          const div = document.createElement('div');
+          div.className = `step-item ${idx === this.currentStep ? 'active' : ''}`;
+          div.innerHTML = `<div class="step-number ${idx === this.currentStep ? 'active' : ''}">${idx+1}</div><div class="step-text">${prompt}</div><button class="speak-step-btn" data-index="${idx}" style="background:none;border:none;font-size:1rem;cursor:pointer;">🔊</button>`;
+          div.onclick = (e) => { if (!e.target.classList.contains('speak-step-btn')) this.goToStep(idx); };
+          stepsList.appendChild(div);
         });
-
-        document.getElementById('prev-step-btn').disabled = this.currentStep === 0;
-        document.getElementById('next-step-btn').disabled = this.currentStep === this.currentRoutePrompts.length - 1;
-
-        document.querySelectorAll('.speak-step-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const index = parseInt(btn.dataset.index);
-            this.speak(this.currentRoutePrompts[index]);
-          });
-        });
+        document.querySelectorAll('.speak-step-btn').forEach(btn => btn.onclick = (e) => { e.stopPropagation(); speakWithSettings(this.currentRoutePrompts[parseInt(btn.dataset.index)]); });
       }
 
-      goToStep(index) {
-        if (index >= 0 && index < this.currentRoutePrompts.length) {
-          this.currentStep = index;
-          this.updateStepsDisplay();
-        }
-      }
+      goToStep(index) { if (index >= 0 && index < this.currentRoutePrompts.length) { this.currentStep = index; this.updateStepsDisplay(); } }
+      async playVoiceNavigation() { for (let i=0; i<this.currentRoutePrompts.length; i++) await speakWithSettings(this.currentRoutePrompts[i]); }
 
       fitToRoute() {
-        if (!this.currentRoute || this.currentRoute.length === 0) return;
-
-        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-
-        this.currentRoute.forEach(point => {
-          minX = Math.min(minX, point.x);
-          minY = Math.min(minY, point.y);
-          maxX = Math.max(maxX, point.x);
-          maxY = Math.max(maxY, point.y);
-        });
-
-        const padding = 50;
-        minX -= padding;
-        minY -= padding;
-        maxX += padding;
-        maxY += padding;
-
-        const mapWidth = maxX - minX;
-        const mapHeight = maxY - minY;
-
-        this.scale = Math.min(this.canvas.width / mapWidth, this.canvas.height / mapHeight) * 0.9;
+        if (!this.currentRoute?.length) return;
+        let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+        this.currentRoute.forEach(p => { minX=Math.min(minX,p.x); minY=Math.min(minY,p.y); maxX=Math.max(maxX,p.x); maxY=Math.max(maxY,p.y); });
+        const padding=50;
+        minX-=padding; minY-=padding; maxX+=padding; maxY+=padding;
+        this.scale = Math.min(this.canvas.width/(maxX-minX), this.canvas.height/(maxY-minY))*0.9;
         this.scale = Math.min(Math.max(this.scale, this.minScale), this.maxScale);
-
-        const centerX = (minX + maxX) / 2;
-        const centerY = (minY + maxY) / 2;
-
-        this.offsetX = this.canvas.width / 2 - centerX * this.scale;
-        this.offsetY = this.canvas.height / 2 - centerY * this.scale;
-
-        if (this.currentRoute[0]?.floor) {
-          this.currentFloor = this.currentRoute[0].floor;
-          document.querySelectorAll('.floor-btn').forEach(btn => {
-            btn.classList.toggle('active', parseInt(btn.dataset.floor) === this.currentFloor);
-          });
-        }
+        this.offsetX = this.canvas.width/2 - ((minX+maxX)/2)*this.scale;
+        this.offsetY = this.canvas.height/2 - ((minY+maxY)/2)*this.scale;
+        if(this.currentRoute[0]?.floor) this.currentFloor = this.currentRoute[0].floor;
+        this.draw();
       }
 
       fitToScreen() {
-        const walls = this.walls[this.currentFloor] || [];
-        const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
-
-        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-
-        [...walls.flatMap(w => [w.x1, w.x2]), ...floorPoints.map(p => p.x)].forEach(x => {
-          if (x < minX) minX = x;
-          if (x > maxX) maxX = x;
-        });
-
-        [...walls.flatMap(w => [w.y1, w.y2]), ...floorPoints.map(p => p.y)].forEach(y => {
-          if (y < minY) minY = y;
-          if (y > maxY) maxY = y;
-        });
-
-        if (minX === Infinity) {
-          this.offsetX = this.canvas.width / 2 - 400;
-          this.offsetY = this.canvas.height / 2 - 300;
-          this.scale = 1;
-        } else {
-          const padding = 50;
-          minX -= padding;
-          minY -= padding;
-          maxX += padding;
-          maxY += padding;
-
-          const mapWidth = maxX - minX;
-          const mapHeight = maxY - minY;
-
-          this.scale = Math.min(this.canvas.width / mapWidth, this.canvas.height / mapHeight) * 0.9;
-          this.scale = Math.min(Math.max(this.scale, this.minScale), this.maxScale);
-
-          const centerX = (minX + maxX) / 2;
-          const centerY = (minY + maxY) / 2;
-
-          this.offsetX = this.canvas.width / 2 - centerX * this.scale;
-          this.offsetY = this.canvas.height / 2 - centerY * this.scale;
-        }
-
+        let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+        this.walls[this.currentFloor].forEach(w => { minX=Math.min(minX,w.x1,w.x2); minY=Math.min(minY,w.y1,w.y2); maxX=Math.max(maxX,w.x1,w.x2); maxY=Math.max(maxY,w.y1,w.y2); });
+        this.points.filter(p=>p.floor===this.currentFloor).forEach(p => { minX=Math.min(minX,p.x); minY=Math.min(minY,p.y); maxX=Math.max(maxX,p.x); maxY=Math.max(maxY,p.y); });
+        if(minX===Infinity) { this.offsetX=this.canvas.width/2-400; this.offsetY=this.canvas.height/2-300; this.scale=1; }
+        else { const padding=50; minX-=padding; minY-=padding; maxX+=padding; maxY+=padding; this.scale = Math.min(this.canvas.width/(maxX-minX), this.canvas.height/(maxY-minY))*0.9; this.scale = Math.min(Math.max(this.scale, this.minScale), this.maxScale); this.offsetX = this.canvas.width/2 - ((minX+maxX)/2)*this.scale; this.offsetY = this.canvas.height/2 - ((minY+maxY)/2)*this.scale; }
         this.draw();
       }
 
       setupMouseEvents() {
-        this.canvas.addEventListener('mousedown', (e) => {
-          this.isDragging = true;
-          this.lastX = e.clientX;
-          this.lastY = e.clientY;
-        });
-
-        this.canvas.addEventListener('mousemove', (e) => {
-          if (this.isDragging) {
-            const dx = e.clientX - this.lastX;
-            const dy = e.clientY - this.lastY;
-            this.offsetX += dx;
-            this.offsetY += dy;
-            this.lastX = e.clientX;
-            this.lastY = e.clientY;
-            this.draw();
-          } else {
-            this.checkHover(e);
-          }
-        });
-
-        this.canvas.addEventListener('mouseup', () => {
-          this.isDragging = false;
-        });
-
-        this.canvas.addEventListener('wheel', (e) => {
-          e.preventDefault();
-
-          const rect = this.canvas.getBoundingClientRect();
-          const mouseX = e.clientX - rect.left;
-          const mouseY = e.clientY - rect.top;
-
-          const worldX = (mouseX - this.offsetX) / this.scale;
-          const worldY = (mouseY - this.offsetY) / this.scale;
-
-          const delta = e.deltaY > 0 ? 0.9 : 1.1;
-          const newScale = Math.min(Math.max(this.scale * delta, this.minScale), this.maxScale);
-
-          this.offsetX = mouseX - worldX * newScale;
-          this.offsetY = mouseY - worldY * newScale;
-          this.scale = newScale;
-
-          this.draw();
-        });
+        this.canvas.onmousedown = (e) => { this.isDragging=true; this.lastX=e.clientX; this.lastY=e.clientY; };
+        this.canvas.onmousemove = (e) => { if(this.isDragging) { this.offsetX+=e.clientX-this.lastX; this.offsetY+=e.clientY-this.lastY; this.lastX=e.clientX; this.lastY=e.clientY; this.draw(); } else this.checkHover(e); };
+        this.canvas.onmouseup = () => this.isDragging=false;
+        this.canvas.onwheel = (e) => { e.preventDefault(); const rect=this.canvas.getBoundingClientRect(); const mouseX=e.clientX-rect.left, mouseY=e.clientY-rect.top; const worldX=(mouseX-this.offsetX)/this.scale, worldY=(mouseY-this.offsetY)/this.scale; const delta=e.deltaY>0?0.9:1.1; const newScale=Math.min(Math.max(this.scale*delta,this.minScale),this.maxScale); this.offsetX=mouseX-worldX*newScale; this.offsetY=mouseY-worldY*newScale; this.scale=newScale; this.draw(); };
       }
 
       checkHover(e) {
-        const rect = this.canvas.getBoundingClientRect();
-        const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-        const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-
-        const x = (clientX - rect.left - this.offsetX) / this.scale;
-        const y = (clientY - rect.top - this.offsetY) / this.scale;
-
-        const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
-        let found = null;
-
-        for (let point of floorPoints) {
-          const dist = Math.sqrt(
-            Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2)
-          );
-          if (dist < 20 / this.scale) {
-            found = point;
-            break;
-          }
-        }
-
-        if (found) {
-          this.hoveredPoint = found;
-          this.tooltip.style.display = 'block';
-          this.tooltip.style.left = (clientX + 10) + 'px';
-          this.tooltip.style.top = (clientY + 10) + 'px';
-          this.tooltip.textContent = `${found.name} (${found.floor} этаж)`;
-        } else {
-          this.hoveredPoint = null;
-          this.tooltip.style.display = 'none';
-        }
+        const rect=this.canvas.getBoundingClientRect();
+        const x=(e.clientX-rect.left-this.offsetX)/this.scale, y=(e.clientY-rect.top-this.offsetY)/this.scale;
+        const found = this.points.filter(p=>p.floor===this.currentFloor).find(p=>Math.hypot(p.x-x,p.y-y) < 20/this.scale);
+        if(found) { this.tooltip.style.display='block'; this.tooltip.style.left=(e.clientX+10)+'px'; this.tooltip.style.top=(e.clientY+10)+'px'; this.tooltip.textContent=`${found.name} (${found.floor} эт.)`; }
+        else this.tooltip.style.display='none';
       }
 
       draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+        this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
         this.ctx.save();
-        this.ctx.translate(this.offsetX, this.offsetY);
-        this.ctx.scale(this.scale, this.scale);
-
-        this.drawWalls();
-
-        if (this.currentRoute && this.currentRoute.length > 1) {
-          this.drawRoute();
-        }
-
-        this.drawPoints();
-
+        this.ctx.translate(this.offsetX,this.offsetY);
+        this.ctx.scale(this.scale,this.scale);
+        (this.walls[this.currentFloor]||[]).forEach(w=>{ this.ctx.beginPath(); this.ctx.moveTo(w.x1,w.y1); this.ctx.lineTo(w.x2,w.y2); this.ctx.strokeStyle='#2c3e50'; this.ctx.lineWidth=4/this.scale; this.ctx.stroke(); });
+        if(this.currentRoute?.length>1){ this.ctx.strokeStyle=this.isEvacuationMode?'#dc2626':'#f39c12'; this.ctx.lineWidth=(this.isEvacuationMode?6:5)/this.scale; this.ctx.beginPath(); this.ctx.moveTo(this.currentRoute[0].x,this.currentRoute[0].y); for(let i=1;i<this.currentRoute.length;i++) this.ctx.lineTo(this.currentRoute[i].x,this.currentRoute[i].y); this.ctx.stroke(); }
+        this.points.filter(p=>p.floor===this.currentFloor).forEach(p=>{ let color='#95a5a6'; if(p.category==='classroom') color='#3498db'; else if(p.category==='entrance') color='#27ae60'; else if(p.category==='toilet') color='#e67e22'; else if(p.category==='cafeteria') color='#e74c3c'; else if(p.category==='stair') color='#9b59b6'; if(this.currentLocation?.id===p.id) color='#27ae60'; const size=(this.currentLocation?.id===p.id)?10:7; this.ctx.beginPath(); this.ctx.arc(p.x,p.y,size/this.scale,0,2*Math.PI); this.ctx.fillStyle=color; this.ctx.fill(); this.ctx.fillStyle='#2d3748'; this.ctx.font=`bold ${10/this.scale}px Arial`; this.ctx.fillText(p.name,p.x+8,p.y-5); });
         this.ctx.restore();
       }
 
-      drawWalls() {
-        const walls = this.walls[this.currentFloor] || [];
-        this.ctx.strokeStyle = '#2c3e50';
-        this.ctx.lineWidth = 4 / this.scale;
-
-        walls.forEach(wall => {
-          this.ctx.beginPath();
-          this.ctx.moveTo(wall.x1, wall.y1);
-          this.ctx.lineTo(wall.x2, wall.y2);
-          this.ctx.stroke();
-        });
-      }
-
-      drawRoute() {
-        this.ctx.strokeStyle = '#f39c12';
-        this.ctx.lineWidth = 5 / this.scale;
-        this.ctx.shadowColor = 'rgba(243, 156, 18, 0.5)';
-        this.ctx.shadowBlur = 15 / this.scale;
-
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.currentRoute[0].x, this.currentRoute[0].y);
-        for (let i = 1; i < this.currentRoute.length; i++) {
-          this.ctx.lineTo(this.currentRoute[i].x, this.currentRoute[i].y);
-        }
-        this.ctx.stroke();
-        this.ctx.shadowBlur = 0;
-
-        if (this.currentStep < this.currentRoute.length - 1) {
-          const start = this.currentRoute[this.currentStep];
-          const end = this.currentRoute[this.currentStep + 1];
-
-          this.ctx.strokeStyle = '#f1c40f';
-          this.ctx.lineWidth = 7 / this.scale;
-          this.ctx.beginPath();
-          this.ctx.moveTo(start.x, start.y);
-          this.ctx.lineTo(end.x, end.y);
-          this.ctx.stroke();
-
-          const angle = Math.atan2(end.y - start.y, end.x - start.x);
-          const arrowX = start.x + (end.x - start.x) * 0.7;
-          const arrowY = start.y + (end.y - start.y) * 0.7;
-
-          this.ctx.save();
-          this.ctx.translate(arrowX, arrowY);
-          this.ctx.rotate(angle);
-          this.ctx.beginPath();
-          this.ctx.moveTo(0, 0);
-          this.ctx.lineTo(-20 / this.scale, -10 / this.scale);
-          this.ctx.lineTo(-20 / this.scale, 10 / this.scale);
-          this.ctx.closePath();
-          this.ctx.fillStyle = '#f1c40f';
-          this.ctx.fill();
-          this.ctx.restore();
-        }
-      }
-
-      drawPoints() {
-        const floorPoints = this.points.filter(p => p.floor === this.currentFloor);
-
-        floorPoints.forEach(point => {
-          const isCurrent = this.currentLocation?.id === point.id;
-          const isDest = this.destination?.id === point.id;
-
-          let color = '#95a5a6';
-          if (point.category === 'classroom') color = '#3498db';
-          else if (point.category === 'entrance') color = '#27ae60';
-          else if (point.category === 'toilet') color = '#e67e22';
-          else if (point.category === 'cafeteria') color = '#e74c3c';
-          else if (point.category === 'stair') color = '#9b59b6';
-          else if (point.category === 'elevator') color = '#f1c40f';
-
-          if (isCurrent) color = '#27ae60';
-          if (isDest) color = '#e74c3c';
-
-          const size = (isCurrent || isDest) ? 12 : 8;
-
-          this.ctx.shadowColor = 'transparent';
-
-          this.ctx.beginPath();
-          this.ctx.arc(point.x, point.y, size / this.scale, 0, 2 * Math.PI);
-          this.ctx.fillStyle = color;
-          this.ctx.fill();
-
-          this.ctx.strokeStyle = 'white';
-          this.ctx.lineWidth = 2 / this.scale;
-          this.ctx.stroke();
-        });
-      }
-
-      showSuccess(message) {
-        this.successMessage.textContent = message;
-        this.successMessage.style.display = 'block';
-        this.errorMessage.style.display = 'none';
-        setTimeout(() => this.successMessage.style.display = 'none', 3000);
-      }
-
-      showError(message) {
-        this.errorMessage.textContent = message;
-        this.errorMessage.style.display = 'block';
-        this.successMessage.style.display = 'none';
-        setTimeout(() => this.errorMessage.style.display = 'none', 3000);
-      }
-
-      setupVoiceNavigation() {
-        const voiceBtn = document.getElementById('voice-navigation-btn');
-        if (voiceBtn) {
-          voiceBtn.addEventListener('click', () => {
-            this.playVoiceNavigation();
-          });
-        }
-
-        const testBtn = document.getElementById('test-voice-btn');
-        if (testBtn) {
-          testBtn.addEventListener('click', () => {
-            this.speak('Привет, я голосовой помощник. Проверка связи.');
-          });
-        }
-
-        const prevBtn = document.getElementById('prev-step-btn');
-        if (prevBtn) {
-          prevBtn.addEventListener('click', () => {
-            this.goToStep(this.currentStep - 1);
-          });
-        }
-
-        const nextBtn = document.getElementById('next-step-btn');
-        if (nextBtn) {
-          nextBtn.addEventListener('click', () => {
-            this.goToStep(this.currentStep + 1);
-          });
-        }
-      }
-
-      speak(text) {
-        return new Promise((resolve) => {
-          if (!text) {
-            resolve();
-            return;
-          }
-
-          console.log('🗣️ Озвучиваю:', text);
-
-          window.speechSynthesis.cancel();
-
-          let processedText = text
-            .replace(/,/g, ', ')
-            .replace(/\./g, '. ')
-            .replace(/\s+/g, ' ')
-            .trim();
-
-          setTimeout(() => {
-            const utterance = new SpeechSynthesisUtterance(processedText);
-            utterance.lang = 'ru-RU';
-            utterance.rate = 0.9;
-            utterance.pitch = 1.0;
-            utterance.volume = 1.0;
-
-            if (window.speechSynthesis.getVoices().length === 0) {
-              window.speechSynthesis.addEventListener('voiceschanged', () => {
-                this.setupVoiceAndSpeak(utterance, resolve);
-              });
-            } else {
-              this.setupVoiceAndSpeak(utterance, resolve);
-            }
-          }, 100);
-        });
-      }
-
-      setupVoiceAndSpeak(utterance, resolve) {
-        const voices = window.speechSynthesis.getVoices();
-
-        const preferredVoices = [
-          'Microsoft Irina', 'Microsoft Mikhail', 'Microsoft Pavel',
-          'Milena', 'Yuri', 'Katya', 'Google русский'
-        ];
-
-        let selectedVoice = null;
-
-        for (const prefName of preferredVoices) {
-          selectedVoice = voices.find(v =>
-            v.name.includes(prefName) && v.lang.includes('ru')
-          );
-          if (selectedVoice) break;
-        }
-
-        if (!selectedVoice) {
-          selectedVoice = voices.find(v => v.lang.includes('ru'));
-        }
-
-        if (selectedVoice) {
-          utterance.voice = selectedVoice;
-        }
-
-        utterance.onstart = () => {
-          console.log('▶️ Начало озвучивания');
-          this.showSuccess(`🗣️ ${utterance.text.substring(0, 50)}${utterance.text.length > 50 ? '...' : ''}`);
-        };
-
-        utterance.onend = () => {
-          console.log('✅ Озвучивание завершено');
-          resolve();
-        };
-
-        utterance.onerror = (event) => {
-          console.error('❌ Ошибка озвучивания:', event);
-          try {
-            const fallbackUtterance = new SpeechSynthesisUtterance(utterance.text);
-            fallbackUtterance.lang = 'ru-RU';
-            fallbackUtterance.rate = 0.9;
-            fallbackUtterance.onend = resolve;
-            fallbackUtterance.onerror = resolve;
-            window.speechSynthesis.speak(fallbackUtterance);
-          } catch (e) {
-            console.error('❌ Fallback тоже не сработал:', e);
-            resolve();
-          }
-        };
-
-        try {
-          window.speechSynthesis.speak(utterance);
-        } catch (e) {
-          console.error('❌ Ошибка при запуске:', e);
-          resolve();
-        }
-      }
-
-      async playVoiceNavigation() {
-        if (!this.currentRoutePrompts || this.currentRoutePrompts.length === 0) {
-          this.showError('Нет подсказок для озвучивания');
-          return;
-        }
-
-        this.showSuccess(`🎤 Озвучиваю маршрут из ${this.currentRoutePrompts.length} шагов...`);
-
-        for (let i = 0; i < this.currentRoutePrompts.length; i++) {
-          await this.speak(this.currentRoutePrompts[i]);
-          if (i < this.currentRoutePrompts.length - 1) {
-            await new Promise(r => setTimeout(r, 2000));
-          }
-        }
-
-        this.showSuccess('✅ Озвучивание маршрута завершено');
-      }
+      setupVoiceNavigation() { document.getElementById('voiceRouteBtn')?.addEventListener('click', () => this.playVoiceNavigation()); }
+      showSuccess(msg) { this.successMessage.textContent=msg; this.successMessage.style.display='block'; this.errorMessage.style.display='none'; setTimeout(()=>this.successMessage.style.display='none',3000); }
+      showError(msg) { this.errorMessage.textContent=msg; this.errorMessage.style.display='block'; this.successMessage.style.display='none'; setTimeout(()=>this.errorMessage.style.display='none',3000); }
     }
 
-    // Функции для полноэкранного режима
-    window.toggleFullscreen = function() {
-      document.body.classList.add('fullscreen-mode');
-    };
+    function changeFloor(floor) { if(mapInstance){ mapInstance.currentFloor=floor; mapInstance.fitToScreen(); } }
+    window.toggleFullscreen = () => { document.body.classList.add('fullscreen-mode'); document.getElementById('fullscreen-btn').style.display='none'; document.getElementById('exit-fullscreen-btn').style.display='flex'; };
+    window.exitFullscreen = () => { document.body.classList.remove('fullscreen-mode'); document.getElementById('fullscreen-btn').style.display='flex'; document.getElementById('exit-fullscreen-btn').style.display='none'; if(mapInstance) setTimeout(()=>mapInstance.fitToScreen(),100); };
+    window.switchQRMode = (mode) => { document.querySelectorAll('.qr-tab').forEach(t=>t.classList.remove('active')); document.querySelectorAll('.qr-content').forEach(c=>c.classList.remove('active')); if(mode==='camera'){ document.querySelector('[onclick="switchQRMode(\'camera\')"]').classList.add('active'); document.getElementById('camera-mode').classList.add('active'); }else{ document.querySelector('[onclick="switchQRMode(\'file\')"]').classList.add('active'); document.getElementById('file-mode').classList.add('active'); } };
+    window.startCamera = () => { if(mapInstance) mapInstance.startCamera(); };
+    window.toggleVoiceSettings = toggleVoiceSettings;
 
-    window.exitFullscreen = function() {
-      document.body.classList.remove('fullscreen-mode');
-    };
+    // Инициализация голоса
+    loadVoiceSettings();
+    if(window.speechSynthesis.onvoiceschanged !== undefined) window.speechSynthesis.onvoiceschanged = updateVoiceList;
+    setTimeout(updateVoiceList, 200);
 
-    // Глобальные функции для переключения режимов
-    window.switchQRMode = function(mode) {
-      document.querySelectorAll('.qr-tab').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.qr-content').forEach(content => content.classList.remove('active'));
-
-      if (mode === 'camera') {
-        document.querySelector('[onclick="switchQRMode(\'camera\')"]').classList.add('active');
-        document.getElementById('camera-mode').classList.add('active');
-      } else {
-        document.querySelector('[onclick="switchQRMode(\'file\')"]').classList.add('active');
-        document.getElementById('file-mode').classList.add('active');
-      }
-    };
-
-    window.startCamera = function() {
-      if (map) {
-        map.startCamera();
-      }
-    };
-
-    let map;
-
-    document.addEventListener('DOMContentLoaded', () => {
-      map = new SchoolMap();
-    });
+    document.addEventListener('DOMContentLoaded', () => { mapInstance = new SchoolMap(); });
   </script>
 </body>
 </html>
