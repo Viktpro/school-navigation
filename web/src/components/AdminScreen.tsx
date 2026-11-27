@@ -125,7 +125,7 @@ export function AdminScreen({
           </p>
         </div>
         <Button className="ml-auto" variant="ghost" onClick={onBack}>
-          На карту
+          На главную
         </Button>
       </div>
       <section className="glass-panel rounded-3xl p-4">

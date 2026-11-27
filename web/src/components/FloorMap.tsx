@@ -231,10 +231,26 @@ export function FloorMap({
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
-                <linearGradient id="floorWash" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="oklch(0.45 0.12 262 / 0.18)" />
-                  <stop offset="100%" stopColor="oklch(0.78 0.12 85 / 0.12)" />
+                <linearGradient id="floorWash" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="oklch(0.4 0.04 262 / 0.04)" />
+                  <stop offset="100%" stopColor="oklch(0.4 0.02 262 / 0)" />
                 </linearGradient>
+                <pattern
+                  id="stairsHatch"
+                  width="7"
+                  height="7"
+                  patternUnits="userSpaceOnUse"
+                  patternTransform="rotate(32)"
+                >
+                  <line
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="7"
+                    stroke="oklch(0.45 0.03 70 / 0.28)"
+                    strokeWidth="1"
+                  />
+                </pattern>
               </defs>
               <rect x={world.x} y={world.y} width={world.w} height={world.h} fill="var(--map-floor)" />
               <rect x={world.x} y={world.y} width={world.w} height={world.h} fill="url(#floorWash)" />
@@ -261,9 +277,9 @@ export function FloorMap({
                   x2={w[2]}
                   y2={w[3]}
                   stroke="var(--map-wall)"
-                  strokeWidth={iso ? 2.4 : 1.3}
-                  strokeLinecap="round"
-                  opacity={0.8}
+                  strokeWidth={iso ? 2.2 : 1.7}
+                  strokeLinecap="square"
+                  opacity={0.92}
                 />
               ))}
               {rooms.map((room) => {
@@ -282,30 +298,28 @@ export function FloorMap({
                     <motion.polygon
                       points={polyPoints(room.polygon)}
                       animate={{
-                        opacity: faded ? 0.28 : 1,
-                        fill: active
-                          ? evac
-                            ? 'oklch(0.78 0.16 155)'
-                            : 'var(--map-room-active)'
-                          : room.kind === 'stairs' || room.kind === 'elevator'
-                            ? 'var(--map-stairs)'
-                            : room.chips.length || room.kind === 'zone'
-                              ? 'var(--map-special)'
-                              : 'var(--map-room)',
+                        opacity: faded ? 0.35 : 1,
+                        fill: roomFill(room, active, evac),
                       }}
-                      stroke={active ? 'oklch(0.78 0.14 85)' : 'var(--map-wall)'}
-                      strokeWidth={active ? 3 : 1.1}
-                      filter={active ? 'url(#roomGlow)' : undefined}
+                      stroke={active ? 'var(--primary)' : 'oklch(0.55 0.015 262 / 0.35)'}
+                      strokeWidth={active ? 1.6 : 0.6}
                     />
+                    {room.kind === 'stairs' && !faded && (
+                      <polygon
+                        points={polyPoints(room.polygon)}
+                        fill="url(#stairsHatch)"
+                        className="pointer-events-none"
+                      />
+                    )}
                     {!faded && (
                       <text
                         x={room.center[0]}
                         y={room.center[1]}
                         textAnchor="middle"
                         dominantBaseline="middle"
-                        fill="var(--foreground)"
-                        fontSize={room.kind === 'classroom' ? 12 : 11}
-                        fontWeight={700}
+                        fill="var(--map-label)"
+                        fontSize={11}
+                        fontWeight={500}
                         className="pointer-events-none select-none"
                       >
                         {shortLabel(room)}
@@ -317,7 +331,7 @@ export function FloorMap({
                           cx={room.center[0]}
                           cy={room.center[1] - 28}
                           r={4}
-                          fill="oklch(0.78 0.14 85)"
+                          fill="oklch(0.72 0.09 85)"
                           animate={{ y: [0, -6, 0] }}
                           transition={{ repeat: Infinity, duration: 1.6 }}
                         />
@@ -390,43 +404,39 @@ function LivingRoute({ d, evac }: { d: string; evac?: boolean }) {
     raf = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(raf)
   }, [d])
-  const color = evac ? 'oklch(0.78 0.17 155)' : 'oklch(0.62 0.2 25)'
+  const color = evac ? 'oklch(0.62 0.14 155)' : 'var(--map-route)'
   return (
     <g>
       <motion.path
         d={d}
         fill="none"
         stroke={color}
-        strokeWidth={3.2}
+        strokeWidth={2.2}
         strokeLinecap="round"
         strokeLinejoin="round"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
         transition={{ duration: 1.1, ease: 'easeInOut' }}
-        opacity={0.95}
+        opacity={0.9}
       />
       <path
         ref={ref}
         d={d}
         fill="none"
-        stroke="oklch(0.9 0.12 85)"
-        strokeWidth={3}
-        strokeDasharray="10 16"
+        stroke="oklch(0.98 0.01 255 / 0.85)"
+        strokeWidth={1.1}
+        strokeDasharray="7 14"
         strokeLinecap="round"
       >
         <animate
           attributeName="stroke-dashoffset"
           from="0"
-          to="-52"
-          dur="0.9s"
+          to="-42"
+          dur="1.4s"
           repeatCount="indefinite"
         />
       </path>
-      <circle cx={orb.x} cy={orb.y} r={7} fill="oklch(0.9 0.14 85)" />
-      <polygon
-        points={`${orb.x},${orb.y - 11} ${orb.x + 6},${orb.y - 2} ${orb.x - 6},${orb.y - 2}`}
-        fill="white"
-      />
+      <circle cx={orb.x} cy={orb.y} r={4.5} fill="var(--map-route)" stroke="white" strokeWidth={1.5} />
     </g>
   )
 }
@@ -437,13 +447,21 @@ function HereBeacon({ x, y }: { x: number; y: number }) {
       <motion.circle
         cx={x}
         cy={y}
-        fill="oklch(0.62 0.16 155 / 0.35)"
-        animate={{ r: [10, 26, 10] }}
-        transition={{ duration: 1.8, repeat: Infinity }}
+        fill="oklch(0.45 0.1 262 / 0.22)"
+        animate={{ r: [8, 18, 8] }}
+        transition={{ duration: 2.2, repeat: Infinity }}
       />
-      <circle cx={x} cy={y} r={7} fill="oklch(0.62 0.16 155)" stroke="white" strokeWidth={2} />
+      <circle cx={x} cy={y} r={5} fill="var(--primary)" stroke="white" strokeWidth={1.5} />
     </g>
   )
+}
+
+function roomFill(room: Room, active: boolean, evac?: boolean) {
+  if (active) return evac ? 'oklch(0.78 0.08 155)' : 'var(--map-room-active)'
+  if (room.kind === 'stairs' || room.kind === 'elevator') return 'var(--map-stairs)'
+  if (room.kind === 'toilet') return 'var(--map-toilet)'
+  if (room.kind === 'zone') return 'var(--map-zone)'
+  return 'var(--map-room)'
 }
 
 function shortLabel(room: Room) {

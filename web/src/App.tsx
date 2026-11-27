@@ -147,14 +147,15 @@ export default function App() {
     return (
       <TooltipProvider>
         <div className="h-full">
-          <div className="absolute top-4 right-4 z-10">
-            <Button size="icon-sm" variant="ghost" onClick={toggle} aria-label="Тема">
-              {theme === 'dark' ? <Sun /> : <Moon />}
-            </Button>
-          </div>
           <HomeScreen
             onOpenMap={() => setView('map')}
+            onOpenQr={() => {
+              setView('map')
+              setScanOpen(true)
+            }}
             onOpenAdmin={() => setView('admin')}
+            theme={theme}
+            onToggleTheme={toggle}
           />
         </div>
       </TooltipProvider>
@@ -175,7 +176,7 @@ export default function App() {
               return next
             })
           }}
-          onBack={() => setView('map')}
+          onBack={() => setView('home')}
         />
       </TooltipProvider>
     )
@@ -208,7 +209,7 @@ export default function App() {
           </button>
           <div className="pr-1">
             <p className="font-display text-base leading-none">СОШ №1</p>
-            <p className="text-[11px] text-muted-foreground">Большой Камень</p>
+            <p className="text-[11px] text-muted-foreground">Карта · раздел приложения</p>
           </div>
           <Button size="icon-sm" variant="ghost" onClick={toggle} aria-label="Тема">
             {theme === 'dark' ? <Sun className="size-4" /> : <Moon className="size-4" />}
