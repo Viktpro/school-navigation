@@ -20,6 +20,8 @@ import type { Room, RouteResult, SchoolMapData } from '@/types/map'
 
 interface NavPanelProps {
   data: SchoolMapData
+  includeTechnical?: boolean
+  hiddenIds?: Set<string>
   fromId: string | null
   toId: string | null
   selectedId: string | null
@@ -37,6 +39,8 @@ interface NavPanelProps {
 
 export function NavPanel({
   data,
+  includeTechnical,
+  hiddenIds,
   fromId,
   toId,
   selectedId,
@@ -55,9 +59,9 @@ export function NavPanel({
   const [picking, setPicking] = useState<'from' | 'to' | null>(null)
 
   const results = useMemo(() => {
-    const list = searchRooms(data, query).filter((r) => r.kind !== 'stairs')
+    const list = searchRooms(data, query, { includeTechnical, hiddenIds })
     return list.slice(0, 40)
-  }, [data, query])
+  }, [data, query, includeTechnical, hiddenIds])
 
   const roomById = useMemo(
     () => new Map(data.rooms.map((r) => [r.id, r])),
@@ -84,7 +88,9 @@ export function NavPanel({
   }
 
   const chipClick = (label: string) => {
-    const matches = roomsForChip(data, label)
+    const matches = roomsForChip(data, label).filter(
+      (r) => includeTechnical || !r.technical,
+    )
     if (!matches.length) return
     const preferred =
       matches.find((m) => m.floor === 1) ??

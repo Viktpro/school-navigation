@@ -314,7 +314,10 @@
       "door": [
         580.0,
         405.0
-      ]
+      ],
+      "hidden": true,
+      "technical": true,
+      "exit": false
     },
     {
       "id": "f0-stairs-w",
@@ -353,7 +356,10 @@
       "door": [
         105.0,
         655.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f0-stairs-c",
@@ -392,7 +398,10 @@
       "door": [
         585.0,
         575.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f0-stairs-e",
@@ -431,7 +440,10 @@
       "door": [
         1085.0,
         655.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f0-stairs-nw",
@@ -470,7 +482,10 @@
       "door": [
         125.0,
         155.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f0-stairs-ne",
@@ -509,7 +524,10 @@
       "door": [
         925.0,
         155.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f0-exit",
@@ -546,7 +564,10 @@
       "door": [
         600.0,
         840.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": true
     },
     {
       "id": "f0-tech-n",
@@ -583,7 +604,10 @@
       "door": [
         570.0,
         170.0
-      ]
+      ],
+      "hidden": true,
+      "technical": true,
+      "exit": false
     },
     {
       "id": "f0-tech-s",
@@ -620,7 +644,10 @@
       "door": [
         580.0,
         600.0
-      ]
+      ],
+      "hidden": true,
+      "technical": true,
+      "exit": false
     },
     {
       "id": "f1-kitchen",
@@ -634,30 +661,34 @@
       "chips": [],
       "polygon": [
         [
-          80,
-          60
+          266.3,
+          136.7
         ],
         [
-          300,
-          60
+          386.3,
+          136.7
         ],
         [
-          300,
-          280
+          386.3,
+          214.7
         ],
         [
-          80,
-          280
+          266.3,
+          214.7
         ]
       ],
       "center": [
-        190.0,
-        170.0
+        326.3,
+        175.7
       ],
       "door": [
-        200,
-        290
-      ]
+        326.3,
+        175.7
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-canteen",
@@ -675,30 +706,34 @@
       ],
       "polygon": [
         [
-          320,
-          60
+          470.8,
+          226.9
         ],
         [
-          600,
-          60
+          590.8,
+          226.9
         ],
         [
-          600,
-          280
+          590.8,
+          304.9
         ],
         [
-          320,
-          280
+          470.8,
+          304.9
         ]
       ],
       "center": [
-        460.0,
-        170.0
+        530.8,
+        265.9
       ],
       "door": [
-        460,
-        290
-      ]
+        530.8,
+        265.9
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-stairs-kitchen",
@@ -714,30 +749,33 @@
       ],
       "polygon": [
         [
-          80,
-          290
+          265.3,
+          91.7
         ],
         [
-          130,
-          290
+          307.3,
+          91.7
         ],
         [
-          130,
-          350
+          307.3,
+          139.7
         ],
         [
-          80,
-          350
+          265.3,
+          139.7
         ]
       ],
       "center": [
-        105.0,
-        320.0
+        286.3,
+        115.7
       ],
       "door": [
-        105.0,
-        320.0
-      ]
+        286.3,
+        115.7
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-stairs-n",
@@ -753,30 +791,33 @@
       ],
       "polygon": [
         [
-          560,
-          100
+          672.0,
+          48.1
         ],
         [
-          610,
-          100
+          714.0,
+          48.1
         ],
         [
-          610,
-          170
+          714.0,
+          96.1
         ],
         [
-          560,
-          170
+          672.0,
+          96.1
         ]
       ],
       "center": [
-        585.0,
-        135.0
+        693.0,
+        72.1
       ],
       "door": [
-        585.0,
-        135.0
-      ]
+        693.0,
+        72.1
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-g164",
@@ -791,30 +832,34 @@
       "chips": [],
       "polygon": [
         [
-          640,
-          60
+          712.0,
+          90.1
         ],
         [
-          780,
-          60
+          774.0,
+          90.1
         ],
         [
-          780,
-          160
+          774.0,
+          134.1
         ],
         [
-          640,
-          160
+          712.0,
+          134.1
         ]
       ],
       "center": [
-        710.0,
-        110.0
+        743.0,
+        112.1
       ],
       "door": [
-        710,
-        170
-      ]
+        743.0,
+        112.1
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-lecture",
@@ -830,30 +875,34 @@
       "chips": [],
       "polygon": [
         [
-          800,
-          60
+          856.5,
+          73.5
         ],
         [
-          1080,
-          60
+          976.5,
+          73.5
         ],
         [
-          1080,
-          180
+          976.5,
+          151.5
         ],
         [
-          800,
-          180
+          856.5,
+          151.5
         ]
       ],
       "center": [
-        940.0,
-        120.0
+        916.5,
+        112.5
       ],
       "door": [
-        940,
-        190
-      ]
+        916.5,
+        112.5
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-g168",
@@ -868,30 +917,34 @@
       "chips": [],
       "polygon": [
         [
-          800,
-          200
+          754.8,
+          223.2
         ],
         [
-          940,
-          200
+          816.8,
+          223.2
         ],
         [
-          940,
-          290
+          816.8,
+          267.2
         ],
         [
-          800,
-          290
+          754.8,
+          267.2
         ]
       ],
       "center": [
-        870.0,
-        245.0
+        785.8,
+        245.2
       ],
       "door": [
-        870,
-        300
-      ]
+        785.8,
+        245.2
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-g167",
@@ -906,30 +959,34 @@
       "chips": [],
       "polygon": [
         [
-          960,
-          200
+          898.8,
+          225.8
         ],
         [
-          1080,
-          200
+          960.8,
+          225.8
         ],
         [
-          1080,
-          290
+          960.8,
+          269.8
         ],
         [
-          960,
-          290
+          898.8,
+          269.8
         ]
       ],
       "center": [
-        1020.0,
-        245.0
+        929.8,
+        247.8
       ],
       "door": [
-        1020,
-        300
-      ]
+        929.8,
+        247.8
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-stairs-g",
@@ -945,30 +1002,33 @@
       ],
       "polygon": [
         [
-          640,
-          180
+          662.0,
+          128.1
         ],
         [
-          690,
-          180
+          704.0,
+          128.1
         ],
         [
-          690,
-          240
+          704.0,
+          176.1
         ],
         [
-          640,
-          240
+          662.0,
+          176.1
         ]
       ],
       "center": [
-        665.0,
-        210.0
+        683.0,
+        152.1
       ],
       "door": [
-        665.0,
-        210.0
-      ]
+        683.0,
+        152.1
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-med",
@@ -986,30 +1046,34 @@
       ],
       "polygon": [
         [
-          700,
-          300
+          632.0,
+          459.4
         ],
         [
-          840,
-          300
+          740.0,
+          459.4
         ],
         [
-          840,
-          400
+          740.0,
+          529.4
         ],
         [
-          700,
-          400
+          632.0,
+          529.4
         ]
       ],
       "center": [
-        770.0,
-        350.0
+        686.0,
+        494.4
       ],
       "door": [
-        770,
-        410
-      ]
+        686.0,
+        494.4
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-toilet-med",
@@ -1027,30 +1091,33 @@
       ],
       "polygon": [
         [
-          850,
-          320
+          732.0,
+          496.4
         ],
         [
-          920,
-          320
+          780.0,
+          496.4
         ],
         [
-          920,
-          390
+          780.0,
+          532.4
         ],
         [
-          850,
-          390
+          732.0,
+          532.4
         ]
       ],
       "center": [
-        885.0,
-        355.0
+        756.0,
+        514.4
       ],
       "door": [
-        885.0,
-        355.0
-      ]
+        756.0,
+        514.4
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-cloak",
@@ -1068,30 +1135,34 @@
       ],
       "polygon": [
         [
-          480,
-          320
+          516.4,
+          523.3
         ],
         [
-          660,
-          320
+          624.4,
+          523.3
         ],
         [
-          660,
-          500
+          624.4,
+          593.3
         ],
         [
-          480,
-          500
+          516.4,
+          593.3
         ]
       ],
       "center": [
-        570.0,
-        410.0
+        570.4,
+        558.3
       ],
       "door": [
-        570,
-        510
-      ]
+        570.4,
+        558.3
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-cloak-girls",
@@ -1108,30 +1179,34 @@
       ],
       "polygon": [
         [
-          480,
-          320
+          518.6,
+          382.8
         ],
         [
-          565,
-          320
+          626.6,
+          382.8
         ],
         [
-          565,
-          400
+          626.6,
+          452.8
         ],
         [
-          480,
-          400
+          518.6,
+          452.8
         ]
       ],
       "center": [
-        522.5,
-        360.0
+        572.6,
+        417.8
       ],
       "door": [
-        522.5,
-        360.0
-      ]
+        572.6,
+        417.8
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-cloak-boys",
@@ -1148,30 +1223,34 @@
       ],
       "polygon": [
         [
-          575,
-          320
+          522.2,
+          476.4
         ],
         [
-          660,
-          320
+          630.2,
+          476.4
         ],
         [
-          660,
-          400
+          630.2,
+          546.4
         ],
         [
-          575,
-          400
+          522.2,
+          546.4
         ]
       ],
       "center": [
-        617.5,
-        360.0
+        576.2,
+        511.4
       ],
       "door": [
-        617.5,
-        360.0
-      ]
+        576.2,
+        511.4
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-server",
@@ -1185,30 +1264,33 @@
       "chips": [],
       "polygon": [
         [
-          400,
-          360
+          474.4,
+          550.3
         ],
         [
-          470,
-          360
+          526.4,
+          550.3
         ],
         [
-          470,
-          420
+          526.4,
+          586.3
         ],
         [
-          400,
-          420
+          474.4,
+          586.3
         ]
       ],
       "center": [
-        435.0,
-        390.0
+        500.4,
+        568.3
       ],
       "door": [
-        435.0,
-        390.0
-      ]
+        500.4,
+        568.3
+      ],
+      "hidden": true,
+      "technical": true,
+      "exit": false
     },
     {
       "id": "f1-panel",
@@ -1223,30 +1305,33 @@
       "chips": [],
       "polygon": [
         [
-          400,
-          430
+          474.4,
+          594.3
         ],
         [
-          470,
-          430
+          526.4,
+          594.3
         ],
         [
-          470,
-          480
+          526.4,
+          626.3
         ],
         [
-          400,
-          480
+          474.4,
+          626.3
         ]
       ],
       "center": [
-        435.0,
-        455.0
+        500.4,
+        610.3
       ],
       "door": [
-        435.0,
-        455.0
-      ]
+        500.4,
+        610.3
+      ],
+      "hidden": true,
+      "technical": true,
+      "exit": false
     },
     {
       "id": "f1-elevator",
@@ -1262,30 +1347,34 @@
       ],
       "polygon": [
         [
-          670,
-          430
+          644.4,
+          654.6
         ],
         [
-          720,
-          430
+          706.4,
+          654.6
         ],
         [
-          720,
-          490
+          706.4,
+          698.6
         ],
         [
-          670,
-          490
+          644.4,
+          698.6
         ]
       ],
       "center": [
-        695.0,
-        460.0
+        675.4,
+        676.6
       ],
       "door": [
-        695.0,
-        460.0
-      ]
+        675.4,
+        676.6
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-stairs-c",
@@ -1301,30 +1390,33 @@
       ],
       "polygon": [
         [
-          560,
-          500
+          579.9,
+          739.6
         ],
         [
-          615,
-          500
+          625.9,
+          739.6
         ],
         [
-          615,
-          570
+          625.9,
+          791.6
         ],
         [
-          560,
-          570
+          579.9,
+          791.6
         ]
       ],
       "center": [
-        587.5,
-        535.0
+        602.9,
+        765.6
       ],
       "door": [
-        587.5,
-        535.0
-      ]
+        602.9,
+        765.6
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-entrance",
@@ -1342,30 +1434,34 @@
       ],
       "polygon": [
         [
-          545,
-          820
+          548.9,
+          800.6
         ],
         [
-          655,
-          820
+          656.9,
+          800.6
         ],
         [
-          655,
-          870
+          656.9,
+          870.6
         ],
         [
-          545,
-          870
+          548.9,
+          870.6
         ]
       ],
       "center": [
-        600.0,
-        845.0
+        602.9,
+        835.6
       ],
       "door": [
-        600,
-        800
-      ]
+        602.9,
+        835.6
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": true
     },
     {
       "id": "f1-security",
@@ -1380,30 +1476,34 @@
       "chips": [],
       "polygon": [
         [
-          665,
-          780
+          585.9,
+          790.6
         ],
         [
-          755,
-          780
+          693.9,
+          790.6
         ],
         [
-          755,
-          835
+          693.9,
+          860.6
         ],
         [
-          665,
-          835
+          585.9,
+          860.6
         ]
       ],
       "center": [
-        710.0,
-        807.5
+        639.9,
+        825.6
       ],
       "door": [
-        710.0,
-        807.5
-      ]
+        639.9,
+        825.6
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-stairs-w",
@@ -1419,30 +1519,33 @@
       ],
       "polygon": [
         [
-          70,
-          640
+          74.4,
+          739.1
         ],
         [
-          120,
-          640
+          116.4,
+          739.1
         ],
         [
-          120,
-          710
+          116.4,
+          791.1
         ],
         [
-          70,
-          710
+          74.4,
+          791.1
         ]
       ],
       "center": [
-        95.0,
-        675.0
+        95.4,
+        765.1
       ],
       "door": [
-        95.0,
-        675.0
-      ]
+        95.4,
+        765.1
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": true
     },
     {
       "id": "f1-stairs-e",
@@ -1458,30 +1561,33 @@
       ],
       "polygon": [
         [
-          1080,
-          640
+          1065.3,
+          741.7
         ],
         [
-          1130,
-          640
+          1107.3,
+          741.7
         ],
         [
-          1130,
-          710
+          1107.3,
+          793.7
         ],
         [
-          1080,
-          710
+          1065.3,
+          793.7
         ]
       ],
       "center": [
-        1105.0,
-        675.0
+        1086.3,
+        767.7
       ],
       "door": [
-        1105.0,
-        675.0
-      ]
+        1086.3,
+        767.7
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": true
     },
     {
       "id": "f1-b120",
@@ -1496,30 +1602,34 @@
       "chips": [],
       "polygon": [
         [
-          80,
-          520
+          84.4,
+          673.1
         ],
         [
-          210,
-          520
+          146.4,
+          673.1
         ],
         [
-          210,
-          620
+          146.4,
+          717.1
         ],
         [
-          80,
-          620
+          84.4,
+          717.1
         ]
       ],
       "center": [
-        145.0,
-        570.0
+        115.4,
+        695.1
       ],
       "door": [
-        145.0,
-        640
-      ]
+        115.4,
+        695.1
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-b122",
@@ -1534,30 +1644,34 @@
       "chips": [],
       "polygon": [
         [
-          230,
-          520
+          247.0,
+          673.5
         ],
         [
-          360,
-          520
+          309.0,
+          673.5
         ],
         [
-          360,
-          620
+          309.0,
+          717.5
         ],
         [
-          230,
-          620
+          247.0,
+          717.5
         ]
       ],
       "center": [
-        295.0,
-        570.0
+        278.0,
+        695.5
       ],
       "door": [
-        295.0,
-        640
-      ]
+        278.0,
+        695.5
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-toilet-w",
@@ -1575,30 +1689,34 @@
       ],
       "polygon": [
         [
-          380,
-          540
+          426.7,
+          669.0
         ],
         [
-          460,
-          540
+          488.7,
+          669.0
         ],
         [
-          460,
-          610
+          488.7,
+          713.0
         ],
         [
-          380,
-          610
+          426.7,
+          713.0
         ]
       ],
       "center": [
-        420.0,
-        575.0
+        457.7,
+        691.0
       ],
       "door": [
-        420.0,
-        575.0
-      ]
+        457.7,
+        691.0
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-b119",
@@ -1613,30 +1731,34 @@
       "chips": [],
       "polygon": [
         [
-          80,
-          720
+          75.0,
+          788.5
         ],
         [
-          190,
-          720
+          137.0,
+          788.5
         ],
         [
-          190,
-          840
+          137.0,
+          832.5
         ],
         [
-          80,
-          840
+          75.0,
+          832.5
         ]
       ],
       "center": [
-        135.0,
-        780.0
+        106.0,
+        810.5
       ],
       "door": [
-        135.0,
-        700
-      ]
+        106.0,
+        810.5
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-b117",
@@ -1652,30 +1774,34 @@
       "chips": [],
       "polygon": [
         [
-          200,
-          720
+          185.5,
+          788.1
         ],
         [
-          310,
-          720
+          247.5,
+          788.1
         ],
         [
-          310,
-          840
+          247.5,
+          832.1
         ],
         [
-          200,
-          840
+          185.5,
+          832.1
         ]
       ],
       "center": [
-        255.0,
-        780.0
+        216.5,
+        810.1
       ],
       "door": [
-        255.0,
-        700
-      ]
+        216.5,
+        810.1
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-b116",
@@ -1690,30 +1816,34 @@
       "chips": [],
       "polygon": [
         [
-          320,
-          720
+          299.5,
+          788.1
         ],
         [
-          430,
-          720
+          361.5,
+          788.1
         ],
         [
-          430,
-          840
+          361.5,
+          832.1
         ],
         [
-          320,
-          840
+          299.5,
+          832.1
         ]
       ],
       "center": [
-        375.0,
-        780.0
+        330.5,
+        810.1
       ],
       "door": [
-        375.0,
-        700
-      ]
+        330.5,
+        810.1
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-b115",
@@ -1728,30 +1858,34 @@
       "chips": [],
       "polygon": [
         [
-          440,
-          720
+          407.3,
+          786.6
         ],
         [
-          540,
-          720
+          469.3,
+          786.6
         ],
         [
-          540,
-          840
+          469.3,
+          830.6
         ],
         [
-          440,
-          840
+          407.3,
+          830.6
         ]
       ],
       "center": [
-        490.0,
-        780.0
+        438.3,
+        808.6
       ],
       "door": [
-        490.0,
-        700
-      ]
+        438.3,
+        808.6
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-v137",
@@ -1766,30 +1900,34 @@
       "chips": [],
       "polygon": [
         [
-          680,
-          720
+          735.8,
+          788.5
         ],
         [
-          790,
-          720
+          797.8,
+          788.5
         ],
         [
-          790,
-          840
+          797.8,
+          832.5
         ],
         [
-          680,
-          840
+          735.8,
+          832.5
         ]
       ],
       "center": [
-        735.0,
-        780.0
+        766.8,
+        810.5
       ],
       "door": [
-        735.0,
-        700
-      ]
+        766.8,
+        810.5
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-v136",
@@ -1804,30 +1942,34 @@
       "chips": [],
       "polygon": [
         [
-          800,
-          720
+          854.6,
+          788.1
         ],
         [
-          910,
-          720
+          916.6,
+          788.1
         ],
         [
-          910,
-          840
+          916.6,
+          832.1
         ],
         [
-          800,
-          840
+          854.6,
+          832.1
         ]
       ],
       "center": [
-        855.0,
-        780.0
+        885.6,
+        810.1
       ],
       "door": [
-        855.0,
-        700
-      ]
+        885.6,
+        810.1
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-v135",
@@ -1842,30 +1984,34 @@
       "chips": [],
       "polygon": [
         [
-          920,
-          720
+          966.7,
+          787.4
         ],
         [
-          1030,
-          720
+          1028.7,
+          787.4
         ],
         [
-          1030,
-          840
+          1028.7,
+          831.4
         ],
         [
-          920,
-          840
+          966.7,
+          831.4
         ]
       ],
       "center": [
-        975.0,
-        780.0
+        997.7,
+        809.4
       ],
       "door": [
-        975.0,
-        700
-      ]
+        997.7,
+        809.4
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-v134",
@@ -1880,30 +2026,34 @@
       "chips": [],
       "polygon": [
         [
-          1040,
-          720
+          1075.5,
+          786.2
         ],
         [
-          1140,
-          720
+          1137.5,
+          786.2
         ],
         [
-          1140,
-          840
+          1137.5,
+          830.2
         ],
         [
-          1040,
-          840
+          1075.5,
+          830.2
         ]
       ],
       "center": [
-        1090.0,
-        780.0
+        1106.5,
+        808.2
       ],
       "door": [
-        1090.0,
-        700
-      ]
+        1106.5,
+        808.2
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-toilet-e",
@@ -1921,30 +2071,34 @@
       ],
       "polygon": [
         [
-          700,
-          540
+          705.2,
+          671.6
         ],
         [
-          780,
-          540
+          767.2,
+          671.6
         ],
         [
-          780,
-          610
+          767.2,
+          715.6
         ],
         [
-          700,
-          610
+          705.2,
+          715.6
         ]
       ],
       "center": [
-        740.0,
-        575.0
+        736.2,
+        693.6
       ],
       "door": [
-        740.0,
-        575.0
-      ]
+        736.2,
+        693.6
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-admin",
@@ -1958,30 +2112,34 @@
       "chips": [],
       "polygon": [
         [
-          800,
-          520
+          894.5,
+          661.7
         ],
         [
-          940,
-          520
+          1014.5,
+          661.7
         ],
         [
-          940,
-          620
+          1014.5,
+          739.7
         ],
         [
-          800,
-          620
+          894.5,
+          739.7
         ]
       ],
       "center": [
-        870.0,
-        570.0
+        954.5,
+        700.7
       ],
       "door": [
-        870.0,
-        570.0
-      ]
+        954.5,
+        700.7
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-director",
@@ -1996,30 +2154,34 @@
       "chips": [],
       "polygon": [
         [
-          950,
-          520
+          992.3,
+          662.7
         ],
         [
-          1070,
-          520
+          1100.3,
+          662.7
         ],
         [
-          1070,
-          620
+          1100.3,
+          732.7
         ],
         [
-          950,
-          620
+          992.3,
+          732.7
         ]
       ],
       "center": [
-        1010.0,
-        570.0
+        1046.3,
+        697.7
       ],
       "door": [
-        1010.0,
-        570.0
-      ]
+        1046.3,
+        697.7
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-reception",
@@ -2033,30 +2195,34 @@
       "chips": [],
       "polygon": [
         [
-          1080,
-          520
+          1051.6,
+          648.7
         ],
         [
-          1160,
-          520
+          1159.6,
+          648.7
         ],
         [
-          1160,
-          580
+          1159.6,
+          718.7
         ],
         [
-          1080,
-          580
+          1051.6,
+          718.7
         ]
       ],
       "center": [
-        1120.0,
-        550.0
+        1105.6,
+        683.7
       ],
       "door": [
-        1120.0,
-        550.0
-      ]
+        1105.6,
+        683.7
+      ],
+      "source": "points.json",
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f1-archive",
@@ -2070,30 +2236,33 @@
       "chips": [],
       "polygon": [
         [
-          1080,
-          590
+          1077.6,
+          713.7
         ],
         [
-          1160,
-          590
+          1133.6,
+          713.7
         ],
         [
-          1160,
-          640
+          1133.6,
+          749.7
         ],
         [
-          1080,
-          640
+          1077.6,
+          749.7
         ]
       ],
       "center": [
-        1120.0,
-        615.0
+        1105.6,
+        731.7
       ],
       "door": [
-        1120.0,
-        615.0
-      ]
+        1105.6,
+        731.7
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-assembly",
@@ -2131,7 +2300,10 @@
       "door": [
         290,
         310
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-gym-main",
@@ -2172,7 +2344,10 @@
       "door": [
         850,
         280
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-gym-side",
@@ -2212,7 +2387,10 @@
       "door": [
         840,
         390
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-changing",
@@ -2250,7 +2428,10 @@
       "door": [
         600,
         390
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-toilet-gym",
@@ -2290,7 +2471,10 @@
       "door": [
         560.0,
         235.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-stairs-nw",
@@ -2329,7 +2513,10 @@
       "door": [
         105.0,
         340.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-stairs-n",
@@ -2368,7 +2555,10 @@
       "door": [
         585.0,
         115.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-elevator",
@@ -2407,7 +2597,10 @@
       "door": [
         695.0,
         460.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-stairs-c",
@@ -2446,7 +2639,10 @@
       "door": [
         587.5,
         535.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-stairs-w",
@@ -2485,7 +2681,10 @@
       "door": [
         95.0,
         675.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": true
     },
     {
       "id": "f2-stairs-e",
@@ -2524,7 +2723,10 @@
       "door": [
         1105.0,
         675.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": true
     },
     {
       "id": "f2-toilet-w",
@@ -2564,7 +2766,10 @@
       "door": [
         420.0,
         575.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-toilet-e",
@@ -2604,7 +2809,10 @@
       "door": [
         740.0,
         575.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-b221",
@@ -2642,7 +2850,10 @@
       "door": [
         155.0,
         640
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-b222",
@@ -2680,7 +2891,10 @@
       "door": [
         325.0,
         640
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-v228",
@@ -2718,7 +2932,10 @@
       "door": [
         980.0,
         640
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-b220",
@@ -2756,7 +2973,10 @@
       "door": [
         130.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-b219",
@@ -2794,7 +3014,10 @@
       "door": [
         240.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-b218",
@@ -2832,7 +3055,10 @@
       "door": [
         350.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-b217",
@@ -2870,7 +3096,10 @@
       "door": [
         460.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-a201",
@@ -2909,7 +3138,10 @@
       "door": [
         585.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-v234",
@@ -2947,7 +3179,10 @@
       "door": [
         750.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-v233",
@@ -2985,7 +3220,10 @@
       "door": [
         860.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-v232",
@@ -3023,7 +3261,10 @@
       "door": [
         970.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f2-v231",
@@ -3061,7 +3302,10 @@
       "door": [
         1085.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-hall-w",
@@ -3096,7 +3340,10 @@
       "door": [
         290,
         280
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-hall-e",
@@ -3131,7 +3378,10 @@
       "door": [
         850,
         280
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-library",
@@ -3168,7 +3418,10 @@
       "door": [
         520,
         450
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-307",
@@ -3205,7 +3458,10 @@
       "door": [
         435.0,
         477.5
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-311",
@@ -3242,7 +3498,10 @@
       "door": [
         695.0,
         385.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-312",
@@ -3279,7 +3538,10 @@
       "door": [
         695.0,
         445.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-313",
@@ -3316,7 +3578,10 @@
       "door": [
         695.0,
         505.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-stairs-nw",
@@ -3355,7 +3620,10 @@
       "door": [
         105.0,
         310.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-stairs-n",
@@ -3394,7 +3662,10 @@
       "door": [
         585.0,
         115.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-stairs-c",
@@ -3433,7 +3704,10 @@
       "door": [
         587.5,
         535.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-stairs-w",
@@ -3472,7 +3746,10 @@
       "door": [
         95.0,
         675.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": true
     },
     {
       "id": "f3-stairs-e",
@@ -3511,7 +3788,10 @@
       "door": [
         1105.0,
         675.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": true
     },
     {
       "id": "f3-toilet-w",
@@ -3551,7 +3831,10 @@
       "door": [
         420.0,
         575.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-toilet-e",
@@ -3591,7 +3874,10 @@
       "door": [
         740.0,
         575.0
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-b318",
@@ -3629,7 +3915,10 @@
       "door": [
         150.0,
         640
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-b319",
@@ -3667,7 +3956,10 @@
       "door": [
         310.0,
         640
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-v325",
@@ -3705,7 +3997,10 @@
       "door": [
         930.0,
         640
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-v326",
@@ -3743,7 +4038,10 @@
       "door": [
         1075.0,
         640
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-b317",
@@ -3781,7 +4079,10 @@
       "door": [
         130.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-b316",
@@ -3819,7 +4120,10 @@
       "door": [
         240.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-b315",
@@ -3857,7 +4161,10 @@
       "door": [
         350.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-b314",
@@ -3895,7 +4202,10 @@
       "door": [
         455.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-a302",
@@ -3933,7 +4243,10 @@
       "door": [
         555.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-a301",
@@ -3971,7 +4284,10 @@
       "door": [
         655.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-v330",
@@ -4009,7 +4325,10 @@
       "door": [
         770.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-v329",
@@ -4047,7 +4366,10 @@
       "door": [
         880.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-v328",
@@ -4085,7 +4407,10 @@
       "door": [
         990.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
     },
     {
       "id": "f3-v327",
@@ -4123,500 +4448,57 @@
       "door": [
         1105.0,
         700
-      ]
+      ],
+      "hidden": false,
+      "technical": false,
+      "exit": false
+    },
+    {
+      "id": "f1-cloak-lockers",
+      "name": "Гардероб: шкафчики",
+      "label": "Гардероб: шкафчики",
+      "floor": 1,
+      "kind": "zone",
+      "aliases": [
+        "шкафчики",
+        "гардероб шкафчики"
+      ],
+      "chips": [
+        "Гардероб"
+      ],
+      "polygon": [
+        [
+          605.3,
+          397.3
+        ],
+        [
+          713.3,
+          397.3
+        ],
+        [
+          713.3,
+          467.3
+        ],
+        [
+          605.3,
+          467.3
+        ]
+      ],
+      "center": [
+        659.3,
+        432.3
+      ],
+      "door": [
+        659.3,
+        432.3
+      ],
+      "hidden": false,
+      "exit": false,
+      "source": "points.json",
+      "technical": false
     }
   ],
   "nodes": [
-    {
-      "id": "c0-b0",
-      "floor": 0,
-      "x": 100,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-b1",
-      "floor": 0,
-      "x": 220,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-b2",
-      "floor": 0,
-      "x": 340,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-b3",
-      "floor": 0,
-      "x": 460,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-b4",
-      "floor": 0,
-      "x": 570,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-b5",
-      "floor": 0,
-      "x": 600,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-b6",
-      "floor": 0,
-      "x": 630,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-b7",
-      "floor": 0,
-      "x": 740,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-b8",
-      "floor": 0,
-      "x": 860,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-b9",
-      "floor": 0,
-      "x": 980,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-b10",
-      "floor": 0,
-      "x": 1100,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-s0",
-      "floor": 0,
-      "x": 600,
-      "y": 300,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-s1",
-      "floor": 0,
-      "x": 600,
-      "y": 380,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-s2",
-      "floor": 0,
-      "x": 600,
-      "y": 460,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-s3",
-      "floor": 0,
-      "x": 600,
-      "y": 540,
-      "kind": "corridor"
-    },
-    {
-      "id": "c0-s4",
-      "floor": 0,
-      "x": 600,
-      "y": 620,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b0",
-      "floor": 1,
-      "x": 100,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b1",
-      "floor": 1,
-      "x": 220,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b2",
-      "floor": 1,
-      "x": 340,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b3",
-      "floor": 1,
-      "x": 460,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b4",
-      "floor": 1,
-      "x": 570,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b5",
-      "floor": 1,
-      "x": 600,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b6",
-      "floor": 1,
-      "x": 630,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b7",
-      "floor": 1,
-      "x": 740,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b8",
-      "floor": 1,
-      "x": 860,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b9",
-      "floor": 1,
-      "x": 980,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-b10",
-      "floor": 1,
-      "x": 1100,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-s0",
-      "floor": 1,
-      "x": 600,
-      "y": 300,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-s1",
-      "floor": 1,
-      "x": 600,
-      "y": 380,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-s2",
-      "floor": 1,
-      "x": 600,
-      "y": 460,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-s3",
-      "floor": 1,
-      "x": 600,
-      "y": 540,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-s4",
-      "floor": 1,
-      "x": 600,
-      "y": 620,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-n0",
-      "floor": 1,
-      "x": 300,
-      "y": 300,
-      "kind": "corridor"
-    },
-    {
-      "id": "c1-n1",
-      "floor": 1,
-      "x": 850,
-      "y": 300,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b0",
-      "floor": 2,
-      "x": 100,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b1",
-      "floor": 2,
-      "x": 220,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b2",
-      "floor": 2,
-      "x": 340,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b3",
-      "floor": 2,
-      "x": 460,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b4",
-      "floor": 2,
-      "x": 570,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b5",
-      "floor": 2,
-      "x": 600,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b6",
-      "floor": 2,
-      "x": 630,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b7",
-      "floor": 2,
-      "x": 740,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b8",
-      "floor": 2,
-      "x": 860,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b9",
-      "floor": 2,
-      "x": 980,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-b10",
-      "floor": 2,
-      "x": 1100,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-s0",
-      "floor": 2,
-      "x": 600,
-      "y": 300,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-s1",
-      "floor": 2,
-      "x": 600,
-      "y": 380,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-s2",
-      "floor": 2,
-      "x": 600,
-      "y": 460,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-s3",
-      "floor": 2,
-      "x": 600,
-      "y": 540,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-s4",
-      "floor": 2,
-      "x": 600,
-      "y": 620,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-n0",
-      "floor": 2,
-      "x": 300,
-      "y": 300,
-      "kind": "corridor"
-    },
-    {
-      "id": "c2-n1",
-      "floor": 2,
-      "x": 850,
-      "y": 300,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b0",
-      "floor": 3,
-      "x": 100,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b1",
-      "floor": 3,
-      "x": 220,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b2",
-      "floor": 3,
-      "x": 340,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b3",
-      "floor": 3,
-      "x": 460,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b4",
-      "floor": 3,
-      "x": 570,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b5",
-      "floor": 3,
-      "x": 600,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b6",
-      "floor": 3,
-      "x": 630,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b7",
-      "floor": 3,
-      "x": 740,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b8",
-      "floor": 3,
-      "x": 860,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b9",
-      "floor": 3,
-      "x": 980,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-b10",
-      "floor": 3,
-      "x": 1100,
-      "y": 670,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-s0",
-      "floor": 3,
-      "x": 600,
-      "y": 300,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-s1",
-      "floor": 3,
-      "x": 600,
-      "y": 380,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-s2",
-      "floor": 3,
-      "x": 600,
-      "y": 460,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-s3",
-      "floor": 3,
-      "x": 600,
-      "y": 540,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-s4",
-      "floor": 3,
-      "x": 600,
-      "y": 620,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-n0",
-      "floor": 3,
-      "x": 300,
-      "y": 300,
-      "kind": "corridor"
-    },
-    {
-      "id": "c3-n1",
-      "floor": 3,
-      "x": 850,
-      "y": 300,
-      "kind": "corridor"
-    },
     {
       "id": "f0-teplo",
       "floor": 0,
@@ -4692,304 +4574,304 @@
     {
       "id": "f1-kitchen",
       "floor": 1,
-      "x": 200,
-      "y": 290,
+      "x": 326.3,
+      "y": 175.7,
       "kind": "room",
       "roomId": "f1-kitchen"
     },
     {
       "id": "f1-canteen",
       "floor": 1,
-      "x": 460,
-      "y": 290,
+      "x": 530.8,
+      "y": 265.9,
       "kind": "room",
       "roomId": "f1-canteen"
     },
     {
       "id": "f1-stairs-kitchen",
       "floor": 1,
-      "x": 105.0,
-      "y": 320.0,
+      "x": 286.3,
+      "y": 115.7,
       "kind": "room",
       "roomId": "f1-stairs-kitchen"
     },
     {
       "id": "f1-stairs-n",
       "floor": 1,
-      "x": 585.0,
-      "y": 135.0,
+      "x": 693.0,
+      "y": 72.1,
       "kind": "room",
       "roomId": "f1-stairs-n"
     },
     {
       "id": "f1-g164",
       "floor": 1,
-      "x": 710,
-      "y": 170,
+      "x": 743.0,
+      "y": 112.1,
       "kind": "room",
       "roomId": "f1-g164"
     },
     {
       "id": "f1-lecture",
       "floor": 1,
-      "x": 940,
-      "y": 190,
+      "x": 916.5,
+      "y": 112.5,
       "kind": "room",
       "roomId": "f1-lecture"
     },
     {
       "id": "f1-g168",
       "floor": 1,
-      "x": 870,
-      "y": 300,
+      "x": 785.8,
+      "y": 245.2,
       "kind": "room",
       "roomId": "f1-g168"
     },
     {
       "id": "f1-g167",
       "floor": 1,
-      "x": 1020,
-      "y": 300,
+      "x": 929.8,
+      "y": 247.8,
       "kind": "room",
       "roomId": "f1-g167"
     },
     {
       "id": "f1-stairs-g",
       "floor": 1,
-      "x": 665.0,
-      "y": 210.0,
+      "x": 683.0,
+      "y": 152.1,
       "kind": "room",
       "roomId": "f1-stairs-g"
     },
     {
       "id": "f1-med",
       "floor": 1,
-      "x": 770,
-      "y": 410,
+      "x": 686.0,
+      "y": 494.4,
       "kind": "room",
       "roomId": "f1-med"
     },
     {
       "id": "f1-toilet-med",
       "floor": 1,
-      "x": 885.0,
-      "y": 355.0,
+      "x": 756.0,
+      "y": 514.4,
       "kind": "room",
       "roomId": "f1-toilet-med"
     },
     {
       "id": "f1-cloak",
       "floor": 1,
-      "x": 570,
-      "y": 510,
+      "x": 570.4,
+      "y": 558.3,
       "kind": "room",
       "roomId": "f1-cloak"
     },
     {
       "id": "f1-cloak-girls",
       "floor": 1,
-      "x": 522.5,
-      "y": 360.0,
+      "x": 572.6,
+      "y": 417.8,
       "kind": "room",
       "roomId": "f1-cloak-girls"
     },
     {
       "id": "f1-cloak-boys",
       "floor": 1,
-      "x": 617.5,
-      "y": 360.0,
+      "x": 576.2,
+      "y": 511.4,
       "kind": "room",
       "roomId": "f1-cloak-boys"
     },
     {
       "id": "f1-server",
       "floor": 1,
-      "x": 435.0,
-      "y": 390.0,
+      "x": 500.4,
+      "y": 568.3,
       "kind": "room",
       "roomId": "f1-server"
     },
     {
       "id": "f1-panel",
       "floor": 1,
-      "x": 435.0,
-      "y": 455.0,
+      "x": 500.4,
+      "y": 610.3,
       "kind": "room",
       "roomId": "f1-panel"
     },
     {
       "id": "f1-elevator",
       "floor": 1,
-      "x": 695.0,
-      "y": 460.0,
+      "x": 675.4,
+      "y": 676.6,
       "kind": "room",
       "roomId": "f1-elevator"
     },
     {
       "id": "f1-stairs-c",
       "floor": 1,
-      "x": 587.5,
-      "y": 535.0,
+      "x": 602.9,
+      "y": 765.6,
       "kind": "room",
       "roomId": "f1-stairs-c"
     },
     {
       "id": "f1-entrance",
       "floor": 1,
-      "x": 600,
-      "y": 800,
+      "x": 602.9,
+      "y": 835.6,
       "kind": "room",
       "roomId": "f1-entrance"
     },
     {
       "id": "f1-security",
       "floor": 1,
-      "x": 710.0,
-      "y": 807.5,
+      "x": 639.9,
+      "y": 825.6,
       "kind": "room",
       "roomId": "f1-security"
     },
     {
       "id": "f1-stairs-w",
       "floor": 1,
-      "x": 95.0,
-      "y": 675.0,
+      "x": 95.4,
+      "y": 765.1,
       "kind": "room",
       "roomId": "f1-stairs-w"
     },
     {
       "id": "f1-stairs-e",
       "floor": 1,
-      "x": 1105.0,
-      "y": 675.0,
+      "x": 1086.3,
+      "y": 767.7,
       "kind": "room",
       "roomId": "f1-stairs-e"
     },
     {
       "id": "f1-b120",
       "floor": 1,
-      "x": 145.0,
-      "y": 640,
+      "x": 115.4,
+      "y": 695.1,
       "kind": "room",
       "roomId": "f1-b120"
     },
     {
       "id": "f1-b122",
       "floor": 1,
-      "x": 295.0,
-      "y": 640,
+      "x": 278.0,
+      "y": 695.5,
       "kind": "room",
       "roomId": "f1-b122"
     },
     {
       "id": "f1-toilet-w",
       "floor": 1,
-      "x": 420.0,
-      "y": 575.0,
+      "x": 457.7,
+      "y": 691.0,
       "kind": "room",
       "roomId": "f1-toilet-w"
     },
     {
       "id": "f1-b119",
       "floor": 1,
-      "x": 135.0,
-      "y": 700,
+      "x": 106.0,
+      "y": 810.5,
       "kind": "room",
       "roomId": "f1-b119"
     },
     {
       "id": "f1-b117",
       "floor": 1,
-      "x": 255.0,
-      "y": 700,
+      "x": 216.5,
+      "y": 810.1,
       "kind": "room",
       "roomId": "f1-b117"
     },
     {
       "id": "f1-b116",
       "floor": 1,
-      "x": 375.0,
-      "y": 700,
+      "x": 330.5,
+      "y": 810.1,
       "kind": "room",
       "roomId": "f1-b116"
     },
     {
       "id": "f1-b115",
       "floor": 1,
-      "x": 490.0,
-      "y": 700,
+      "x": 438.3,
+      "y": 808.6,
       "kind": "room",
       "roomId": "f1-b115"
     },
     {
       "id": "f1-v137",
       "floor": 1,
-      "x": 735.0,
-      "y": 700,
+      "x": 766.8,
+      "y": 810.5,
       "kind": "room",
       "roomId": "f1-v137"
     },
     {
       "id": "f1-v136",
       "floor": 1,
-      "x": 855.0,
-      "y": 700,
+      "x": 885.6,
+      "y": 810.1,
       "kind": "room",
       "roomId": "f1-v136"
     },
     {
       "id": "f1-v135",
       "floor": 1,
-      "x": 975.0,
-      "y": 700,
+      "x": 997.7,
+      "y": 809.4,
       "kind": "room",
       "roomId": "f1-v135"
     },
     {
       "id": "f1-v134",
       "floor": 1,
-      "x": 1090.0,
-      "y": 700,
+      "x": 1106.5,
+      "y": 808.2,
       "kind": "room",
       "roomId": "f1-v134"
     },
     {
       "id": "f1-toilet-e",
       "floor": 1,
-      "x": 740.0,
-      "y": 575.0,
+      "x": 736.2,
+      "y": 693.6,
       "kind": "room",
       "roomId": "f1-toilet-e"
     },
     {
       "id": "f1-admin",
       "floor": 1,
-      "x": 870.0,
-      "y": 570.0,
+      "x": 954.5,
+      "y": 700.7,
       "kind": "room",
       "roomId": "f1-admin"
     },
     {
       "id": "f1-director",
       "floor": 1,
-      "x": 1010.0,
-      "y": 570.0,
+      "x": 1046.3,
+      "y": 697.7,
       "kind": "room",
       "roomId": "f1-director"
     },
     {
       "id": "f1-reception",
       "floor": 1,
-      "x": 1120.0,
-      "y": 550.0,
+      "x": 1105.6,
+      "y": 683.7,
       "kind": "room",
       "roomId": "f1-reception"
     },
     {
       "id": "f1-archive",
       "floor": 1,
-      "x": 1120.0,
-      "y": 615.0,
+      "x": 1105.6,
+      "y": 731.7,
       "kind": "room",
       "roomId": "f1-archive"
     },
@@ -5416,909 +5298,572 @@
       "y": 700,
       "kind": "room",
       "roomId": "f3-v327"
+    },
+    {
+      "id": "f1-cloak-lockers",
+      "floor": 1,
+      "x": 659.3,
+      "y": 432.3,
+      "kind": "room",
+      "roomId": "f1-cloak-lockers"
     }
   ],
   "edges": [
     {
-      "from": "c0-b0",
-      "to": "c0-b1",
-      "w": 120
-    },
-    {
-      "from": "c0-b1",
-      "to": "c0-b2",
-      "w": 120
-    },
-    {
-      "from": "c0-b2",
-      "to": "c0-b3",
-      "w": 120
-    },
-    {
-      "from": "c0-b3",
-      "to": "c0-b4",
-      "w": 110
-    },
-    {
-      "from": "c0-b4",
-      "to": "c0-b5",
-      "w": 30
-    },
-    {
-      "from": "c0-b5",
-      "to": "c0-b6",
-      "w": 30
-    },
-    {
-      "from": "c0-b6",
-      "to": "c0-b7",
-      "w": 110
-    },
-    {
-      "from": "c0-b7",
-      "to": "c0-b8",
-      "w": 120
-    },
-    {
-      "from": "c0-b8",
-      "to": "c0-b9",
-      "w": 120
-    },
-    {
-      "from": "c0-b9",
-      "to": "c0-b10",
-      "w": 120
-    },
-    {
-      "from": "c0-s0",
-      "to": "c0-s1",
-      "w": 80
-    },
-    {
-      "from": "c0-s1",
-      "to": "c0-s2",
-      "w": 80
-    },
-    {
-      "from": "c0-s2",
-      "to": "c0-s3",
-      "w": 80
-    },
-    {
-      "from": "c0-s3",
-      "to": "c0-s4",
-      "w": 80
-    },
-    {
-      "from": "c0-s4",
-      "to": "c0-b5",
-      "w": 50
-    },
-    {
-      "from": "c1-b0",
-      "to": "c1-b1",
-      "w": 120
-    },
-    {
-      "from": "c1-b1",
-      "to": "c1-b2",
-      "w": 120
-    },
-    {
-      "from": "c1-b2",
-      "to": "c1-b3",
-      "w": 120
-    },
-    {
-      "from": "c1-b3",
-      "to": "c1-b4",
-      "w": 110
-    },
-    {
-      "from": "c1-b4",
-      "to": "c1-b5",
-      "w": 30
-    },
-    {
-      "from": "c1-b5",
-      "to": "c1-b6",
-      "w": 30
-    },
-    {
-      "from": "c1-b6",
-      "to": "c1-b7",
-      "w": 110
-    },
-    {
-      "from": "c1-b7",
-      "to": "c1-b8",
-      "w": 120
-    },
-    {
-      "from": "c1-b8",
-      "to": "c1-b9",
-      "w": 120
-    },
-    {
-      "from": "c1-b9",
-      "to": "c1-b10",
-      "w": 120
-    },
-    {
-      "from": "c1-s0",
-      "to": "c1-s1",
-      "w": 80
-    },
-    {
-      "from": "c1-s1",
-      "to": "c1-s2",
-      "w": 80
-    },
-    {
-      "from": "c1-s2",
-      "to": "c1-s3",
-      "w": 80
-    },
-    {
-      "from": "c1-s3",
-      "to": "c1-s4",
-      "w": 80
-    },
-    {
-      "from": "c1-s4",
-      "to": "c1-b5",
-      "w": 50
-    },
-    {
-      "from": "c1-n0",
-      "to": "c1-s0",
-      "w": 300
-    },
-    {
-      "from": "c1-n1",
-      "to": "c1-s0",
-      "w": 250
-    },
-    {
-      "from": "c2-b0",
-      "to": "c2-b1",
-      "w": 120
-    },
-    {
-      "from": "c2-b1",
-      "to": "c2-b2",
-      "w": 120
-    },
-    {
-      "from": "c2-b2",
-      "to": "c2-b3",
-      "w": 120
-    },
-    {
-      "from": "c2-b3",
-      "to": "c2-b4",
-      "w": 110
-    },
-    {
-      "from": "c2-b4",
-      "to": "c2-b5",
-      "w": 30
-    },
-    {
-      "from": "c2-b5",
-      "to": "c2-b6",
-      "w": 30
-    },
-    {
-      "from": "c2-b6",
-      "to": "c2-b7",
-      "w": 110
-    },
-    {
-      "from": "c2-b7",
-      "to": "c2-b8",
-      "w": 120
-    },
-    {
-      "from": "c2-b8",
-      "to": "c2-b9",
-      "w": 120
-    },
-    {
-      "from": "c2-b9",
-      "to": "c2-b10",
-      "w": 120
-    },
-    {
-      "from": "c2-s0",
-      "to": "c2-s1",
-      "w": 80
-    },
-    {
-      "from": "c2-s1",
-      "to": "c2-s2",
-      "w": 80
-    },
-    {
-      "from": "c2-s2",
-      "to": "c2-s3",
-      "w": 80
-    },
-    {
-      "from": "c2-s3",
-      "to": "c2-s4",
-      "w": 80
-    },
-    {
-      "from": "c2-s4",
-      "to": "c2-b5",
-      "w": 50
-    },
-    {
-      "from": "c2-n0",
-      "to": "c2-s0",
-      "w": 300
-    },
-    {
-      "from": "c2-n1",
-      "to": "c2-s0",
-      "w": 250
-    },
-    {
-      "from": "c3-b0",
-      "to": "c3-b1",
-      "w": 120
-    },
-    {
-      "from": "c3-b1",
-      "to": "c3-b2",
-      "w": 120
-    },
-    {
-      "from": "c3-b2",
-      "to": "c3-b3",
-      "w": 120
-    },
-    {
-      "from": "c3-b3",
-      "to": "c3-b4",
-      "w": 110
-    },
-    {
-      "from": "c3-b4",
-      "to": "c3-b5",
-      "w": 30
-    },
-    {
-      "from": "c3-b5",
-      "to": "c3-b6",
-      "w": 30
-    },
-    {
-      "from": "c3-b6",
-      "to": "c3-b7",
-      "w": 110
-    },
-    {
-      "from": "c3-b7",
-      "to": "c3-b8",
-      "w": 120
-    },
-    {
-      "from": "c3-b8",
-      "to": "c3-b9",
-      "w": 120
-    },
-    {
-      "from": "c3-b9",
-      "to": "c3-b10",
-      "w": 120
-    },
-    {
-      "from": "c3-s0",
-      "to": "c3-s1",
-      "w": 80
-    },
-    {
-      "from": "c3-s1",
-      "to": "c3-s2",
-      "w": 80
-    },
-    {
-      "from": "c3-s2",
-      "to": "c3-s3",
-      "w": 80
-    },
-    {
-      "from": "c3-s3",
-      "to": "c3-s4",
-      "w": 80
-    },
-    {
-      "from": "c3-s4",
-      "to": "c3-b5",
-      "w": 50
-    },
-    {
-      "from": "c3-n0",
-      "to": "c3-s0",
-      "w": 300
-    },
-    {
-      "from": "c3-n1",
-      "to": "c3-s0",
-      "w": 250
-    },
-    {
-      "from": "f0-teplo",
-      "to": "c0-s1",
-      "w": 32.01562118716424
-    },
-    {
-      "from": "f0-stairs-w",
-      "to": "c0-b0",
-      "w": 15.811388300841896
-    },
-    {
-      "from": "f0-stairs-c",
-      "to": "c0-s3",
-      "w": 38.07886552931954
-    },
-    {
-      "from": "f0-stairs-e",
-      "to": "c0-b10",
-      "w": 21.213203435596427
-    },
-    {
       "from": "f0-stairs-nw",
-      "to": "c0-s0",
-      "w": 496.63870167356066
-    },
-    {
-      "from": "f0-stairs-ne",
-      "to": "c0-s0",
-      "w": 355.8791929854849
-    },
-    {
-      "from": "f0-exit",
-      "to": "c0-b5",
-      "w": 170.0
+      "to": "f0-tech-n",
+      "w": 445.3
     },
     {
       "from": "f0-tech-n",
-      "to": "c0-s0",
-      "w": 133.41664064126334
+      "to": "f0-stairs-ne",
+      "w": 355.3
+    },
+    {
+      "from": "f0-stairs-w",
+      "to": "f0-tech-s",
+      "w": 478.2
     },
     {
       "from": "f0-tech-s",
-      "to": "c0-s4",
-      "w": 28.284271247461902
+      "to": "f0-stairs-e",
+      "w": 508.0
     },
     {
-      "from": "f1-kitchen",
-      "to": "c1-n0",
-      "w": 100.4987562112089
+      "from": "f0-tech-n",
+      "to": "f0-teplo",
+      "w": 235.2
     },
     {
-      "from": "f1-canteen",
-      "to": "c1-s0",
-      "w": 140.356688476182
+      "from": "f0-teplo",
+      "to": "f0-stairs-c",
+      "w": 170.1
+    },
+    {
+      "from": "f0-stairs-c",
+      "to": "f0-tech-s",
+      "w": 25.5
+    },
+    {
+      "from": "f0-tech-s",
+      "to": "f0-exit",
+      "w": 240.8
     },
     {
       "from": "f1-stairs-kitchen",
-      "to": "c1-n0",
-      "w": 196.02295783912658
+      "to": "f1-stairs-n",
+      "w": 409.0
     },
     {
       "from": "f1-stairs-n",
-      "to": "c1-s0",
-      "w": 165.6804152578089
+      "to": "f1-g164",
+      "w": 64.0
     },
     {
       "from": "f1-g164",
-      "to": "c1-s0",
-      "w": 170.29386365926402
+      "to": "f1-lecture",
+      "w": 173.5
     },
     {
-      "from": "f1-lecture",
-      "to": "c1-n1",
-      "w": 142.12670403551894
+      "from": "f1-kitchen",
+      "to": "f1-stairs-g",
+      "w": 357.5
+    },
+    {
+      "from": "f1-canteen",
+      "to": "f1-g168",
+      "w": 255.8
     },
     {
       "from": "f1-g168",
-      "to": "c1-n1",
-      "w": 20.0
-    },
-    {
-      "from": "f1-g167",
-      "to": "c1-n1",
-      "w": 170.0
-    },
-    {
-      "from": "f1-stairs-g",
-      "to": "c1-s0",
-      "w": 111.01801655587259
-    },
-    {
-      "from": "f1-med",
-      "to": "c1-n1",
-      "w": 136.01470508735443
-    },
-    {
-      "from": "f1-toilet-med",
-      "to": "c1-n1",
-      "w": 65.19202405202648
-    },
-    {
-      "from": "f1-cloak",
-      "to": "c1-s3",
-      "w": 42.42640687119285
+      "to": "f1-g167",
+      "w": 144.0
     },
     {
       "from": "f1-cloak-girls",
-      "to": "c1-s1",
-      "w": 80.0390529679106
+      "to": "f1-cloak-lockers",
+      "w": 87.9
     },
     {
       "from": "f1-cloak-boys",
-      "to": "c1-s1",
-      "w": 26.575364531836623
+      "to": "f1-med",
+      "w": 111.1
+    },
+    {
+      "from": "f1-med",
+      "to": "f1-toilet-med",
+      "w": 72.8
     },
     {
       "from": "f1-server",
-      "to": "c1-n0",
-      "w": 162.24980739587951
+      "to": "f1-cloak",
+      "w": 70.7
     },
     {
       "from": "f1-panel",
-      "to": "c1-s2",
-      "w": 165.07574019219177
-    },
-    {
-      "from": "f1-elevator",
-      "to": "c1-s2",
-      "w": 95.0
-    },
-    {
-      "from": "f1-stairs-c",
-      "to": "c1-s3",
-      "w": 13.46291201783626
-    },
-    {
-      "from": "f1-entrance",
-      "to": "c1-b5",
-      "w": 130.0
-    },
-    {
-      "from": "f1-security",
-      "to": "c1-b7",
-      "w": 140.7346794503757
-    },
-    {
-      "from": "f1-stairs-w",
-      "to": "c1-b0",
-      "w": 10
-    },
-    {
-      "from": "f1-stairs-e",
-      "to": "c1-b10",
-      "w": 10
+      "to": "f1-elevator",
+      "w": 187.1
     },
     {
       "from": "f1-b120",
-      "to": "c1-b0",
-      "w": 54.08326913195984
+      "to": "f1-b122",
+      "w": 162.6
     },
     {
       "from": "f1-b122",
-      "to": "c1-b2",
-      "w": 54.08326913195984
+      "to": "f1-toilet-w",
+      "w": 179.8
     },
     {
       "from": "f1-toilet-w",
-      "to": "c1-b3",
-      "w": 103.07764064044152
-    },
-    {
-      "from": "f1-b119",
-      "to": "c1-b0",
-      "w": 46.09772228646444
-    },
-    {
-      "from": "f1-b117",
-      "to": "c1-b1",
-      "w": 46.09772228646444
-    },
-    {
-      "from": "f1-b116",
-      "to": "c1-b2",
-      "w": 46.09772228646444
-    },
-    {
-      "from": "f1-b115",
-      "to": "c1-b3",
-      "w": 42.42640687119285
-    },
-    {
-      "from": "f1-v137",
-      "to": "c1-b7",
-      "w": 30.4138126514911
-    },
-    {
-      "from": "f1-v136",
-      "to": "c1-b8",
-      "w": 30.4138126514911
-    },
-    {
-      "from": "f1-v135",
-      "to": "c1-b9",
-      "w": 30.4138126514911
-    },
-    {
-      "from": "f1-v134",
-      "to": "c1-b10",
-      "w": 31.622776601683793
+      "to": "f1-toilet-e",
+      "w": 278.5
     },
     {
       "from": "f1-toilet-e",
-      "to": "c1-b7",
-      "w": 95.0
+      "to": "f1-admin",
+      "w": 218.4
     },
     {
       "from": "f1-admin",
-      "to": "c1-b8",
-      "w": 100.4987562112089
+      "to": "f1-director",
+      "w": 91.8
     },
     {
       "from": "f1-director",
-      "to": "c1-b9",
-      "w": 104.4030650891055
+      "to": "f1-reception",
+      "w": 60.9
     },
     {
       "from": "f1-reception",
-      "to": "c1-b10",
-      "w": 121.6552506059644
+      "to": "f1-archive",
+      "w": 48.0
     },
     {
-      "from": "f1-archive",
-      "to": "c1-b10",
-      "w": 58.52349955359813
+      "from": "f1-stairs-w",
+      "to": "f1-b119",
+      "w": 46.6
     },
     {
-      "from": "f2-assembly",
-      "to": "c2-n0",
-      "w": 14.142135623730951
+      "from": "f1-b119",
+      "to": "f1-b117",
+      "w": 110.5
     },
     {
-      "from": "f2-gym-main",
-      "to": "c2-n1",
-      "w": 20.0
+      "from": "f1-b117",
+      "to": "f1-b116",
+      "w": 114.0
     },
     {
-      "from": "f2-gym-side",
-      "to": "c2-n1",
-      "w": 90.55385138137417
+      "from": "f1-b116",
+      "to": "f1-b115",
+      "w": 107.8
     },
     {
-      "from": "f2-changing",
-      "to": "c2-s1",
-      "w": 10.0
+      "from": "f1-b115",
+      "to": "f1-stairs-c",
+      "w": 170.1
     },
     {
-      "from": "f2-toilet-gym",
-      "to": "c2-s0",
-      "w": 76.32168761236873
+      "from": "f1-stairs-c",
+      "to": "f1-entrance",
+      "w": 70.0
+    },
+    {
+      "from": "f1-entrance",
+      "to": "f1-security",
+      "w": 38.3
+    },
+    {
+      "from": "f1-security",
+      "to": "f1-v137",
+      "w": 127.8
+    },
+    {
+      "from": "f1-v137",
+      "to": "f1-v136",
+      "w": 118.8
+    },
+    {
+      "from": "f1-v136",
+      "to": "f1-v135",
+      "w": 112.1
+    },
+    {
+      "from": "f1-v135",
+      "to": "f1-stairs-e",
+      "w": 97.9
+    },
+    {
+      "from": "f1-stairs-e",
+      "to": "f1-v134",
+      "w": 45.3
+    },
+    {
+      "from": "f1-g164",
+      "to": "f1-stairs-g",
+      "w": 72.1
+    },
+    {
+      "from": "f1-stairs-g",
+      "to": "f1-g168",
+      "w": 138.7
+    },
+    {
+      "from": "f1-g168",
+      "to": "f1-cloak-lockers",
+      "w": 225.9
+    },
+    {
+      "from": "f1-cloak-lockers",
+      "to": "f1-med",
+      "w": 67.6
+    },
+    {
+      "from": "f1-med",
+      "to": "f1-cloak",
+      "w": 132.1
+    },
+    {
+      "from": "f1-cloak",
+      "to": "f1-elevator",
+      "w": 158.2
+    },
+    {
+      "from": "f1-elevator",
+      "to": "f1-admin",
+      "w": 280.1
+    },
+    {
+      "from": "f1-admin",
+      "to": "f1-entrance",
+      "w": 376.6
     },
     {
       "from": "f2-stairs-nw",
-      "to": "c2-n0",
-      "w": 199.06029237394384
+      "to": "f2-assembly",
+      "w": 187.4
     },
     {
-      "from": "f2-stairs-n",
-      "to": "c2-s0",
-      "w": 185.60711193270586
+      "from": "f2-assembly",
+      "to": "f2-gym-main",
+      "w": 560.8
     },
     {
-      "from": "f2-elevator",
-      "to": "c2-s2",
-      "w": 95.0
-    },
-    {
-      "from": "f2-stairs-c",
-      "to": "c2-s3",
-      "w": 13.46291201783626
-    },
-    {
-      "from": "f2-stairs-w",
-      "to": "c2-b0",
-      "w": 10
-    },
-    {
-      "from": "f2-stairs-e",
-      "to": "c2-b10",
-      "w": 10
+      "from": "f2-changing",
+      "to": "f2-gym-side",
+      "w": 240.0
     },
     {
       "from": "f2-toilet-w",
-      "to": "c2-b3",
-      "w": 103.07764064044152
+      "to": "f2-stairs-c",
+      "w": 172.2
     },
     {
-      "from": "f2-toilet-e",
-      "to": "c2-b7",
-      "w": 95.0
+      "from": "f2-stairs-c",
+      "to": "f2-toilet-e",
+      "w": 157.7
+    },
+    {
+      "from": "f2-stairs-w",
+      "to": "f2-b221",
+      "w": 69.5
     },
     {
       "from": "f2-b221",
-      "to": "c2-b0",
-      "w": 62.64982043070834
+      "to": "f2-b222",
+      "w": 170.0
     },
     {
       "from": "f2-b222",
-      "to": "c2-b2",
-      "w": 33.54101966249684
+      "to": "f2-v228",
+      "w": 655.0
     },
     {
       "from": "f2-v228",
-      "to": "c2-b9",
-      "w": 30.0
+      "to": "f2-stairs-e",
+      "w": 129.8
     },
     {
       "from": "f2-b220",
-      "to": "c2-b0",
-      "w": 42.42640687119285
+      "to": "f2-b219",
+      "w": 110.0
     },
     {
       "from": "f2-b219",
-      "to": "c2-b1",
-      "w": 36.05551275463989
+      "to": "f2-b218",
+      "w": 110.0
     },
     {
       "from": "f2-b218",
-      "to": "c2-b2",
-      "w": 31.622776601683793
+      "to": "f2-b217",
+      "w": 110.0
     },
     {
       "from": "f2-b217",
-      "to": "c2-b3",
-      "w": 30.0
+      "to": "f2-a201",
+      "w": 125.0
     },
     {
       "from": "f2-a201",
-      "to": "c2-b4",
-      "w": 33.54101966249684
+      "to": "f2-v234",
+      "w": 165.0
     },
     {
       "from": "f2-v234",
-      "to": "c2-b7",
-      "w": 31.622776601683793
+      "to": "f2-v233",
+      "w": 110.0
     },
     {
       "from": "f2-v233",
-      "to": "c2-b8",
-      "w": 30.0
+      "to": "f2-v232",
+      "w": 110.0
     },
     {
       "from": "f2-v232",
-      "to": "c2-b9",
-      "w": 31.622776601683793
+      "to": "f2-v231",
+      "w": 115.0
     },
     {
-      "from": "f2-v231",
-      "to": "c2-b10",
-      "w": 33.54101966249684
+      "from": "f2-stairs-n",
+      "to": "f2-toilet-gym",
+      "w": 122.6
     },
     {
-      "from": "f3-hall-w",
-      "to": "c3-n0",
-      "w": 22.360679774997898
+      "from": "f2-toilet-gym",
+      "to": "f2-assembly",
+      "w": 280.2
     },
     {
-      "from": "f3-hall-e",
-      "to": "c3-n1",
-      "w": 20.0
+      "from": "f2-assembly",
+      "to": "f2-gym-side",
+      "w": 555.8
     },
     {
-      "from": "f3-library",
-      "to": "c3-s2",
-      "w": 80.62257748298549
+      "from": "f2-gym-side",
+      "to": "f2-elevator",
+      "w": 161.0
     },
     {
-      "from": "f3-307",
-      "to": "c3-s2",
-      "w": 165.92543506045118
+      "from": "f2-elevator",
+      "to": "f2-stairs-c",
+      "w": 131.1
     },
     {
-      "from": "f3-311",
-      "to": "c3-s1",
-      "w": 95.13148795220224
+      "from": "f2-stairs-c",
+      "to": "f2-b222",
+      "w": 282.7
     },
     {
-      "from": "f3-312",
-      "to": "c3-s2",
-      "w": 96.17692030835673
-    },
-    {
-      "from": "f3-313",
-      "to": "c3-s3",
-      "w": 101.24228365658294
+      "from": "f2-b222",
+      "to": "f2-a201",
+      "w": 266.8
     },
     {
       "from": "f3-stairs-nw",
-      "to": "c3-n0",
-      "w": 195.25624189766637
+      "to": "f3-hall-w",
+      "w": 187.4
     },
     {
-      "from": "f3-stairs-n",
-      "to": "c3-s0",
-      "w": 185.60711193270586
+      "from": "f3-hall-w",
+      "to": "f3-hall-e",
+      "w": 560.0
     },
     {
-      "from": "f3-stairs-c",
-      "to": "c3-s3",
-      "w": 13.46291201783626
+      "from": "f3-307",
+      "to": "f3-library",
+      "w": 89.3
     },
     {
-      "from": "f3-stairs-w",
-      "to": "c3-b0",
-      "w": 10
+      "from": "f3-library",
+      "to": "f3-312",
+      "w": 175.1
     },
     {
-      "from": "f3-stairs-e",
-      "to": "c3-b10",
-      "w": 10
+      "from": "f3-312",
+      "to": "f3-313",
+      "w": 60.0
     },
     {
       "from": "f3-toilet-w",
-      "to": "c3-b3",
-      "w": 103.07764064044152
+      "to": "f3-stairs-c",
+      "w": 172.2
     },
     {
-      "from": "f3-toilet-e",
-      "to": "c3-b7",
-      "w": 95.0
+      "from": "f3-stairs-c",
+      "to": "f3-toilet-e",
+      "w": 157.7
+    },
+    {
+      "from": "f3-stairs-w",
+      "to": "f3-b318",
+      "w": 65.2
     },
     {
       "from": "f3-b318",
-      "to": "c3-b0",
-      "w": 58.309518948453004
+      "to": "f3-b319",
+      "w": 160.0
     },
     {
       "from": "f3-b319",
-      "to": "c3-b2",
-      "w": 42.42640687119285
+      "to": "f3-v325",
+      "w": 620.0
     },
     {
       "from": "f3-v325",
-      "to": "c3-b9",
-      "w": 58.309518948453004
+      "to": "f3-v326",
+      "w": 145.0
     },
     {
       "from": "f3-v326",
-      "to": "c3-b10",
-      "w": 39.05124837953327
+      "to": "f3-stairs-e",
+      "w": 46.1
     },
     {
       "from": "f3-b317",
-      "to": "c3-b0",
-      "w": 42.42640687119285
+      "to": "f3-b316",
+      "w": 110.0
     },
     {
       "from": "f3-b316",
-      "to": "c3-b1",
-      "w": 36.05551275463989
+      "to": "f3-b315",
+      "w": 110.0
     },
     {
       "from": "f3-b315",
-      "to": "c3-b2",
-      "w": 31.622776601683793
+      "to": "f3-b314",
+      "w": 105.0
     },
     {
       "from": "f3-b314",
-      "to": "c3-b3",
-      "w": 30.4138126514911
+      "to": "f3-a302",
+      "w": 100.0
     },
     {
       "from": "f3-a302",
-      "to": "c3-b4",
-      "w": 33.54101966249684
+      "to": "f3-a301",
+      "w": 100.0
     },
     {
       "from": "f3-a301",
-      "to": "c3-b6",
-      "w": 39.05124837953327
+      "to": "f3-v330",
+      "w": 115.0
     },
     {
       "from": "f3-v330",
-      "to": "c3-b7",
-      "w": 42.42640687119285
+      "to": "f3-v329",
+      "w": 110.0
     },
     {
       "from": "f3-v329",
-      "to": "c3-b8",
-      "w": 36.05551275463989
+      "to": "f3-v328",
+      "w": 110.0
     },
     {
       "from": "f3-v328",
-      "to": "c3-b9",
-      "w": 31.622776601683793
+      "to": "f3-v327",
+      "w": 115.0
     },
     {
-      "from": "f3-v327",
-      "to": "c3-b10",
-      "w": 30.4138126514911
+      "from": "f3-stairs-n",
+      "to": "f3-hall-w",
+      "w": 338.0
+    },
+    {
+      "from": "f3-hall-w",
+      "to": "f3-311",
+      "w": 418.4
+    },
+    {
+      "from": "f3-311",
+      "to": "f3-312",
+      "w": 60.0
+    },
+    {
+      "from": "f3-312",
+      "to": "f3-stairs-c",
+      "w": 140.2
+    },
+    {
+      "from": "f3-stairs-c",
+      "to": "f3-v325",
+      "w": 358.2
+    },
+    {
+      "from": "f3-v325",
+      "to": "f3-a301",
+      "w": 281.5
     },
     {
       "from": "f0-stairs-w",
       "to": "f1-stairs-w",
-      "w": 80,
+      "w": 68,
       "via": "stairs-w"
     },
     {
       "from": "f1-stairs-w",
       "to": "f2-stairs-w",
-      "w": 80,
+      "w": 68,
       "via": "stairs-w"
     },
     {
       "from": "f2-stairs-w",
       "to": "f3-stairs-w",
-      "w": 80,
+      "w": 68,
       "via": "stairs-w"
     },
     {
       "from": "f0-stairs-e",
       "to": "f1-stairs-e",
-      "w": 80,
+      "w": 68,
       "via": "stairs-e"
     },
     {
       "from": "f1-stairs-e",
       "to": "f2-stairs-e",
-      "w": 80,
+      "w": 68,
       "via": "stairs-e"
     },
     {
       "from": "f2-stairs-e",
       "to": "f3-stairs-e",
-      "w": 80,
+      "w": 68,
       "via": "stairs-e"
     },
     {
       "from": "f0-stairs-c",
       "to": "f1-stairs-c",
-      "w": 80,
+      "w": 68,
       "via": "stairs-c"
     },
     {
       "from": "f1-stairs-c",
       "to": "f2-stairs-c",
-      "w": 80,
+      "w": 68,
       "via": "stairs-c"
     },
     {
       "from": "f2-stairs-c",
       "to": "f3-stairs-c",
-      "w": 80,
+      "w": 68,
       "via": "stairs-c"
     },
     {
       "from": "f1-stairs-n",
       "to": "f2-stairs-n",
-      "w": 80,
+      "w": 68,
       "via": "stairs-n"
     },
     {
       "from": "f2-stairs-n",
       "to": "f3-stairs-n",
-      "w": 80,
+      "w": 68,
       "via": "stairs-n"
     },
     {
       "from": "f1-elevator",
       "to": "f2-elevator",
-      "w": 40,
+      "w": 34,
       "via": "elevator"
     }
   ],
@@ -6358,5 +5903,1055 @@
         "Медпункт"
       ]
     }
-  ]
+  ],
+  "walls": {
+    "1": [
+      [
+        505.3,
+        51.1,
+        697.9,
+        53.7
+      ],
+      [
+        697.9,
+        54.8,
+        697.6,
+        71.1
+      ],
+      [
+        505.6,
+        52.2,
+        505.6,
+        69.9
+      ],
+      [
+        221.0,
+        71.4,
+        221.3,
+        291.8
+      ],
+      [
+        698.5,
+        71.1,
+        999.6,
+        73.3
+      ],
+      [
+        999.6,
+        72.5,
+        1000.3,
+        291.0
+      ],
+      [
+        221.0,
+        69.9,
+        504.4,
+        69.9
+      ],
+      [
+        221.6,
+        291.4,
+        445.4,
+        294.4
+      ],
+      [
+        445.4,
+        295.5,
+        444.5,
+        441.5
+      ],
+      [
+        490.8,
+        441.1,
+        489.9,
+        663.7
+      ],
+      [
+        50.0,
+        661.8,
+        49.7,
+        845.6
+      ],
+      [
+        49.7,
+        846.3,
+        578.7,
+        848.2
+      ],
+      [
+        628.7,
+        847.8,
+        1149.4,
+        848.5
+      ],
+      [
+        1150.3,
+        848.9,
+        1148.7,
+        662.6
+      ],
+      [
+        714.3,
+        660.4,
+        713.4,
+        442.2
+      ],
+      [
+        713.0,
+        442.2,
+        756.2,
+        441.1
+      ],
+      [
+        756.2,
+        441.1,
+        756.2,
+        293.6
+      ],
+      [
+        756.2,
+        293.6,
+        1000.6,
+        292.1
+      ],
+      [
+        628.3,
+        847.4,
+        628.3,
+        811.6
+      ],
+      [
+        578.7,
+        847.4,
+        578.7,
+        811.2
+      ],
+      [
+        658.3,
+        846.0,
+        658.3,
+        772.0
+      ],
+      [
+        717.2,
+        847.4,
+        716.3,
+        772.0
+      ],
+      [
+        716.3,
+        772.0,
+        690.5,
+        772.0
+      ],
+      [
+        828.0,
+        847.4,
+        828.0,
+        777.2
+      ],
+      [
+        718.2,
+        771.6,
+        740.1,
+        771.6
+      ],
+      [
+        713.4,
+        771.6,
+        728.5,
+        771.6
+      ],
+      [
+        754.6,
+        772.4,
+        828.6,
+        771.6
+      ],
+      [
+        828.0,
+        778.7,
+        828.0,
+        772.4
+      ],
+      [
+        827.7,
+        771.6,
+        843.8,
+        771.6
+      ],
+      [
+        940.7,
+        847.4,
+        940.7,
+        773.5
+      ],
+      [
+        940.7,
+        773.5,
+        857.6,
+        772.8
+      ],
+      [
+        1053.7,
+        847.8,
+        1053.1,
+        773.5
+      ],
+      [
+        1053.1,
+        773.5,
+        965.8,
+        773.5
+      ],
+      [
+        1150.0,
+        773.5,
+        1082.4,
+        774.6
+      ],
+      [
+        1052.1,
+        773.5,
+        1064.4,
+        773.5
+      ],
+      [
+        940.1,
+        773.5,
+        952.3,
+        773.5
+      ],
+      [
+        714.6,
+        661.5,
+        715.3,
+        735.8
+      ],
+      [
+        489.9,
+        664.8,
+        490.5,
+        735.4
+      ],
+      [
+        490.5,
+        735.4,
+        435.4,
+        735.4
+      ],
+      [
+        158.5,
+        846.0,
+        158.5,
+        772.4
+      ],
+      [
+        158.5,
+        772.4,
+        104.7,
+        773.1
+      ],
+      [
+        49.7,
+        773.9,
+        84.1,
+        773.9
+      ],
+      [
+        273.1,
+        846.7,
+        271.5,
+        773.1
+      ],
+      [
+        271.5,
+        773.1,
+        191.4,
+        773.9
+      ],
+      [
+        158.5,
+        772.4,
+        167.5,
+        772.4
+      ],
+      [
+        381.7,
+        846.7,
+        381.7,
+        772.4
+      ],
+      [
+        381.7,
+        772.4,
+        303.7,
+        773.1
+      ],
+      [
+        272.2,
+        773.1,
+        283.1,
+        773.1
+      ],
+      [
+        490.5,
+        847.4,
+        490.2,
+        773.1
+      ],
+      [
+        490.2,
+        773.1,
+        408.4,
+        773.5
+      ],
+      [
+        381.7,
+        772.8,
+        392.0,
+        772.8
+      ],
+      [
+        329.2,
+        662.9,
+        329.5,
+        736.5
+      ],
+      [
+        445.4,
+        293.6,
+        445.4,
+        274.0
+      ],
+      [
+        445.4,
+        70.3,
+        445.4,
+        244.8
+      ],
+      [
+        667.6,
+        53.7,
+        668.9,
+        163.1
+      ],
+      [
+        669.6,
+        163.1,
+        732.7,
+        163.1
+      ],
+      [
+        999.3,
+        163.5,
+        892.4,
+        163.5
+      ],
+      [
+        872.4,
+        163.5,
+        754.6,
+        163.5
+      ],
+      [
+        828.3,
+        162.7,
+        827.7,
+        71.8
+      ],
+      [
+        999.6,
+        201.2,
+        892.7,
+        201.2
+      ],
+      [
+        721.4,
+        292.9,
+        720.8,
+        200.1
+      ],
+      [
+        720.8,
+        200.1,
+        769.7,
+        200.8
+      ],
+      [
+        860.5,
+        292.9,
+        859.9,
+        200.8
+      ],
+      [
+        859.9,
+        200.8,
+        791.9,
+        200.1
+      ],
+      [
+        859.6,
+        200.8,
+        871.1,
+        200.8
+      ],
+      [
+        713.0,
+        587.5,
+        644.4,
+        587.5
+      ],
+      [
+        644.4,
+        587.5,
+        644.4,
+        499.9
+      ],
+      [
+        602.6,
+        437.1,
+        602.9,
+        502.9
+      ],
+      [
+        602.6,
+        410.1,
+        602.6,
+        356.8
+      ],
+      [
+        602.3,
+        356.8,
+        445.8,
+        356.8
+      ],
+      [
+        490.2,
+        626.0,
+        571.0,
+        626.0
+      ],
+      [
+        571.0,
+        626.0,
+        571.0,
+        610.8
+      ],
+      [
+        490.8,
+        607.5,
+        522.4,
+        607.5
+      ],
+      [
+        522.4,
+        607.5,
+        522.4,
+        624.9
+      ],
+      [
+        554.6,
+        588.6,
+        554.6,
+        625.6
+      ],
+      [
+        538.8,
+        588.3,
+        538.8,
+        626.0
+      ],
+      [
+        531.1,
+        588.6,
+        531.1,
+        624.9
+      ],
+      [
+        546.9,
+        588.6,
+        546.9,
+        625.6
+      ],
+      [
+        489.9,
+        662.9,
+        546.9,
+        662.9
+      ],
+      [
+        547.2,
+        658.1,
+        547.2,
+        665.9
+      ],
+      [
+        490.2,
+        699.9,
+        547.8,
+        699.9
+      ],
+      [
+        547.8,
+        699.9,
+        548.2,
+        740.6
+      ],
+      [
+        490.5,
+        725.1,
+        519.5,
+        725.1
+      ],
+      [
+        534.0,
+        725.4,
+        547.8,
+        725.4
+      ],
+      [
+        547.8,
+        699.5,
+        547.8,
+        694.4
+      ],
+      [
+        714.0,
+        661.5,
+        660.5,
+        661.1
+      ],
+      [
+        660.5,
+        661.1,
+        660.5,
+        669.6
+      ],
+      [
+        714.6,
+        698.4,
+        662.5,
+        698.4
+      ],
+      [
+        696.0,
+        661.5,
+        696.0,
+        687.7
+      ],
+      [
+        434.8,
+        663.7,
+        434.8,
+        704.7
+      ],
+      [
+        463.5,
+        716.9,
+        447.7,
+        716.9
+      ],
+      [
+        522.7,
+        773.9,
+        522.7,
+        847.4
+      ],
+      [
+        537.8,
+        773.9,
+        576.5,
+        773.9
+      ],
+      [
+        576.5,
+        773.9,
+        576.5,
+        786.1
+      ],
+      [
+        509.2,
+        773.9,
+        523.0,
+        773.9
+      ],
+      [
+        50.3,
+        661.8,
+        491.2,
+        662.2
+      ],
+      [
+        184.6,
+        661.8,
+        184.6,
+        736.9
+      ],
+      [
+        184.6,
+        736.9,
+        103.8,
+        736.5
+      ],
+      [
+        50.3,
+        735.8,
+        82.5,
+        735.8
+      ],
+      [
+        216.5,
+        662.2,
+        216.8,
+        736.5
+      ],
+      [
+        216.8,
+        736.9,
+        282.2,
+        736.9
+      ],
+      [
+        305.3,
+        736.9,
+        412.6,
+        736.9
+      ],
+      [
+        184.6,
+        680.7,
+        216.1,
+        680.7
+      ],
+      [
+        185.2,
+        699.9,
+        216.8,
+        700.3
+      ],
+      [
+        185.2,
+        690.3,
+        216.5,
+        690.3
+      ],
+      [
+        185.2,
+        708.4,
+        216.5,
+        708.8
+      ],
+      [
+        1022.2,
+        662.6,
+        1022.2,
+        736.1
+      ],
+      [
+        989.0,
+        662.6,
+        988.4,
+        736.1
+      ],
+      [
+        989.0,
+        681.4,
+        1022.2,
+        680.7
+      ],
+      [
+        989.0,
+        699.5,
+        1022.2,
+        699.9
+      ],
+      [
+        989.0,
+        691.8,
+        1022.2,
+        691.8
+      ],
+      [
+        989.0,
+        708.4,
+        1021.2,
+        708.4
+      ],
+      [
+        1022.2,
+        736.1,
+        1077.2,
+        735.8
+      ],
+      [
+        1102.0,
+        736.1,
+        1150.3,
+        735.4
+      ],
+      [
+        933.0,
+        661.1,
+        932.7,
+        702.9
+      ],
+      [
+        932.7,
+        703.2,
+        891.4,
+        703.2
+      ],
+      [
+        1149.1,
+        661.5,
+        709.8,
+        661.5
+      ],
+      [
+        860.8,
+        662.2,
+        861.5,
+        704.0
+      ],
+      [
+        861.5,
+        704.0,
+        868.9,
+        704.0
+      ],
+      [
+        988.0,
+        736.1,
+        901.7,
+        736.1
+      ],
+      [
+        860.8,
+        728.0,
+        860.8,
+        736.1
+      ],
+      [
+        860.8,
+        736.1,
+        883.1,
+        736.1
+      ],
+      [
+        932.7,
+        735.4,
+        932.7,
+        721.0
+      ],
+      [
+        764.2,
+        661.1,
+        763.6,
+        716.9
+      ],
+      [
+        727.2,
+        736.5,
+        764.2,
+        736.5
+      ],
+      [
+        764.2,
+        736.5,
+        764.2,
+        732.1
+      ],
+      [
+        661.8,
+        693.3,
+        662.2,
+        733.9
+      ],
+      [
+        658.6,
+        771.6,
+        674.1,
+        771.6
+      ],
+      [
+        713.7,
+        551.7,
+        661.8,
+        552.0
+      ],
+      [
+        683.7,
+        476.6,
+        683.4,
+        393.8
+      ],
+      [
+        713.4,
+        441.9,
+        712.7,
+        393.4
+      ],
+      [
+        703.0,
+        393.4,
+        729.5,
+        393.4
+      ],
+      [
+        713.7,
+        514.7,
+        661.2,
+        515.1
+      ],
+      [
+        661.2,
+        477.4,
+        713.0,
+        476.6
+      ],
+      [
+        490.5,
+        587.9,
+        575.2,
+        587.5
+      ],
+      [
+        603.9,
+        519.9,
+        603.2,
+        588.3
+      ],
+      [
+        603.2,
+        533.2,
+        534.0,
+        533.2
+      ],
+      [
+        534.0,
+        533.2,
+        534.0,
+        587.5
+      ],
+      [
+        602.6,
+        440.8,
+        533.7,
+        440.8
+      ],
+      [
+        533.7,
+        440.8,
+        533.7,
+        495.5
+      ],
+      [
+        490.5,
+        514.7,
+        534.0,
+        514.3
+      ],
+      [
+        491.2,
+        441.1,
+        444.1,
+        440.8
+      ],
+      [
+        531.1,
+        356.8,
+        531.1,
+        403.4
+      ],
+      [
+        474.1,
+        356.5,
+        474.1,
+        403.4
+      ],
+      [
+        474.1,
+        403.4,
+        509.2,
+        403.4
+      ],
+      [
+        491.5,
+        441.1,
+        517.9,
+        441.1
+      ],
+      [
+        602.9,
+        52.9,
+        602.9,
+        132.8
+      ],
+      [
+        602.9,
+        163.5,
+        603.9,
+        292.1
+      ],
+      [
+        570.7,
+        52.2,
+        569.7,
+        200.1
+      ],
+      [
+        570.7,
+        145.0,
+        594.2,
+        145.0
+      ],
+      [
+        570.7,
+        108.4,
+        602.9,
+        108.4
+      ],
+      [
+        570.7,
+        98.8,
+        602.9,
+        99.2
+      ],
+      [
+        570.7,
+        80.7,
+        602.9,
+        81.0
+      ],
+      [
+        570.4,
+        90.3,
+        602.9,
+        89.9
+      ],
+      [
+        445.4,
+        284.7,
+        490.5,
+        284.7
+      ],
+      [
+        490.2,
+        304.0,
+        489.5,
+        356.1
+      ],
+      [
+        603.9,
+        292.5,
+        604.2,
+        328.7
+      ],
+      [
+        255.1,
+        291.8,
+        254.5,
+        214.9
+      ],
+      [
+        221.3,
+        255.5,
+        254.5,
+        255.5
+      ],
+      [
+        221.9,
+        245.2,
+        253.5,
+        245.2
+      ],
+      [
+        221.3,
+        235.2,
+        254.5,
+        235.2
+      ],
+      [
+        221.9,
+        264.0,
+        254.5,
+        264.0
+      ],
+      [
+        748.1,
+        393.8,
+        755.9,
+        393.8
+      ],
+      [
+        683.7,
+        393.4,
+        689.5,
+        393.4
+      ],
+      [
+        753.9,
+        360.9,
+        662.8,
+        360.9
+      ],
+      [
+        662.5,
+        326.1,
+        662.8,
+        360.2
+      ],
+      [
+        643.2,
+        479.6,
+        642.2,
+        387.2
+      ],
+      [
+        644.8,
+        325.4,
+        644.1,
+        362.8
+      ],
+      [
+        644.8,
+        326.1,
+        754.6,
+        324.3
+      ],
+      [
+        1072.1,
+        662.6,
+        1072.1,
+        687.7
+      ],
+      [
+        1071.1,
+        735.8,
+        1071.4,
+        708.8
+      ],
+      [
+        657.3,
+        811.2,
+        646.4,
+        810.8
+      ],
+      [
+        661.8,
+        477.4,
+        661.8,
+        504.3
+      ]
+    ]
+  },
+  "notes": {
+    "missingFromSource": [
+      "Б121",
+      "Г156",
+      "Г157"
+    ],
+    "reason": "Номеров Б121, Г156 и Г157 нет ни в PDF-планах, ни в points.json — в карту не добавлялись."
+  }
 }

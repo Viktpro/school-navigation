@@ -156,11 +156,22 @@ function floorLabel(f: number) {
   return f === 0 ? 'подвала' : `${f} этажа`
 }
 
-export function searchRooms(data: SchoolMapData, query: string) {
+export function searchRooms(
+  data: SchoolMapData,
+  query: string,
+  opts?: { includeTechnical?: boolean; hiddenIds?: Set<string> },
+) {
   const q = query.trim().toLowerCase().replace(/\s+/g, ' ')
-  if (!q) return data.rooms.filter((r) => r.kind !== 'stairs')
+  const visible = data.rooms.filter((r) => {
+    if (r.kind === 'stairs') return false
+    const hidden =
+      opts?.hiddenIds?.has(r.id) ||
+      (!opts?.includeTechnical && (r.technical || r.hidden))
+    return !hidden
+  })
+  if (!q) return visible
 
-  return data.rooms
+  return visible
     .filter((r) => {
       const hay = [r.name, r.label, ...r.aliases, ...r.chips]
         .join(' ')
@@ -175,5 +186,22 @@ export function searchRooms(data: SchoolMapData, query: string) {
 }
 
 export function roomsForChip(data: SchoolMapData, chipLabel: string) {
-  return data.rooms.filter((r) => r.chips.includes(chipLabel))
+  return data.rooms.filter((r) => r.chips.includes(chipLabel) && !r.technical)
+}
+
+export function nearestExit(
+  data: SchoolMapData,
+  fromId: string,
+): { id: string; route: ReturnType<typeof findRoute> } | null {
+  const exits = data.rooms.filter((r) => r.exit && r.id !== fromId)
+  let best: { id: string; route: NonNullable<ReturnType<typeof findRoute>> } | null =
+    null
+  for (const exit of exits) {
+    const route = findRoute(data, fromId, exit.id)
+    if (!route) continue
+    if (!best || route.distanceM < best.route.distanceM) {
+      best = { id: exit.id, route }
+    }
+  }
+  return best
 }

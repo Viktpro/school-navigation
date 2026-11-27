@@ -19,6 +19,9 @@ export interface Room {
   polygon: Point[]
   center: Point
   door: Point
+  hidden?: boolean
+  technical?: boolean
+  exit?: boolean
 }
 
 export interface FloorMeta {
@@ -61,6 +64,7 @@ export interface SchoolMapData {
   floors: FloorMeta[]
   outline: Point[]
   corridors: Record<string, Point[][]>
+  walls?: Record<string, number[][]>
   rooms: Room[]
   nodes: GraphNode[]
   edges: GraphEdge[]
