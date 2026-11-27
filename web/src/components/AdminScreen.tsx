@@ -24,6 +24,16 @@ export function AdminScreen({
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [roomId, setRoomId] = useState(data.defaultFromId)
+  const popular = useMemo(() => {
+    try {
+      const raw = JSON.parse(localStorage.getItem('school-nav-popular') || '{}') as Record<string, number>
+      return Object.entries(raw)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 6)
+    } catch {
+      return [] as [string, number][]
+    }
+  }, [authed])
   const stats = useMemo(() => {
     try {
       return JSON.parse(localStorage.getItem('school-nav-stats') || '{}') as {
@@ -118,6 +128,35 @@ export function AdminScreen({
           На карту
         </Button>
       </div>
+      <section className="glass-panel rounded-3xl p-4">
+        <h2 className="text-sm font-semibold">Чаще всего строят</h2>
+        <div className="mt-3 space-y-2">
+          {popular.length === 0 && (
+            <p className="text-xs text-muted-foreground">Пока нет построенных маршрутов</p>
+          )}
+          {popular.map(([pair, count]) => {
+            const max = popular[0]?.[1] || 1
+            const [from, to] = pair.split('→')
+            const name = (id: string) => data.rooms.find((r) => r.id === id)?.name ?? id
+            return (
+              <div key={pair}>
+                <div className="mb-1 flex justify-between text-xs">
+                  <span>
+                    {name(from)} → {name(to)}
+                  </span>
+                  <span>{count}</span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-secondary">
+                  <div
+                    className="h-full rounded-full bg-primary"
+                    style={{ width: `${(count / max) * 100}%` }}
+                  />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </section>
       <section className="glass-panel rounded-3xl p-4">
         <h2 className="text-sm font-semibold">QR для двери кабинета</h2>
         <select

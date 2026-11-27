@@ -17,7 +17,7 @@ interface Cam {
   h: number
 }
 
-const WORLD = { x: 0, y: 0, w: 1200, h: 900 }
+type World = { x: number; y: number; w: number; h: number }
 
 interface FloorMapProps {
   data: SchoolMapData
@@ -37,21 +37,21 @@ function polyPoints(poly: Point[]) {
   return poly.map((p) => p.join(',')).join(' ')
 }
 
-function clampCam(cam: Cam): Cam {
-  const w = Math.min(WORLD.w, Math.max(220, cam.w))
-  const h = w * (WORLD.h / WORLD.w)
+function clampCam(cam: Cam, world: World): Cam {
+  const w = Math.min(world.w, Math.max(world.w * 0.18, cam.w))
+  const h = w * (world.h / world.w)
   return {
     w,
     h,
-    x: Math.min(WORLD.w - w, Math.max(0, cam.x)),
-    y: Math.min(WORLD.h - h, Math.max(0, cam.y)),
+    x: Math.min(world.x + world.w - w, Math.max(world.x, cam.x)),
+    y: Math.min(world.y + world.h - h, Math.max(world.y, cam.y)),
   }
 }
 
-function camAround(pt: Point, zoom = 460): Cam {
-  const w = zoom
-  const h = w * (WORLD.h / WORLD.w)
-  return clampCam({ x: pt[0] - w / 2, y: pt[1] - h / 2, w, h })
+function camAround(pt: Point, world: World): Cam {
+  const w = world.w * 0.42
+  const h = w * (world.h / world.w)
+  return clampCam({ x: pt[0] - w / 2, y: pt[1] - h / 2, w, h }, world)
 }
 
 export function FloorMap({
@@ -67,10 +67,15 @@ export function FloorMap({
   onSelect,
   className,
 }: FloorMapProps) {
+  const floorMeta = data.floors.find((f) => f.id === floor)
+  const vb = floorMeta?.viewBox ?? data.viewBox
+  const world: World = { x: vb[0], y: vb[1], w: vb[2], h: vb[3] }
   const host = useRef<HTMLDivElement>(null)
-  const camRef = useRef<Cam>(WORLD)
-  const targetRef = useRef<Cam>(WORLD)
-  const [cam, setCam] = useState<Cam>(WORLD)
+  const camRef = useRef<Cam>(world)
+  const targetRef = useRef<Cam>(world)
+  const worldRef = useRef(world)
+  worldRef.current = world
+  const [cam, setCam] = useState<Cam>(world)
   const pointers = useRef(new Map<number, { x: number; y: number }>())
   const drag = useRef<{ x: number; y: number; cam: Cam } | null>(null)
 
@@ -83,21 +88,24 @@ export function FloorMap({
     data.rooms.find((r) => r.id === focusId && r.floor === floor) ?? null
 
   useEffect(() => {
-    const dest = focus ? camAround(focus.center, 480) : WORLD
+    const dest = focus ? camAround(focus.center, world) : world
     targetRef.current = dest
-  }, [focus, floor])
+  }, [focus, floor, world.x, world.y, world.w, world.h])
 
   useEffect(() => {
     let raf = 0
     const tick = () => {
       const c = camRef.current
       const t = targetRef.current
-      const n = clampCam({
-        x: c.x + (t.x - c.x) * 0.14,
-        y: c.y + (t.y - c.y) * 0.14,
-        w: c.w + (t.w - c.w) * 0.14,
-        h: c.h + (t.h - c.h) * 0.14,
-      })
+      const n = clampCam(
+        {
+          x: c.x + (t.x - c.x) * 0.14,
+          y: c.y + (t.y - c.y) * 0.14,
+          w: c.w + (t.w - c.w) * 0.14,
+          h: c.h + (t.h - c.h) * 0.14,
+        },
+        worldRef.current,
+      )
       camRef.current = n
       setCam(n)
       raf = requestAnimationFrame(tick)
@@ -122,10 +130,11 @@ export function FloorMap({
     const factor = e.deltaY > 0 ? 1.12 : 0.88
     const cursor = toWorld(e.clientX, e.clientY)
     const w = c.w * factor
-    const h = w * (WORLD.h / WORLD.w)
+    const bounds = worldRef.current
+    const h = w * (bounds.h / bounds.w)
     const nx = cursor.x - ((cursor.x - c.x) / c.w) * w
     const ny = cursor.y - ((cursor.y - c.y) / c.h) * h
-    const next = clampCam({ x: nx, y: ny, w, h })
+    const next = clampCam({ x: nx, y: ny, w, h }, bounds)
     camRef.current = next
     targetRef.current = next
     setCam(next)
@@ -141,11 +150,14 @@ export function FloorMap({
     if (!rect) return
     const dx = ((e.clientX - drag.current.x) / rect.width) * drag.current.cam.w
     const dy = ((e.clientY - drag.current.y) / rect.height) * drag.current.cam.h
-    const next = clampCam({
-      ...drag.current.cam,
-      x: drag.current.cam.x - dx,
-      y: drag.current.cam.y - dy,
-    })
+    const next = clampCam(
+      {
+        ...drag.current.cam,
+        x: drag.current.cam.x - dx,
+        y: drag.current.cam.y - dy,
+      },
+      worldRef.current,
+    )
     camRef.current = next
     targetRef.current = next
     setCam(next)
@@ -156,17 +168,22 @@ export function FloorMap({
   }
 
   const recenter = () => {
-    targetRef.current = WORLD
+    targetRef.current = worldRef.current
   }
   const zoomBy = (factor: number) => {
     const c = camRef.current
+    const bounds = worldRef.current
     const w = c.w * factor
-    const next = clampCam({
-      x: c.x + (c.w - w) / 2,
-      y: c.y + (c.h - w * (WORLD.h / WORLD.w)) / 2,
-      w,
-      h: w * (WORLD.h / WORLD.w),
-    })
+    const h = w * (bounds.h / bounds.w)
+    const next = clampCam(
+      {
+        x: c.x + (c.w - w) / 2,
+        y: c.y + (c.h - h) / 2,
+        w,
+        h,
+      },
+      bounds,
+    )
     targetRef.current = next
   }
 
@@ -219,21 +236,23 @@ export function FloorMap({
                   <stop offset="100%" stopColor="oklch(0.78 0.12 85 / 0.12)" />
                 </linearGradient>
               </defs>
-              <rect x={0} y={0} width={1200} height={900} fill="var(--map-floor)" />
-              <rect x={0} y={0} width={1200} height={900} fill="url(#floorWash)" />
-              {iso && (
+              <rect x={world.x} y={world.y} width={world.w} height={world.h} fill="var(--map-floor)" />
+              <rect x={world.x} y={world.y} width={world.w} height={world.h} fill="url(#floorWash)" />
+              {data.outline.length > 2 && iso && (
                 <polygon
                   points={polyPoints(data.outline)}
                   transform="translate(10 16)"
                   fill="oklch(0.25 0.05 262 / 0.28)"
                 />
               )}
-              <polygon
-                points={polyPoints(data.outline)}
-                fill="var(--map-corridor)"
-                stroke="var(--map-wall)"
-                strokeWidth={iso ? 4 : 2.4}
-              />
+              {data.outline.length > 2 && (
+                <polygon
+                  points={polyPoints(data.outline)}
+                  fill="var(--map-corridor)"
+                  stroke="var(--map-wall)"
+                  strokeWidth={iso ? 4 : 2.4}
+                />
+              )}
               {walls.map((w, i) => (
                 <line
                   key={i}
@@ -378,7 +397,7 @@ function LivingRoute({ d, evac }: { d: string; evac?: boolean }) {
         d={d}
         fill="none"
         stroke={color}
-        strokeWidth={7}
+        strokeWidth={3.2}
         strokeLinecap="round"
         strokeLinejoin="round"
         initial={{ pathLength: 0 }}

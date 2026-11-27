@@ -95,7 +95,7 @@ export function findRoute(
 
 function buildSteps(
   path: string[],
-  vias: (string | undefined)[],
+  _vias: (string | undefined)[],
   nodes: Map<string, GraphNode>,
   data: SchoolMapData,
 ): RouteStep[] {
@@ -109,35 +109,41 @@ function buildSteps(
 
   for (let i = 1; i < path.length; i++) {
     const node = nodes.get(path[i])!
-    const via = vias[i - 1]
     if (node.floor !== currentFloor) {
       steps.push({
         floor: currentFloor,
         points,
-        hint: hintParts.join(' · ') || `По этажу ${currentFloor}`,
-        via,
+        hint: `Дойдите до лестницы`,
+        kind: 'walk',
       })
-      const connector = via?.includes('elevator')
-        ? 'лифтом'
-        : 'по лестнице'
       const fromFloor = currentFloor
-      currentFloor = node.floor
+      const toFloor = node.floor
+      const up = toFloor > fromFloor
+      steps.push({
+        floor: fromFloor,
+        points: [points[points.length - 1]],
+        hint: up
+          ? `Поднимитесь по лестнице на ${toFloor} этаж`
+          : `Спуститесь по лестнице на ${toFloor === 0 ? 'подвал' : toFloor + ' этаж'}`,
+        via: 'stairs',
+        kind: 'stairs',
+      })
+      currentFloor = toFloor
       points = [[node.x, node.y]]
-      hintParts = [
-        `Переход ${connector} с ${floorLabel(fromFloor)} на ${floorLabel(currentFloor)}`,
-      ]
+      hintParts = []
       continue
     }
     points.push([node.x, node.y])
     if (node.kind === 'room') {
-      hintParts.push(`к «${roomName(node.id)}»`)
+      hintParts = ['По коридору']
     }
   }
 
   steps.push({
     floor: currentFloor,
     points,
-    hint: hintParts.join(' · ') || `По этажу ${currentFloor}`,
+    hint: hintParts.join(' · ') || `Идите по коридору`,
+    kind: 'walk',
   })
 
   // Enrich first/last hints
@@ -150,10 +156,6 @@ function buildSteps(
   }
 
   return steps
-}
-
-function floorLabel(f: number) {
-  return f === 0 ? 'подвала' : `${f} этажа`
 }
 
 export function searchRooms(

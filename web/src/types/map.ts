@@ -28,6 +28,7 @@ export interface FloorMeta {
   id: number
   name: string
   short: string
+  viewBox?: [number, number, number, number]
 }
 
 export interface GraphNode {
@@ -69,6 +70,7 @@ export interface SchoolMapData {
   nodes: GraphNode[]
   edges: GraphEdge[]
   quickChips: QuickChip[]
+  legacyPoints?: Record<string, string>
 }
 
 export interface RouteStep {
@@ -76,6 +78,7 @@ export interface RouteStep {
   points: Point[]
   hint: string
   via?: string
+  kind?: 'walk' | 'stairs'
 }
 
 export interface RouteResult {

@@ -13,33 +13,33 @@
 
 :root {
   --radius: 0.875rem;
-  --background: oklch(0.97 0.02 250);
-  --foreground: oklch(0.22 0.05 262);
-  --card: oklch(0.99 0.01 250 / 0.62);
-  --card-foreground: oklch(0.22 0.05 262);
-  --popover: oklch(0.99 0.012 250 / 0.9);
-  --popover-foreground: oklch(0.22 0.05 262);
-  --primary: oklch(0.38 0.12 262);
-  --primary-foreground: oklch(0.98 0.02 95);
-  --secondary: oklch(0.93 0.03 250);
-  --secondary-foreground: oklch(0.28 0.06 262);
-  --muted: oklch(0.94 0.02 250);
-  --muted-foreground: oklch(0.45 0.04 260);
-  --accent: oklch(0.78 0.14 85);
-  --accent-foreground: oklch(0.25 0.06 70);
+  --background: oklch(0.98 0.02 80);
+  --foreground: oklch(0.24 0.04 40);
+  --card: oklch(1 0.01 80 / 0.72);
+  --card-foreground: oklch(0.24 0.04 40);
+  --popover: oklch(0.99 0.02 80 / 0.94);
+  --popover-foreground: oklch(0.24 0.04 40);
+  --primary: oklch(0.62 0.2 35);
+  --primary-foreground: oklch(0.99 0.02 95);
+  --secondary: oklch(0.95 0.03 70);
+  --secondary-foreground: oklch(0.32 0.06 40);
+  --muted: oklch(0.95 0.02 80);
+  --muted-foreground: oklch(0.48 0.04 40);
+  --accent: oklch(0.86 0.16 85);
+  --accent-foreground: oklch(0.28 0.06 50);
   --destructive: oklch(0.55 0.2 25);
   --border: oklch(0.88 0.02 210);
   --input: oklch(0.9 0.015 210);
   --ring: oklch(0.55 0.1 210);
-  --map-floor: oklch(0.96 0.012 205);
-  --map-corridor: oklch(0.92 0.02 210);
-  --map-room: oklch(0.98 0.008 200);
-  --map-room-hover: oklch(0.9 0.05 195);
-  --map-room-active: oklch(0.82 0.08 195);
-  --map-special: oklch(0.9 0.06 165);
-  --map-stairs: oklch(0.9 0.04 85);
-  --map-route: oklch(0.55 0.16 25);
-  --map-wall: oklch(0.35 0.03 230);
+  --map-floor: oklch(0.97 0.02 80);
+  --map-corridor: oklch(0.99 0.01 90);
+  --map-room: oklch(0.9 0.06 230);
+  --map-room-hover: oklch(0.86 0.08 230);
+  --map-room-active: oklch(0.86 0.14 85);
+  --map-special: oklch(0.9 0.1 55);
+  --map-stairs: oklch(0.92 0.08 85);
+  --map-route: oklch(0.64 0.2 35);
+  --map-wall: oklch(0.32 0.04 40);
   --glass: oklch(0.99 0.01 210 / 0.7);
   --glass-border: oklch(1 0 0 / 0.45);
   --shadow-soft: 0 12px 40px oklch(0.35 0.04 220 / 0.12);
@@ -164,9 +164,9 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
     background-image:
-      radial-gradient(900px 480px at 8% -10%, oklch(0.55 0.16 262 / 0.28), transparent 60%),
-      radial-gradient(700px 420px at 100% 0%, oklch(0.78 0.14 85 / 0.32), transparent 55%),
-      linear-gradient(180deg, oklch(0.98 0.015 250), oklch(0.94 0.03 255));
+      radial-gradient(900px 480px at 0% 0%, oklch(0.86 0.12 35 / 0.35), transparent 55%),
+      radial-gradient(700px 420px at 100% 0%, oklch(0.9 0.12 85 / 0.45), transparent 50%),
+      linear-gradient(180deg, oklch(0.99 0.02 80), oklch(0.96 0.03 70));
   }
   .dark body {
     background-image:

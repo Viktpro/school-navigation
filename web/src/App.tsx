@@ -42,7 +42,10 @@ function bumpStat(key: 'routes' | 'scans') {
 export default function App() {
   const { theme, toggle } = useTheme()
   const params = new URLSearchParams(window.location.search)
-  const linkedFrom = params.get('from') || params.get('point')
+  const rawFrom = params.get('from') || params.get('point')
+  const linkedFrom = rawFrom
+    ? (data.legacyPoints?.[rawFrom] ?? rawFrom)
+    : null
   const [view, setView] = useState<View>(linkedFrom ? 'map' : 'home')
   const [floor, setFloor] = useState(1)
   const [fromId, setFromId] = useState<string | null>(
@@ -81,8 +84,14 @@ export default function App() {
   useEffect(() => {
     setActiveStep(0)
     if (route?.steps[0]) setFloor(route.steps[0].floor)
-    if (route && !evac && toId) bumpStat('routes')
-  }, [route, evac, toId])
+    if (route && !evac && fromId && toId) {
+      bumpStat('routes')
+      const key = `${fromId}→${toId}`
+      const popular = JSON.parse(localStorage.getItem('school-nav-popular') || '{}')
+      popular[key] = (popular[key] ?? 0) + 1
+      localStorage.setItem('school-nav-popular', JSON.stringify(popular))
+    }
+  }, [route, evac, toId, fromId])
 
   const routeStep = route?.steps[activeStep] ?? null
   const focusId = selectedId || toId || fromId
@@ -253,7 +262,8 @@ export default function App() {
         {scanOpen && (
           <QrScanner
             onPoint={(id) => {
-              const room = data.rooms.find((r) => r.id === id)
+              const resolved = data.legacyPoints?.[id] ?? id
+              const room = data.rooms.find((r) => r.id === resolved)
               if (!room) return
               setFromId(room.id)
               setSelectedId(room.id)

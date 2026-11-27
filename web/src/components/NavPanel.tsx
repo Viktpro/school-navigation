@@ -209,6 +209,36 @@ export function NavPanel({
                   .join(' → ')}
               </span>
             </div>
+            <div className="mb-3 flex gap-1">
+              {route.steps.map((_step, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Шаг ${i + 1}`}
+                  onClick={() => onStepJump(i)}
+                  className={cn(
+                    'h-1.5 flex-1 rounded-full transition',
+                    i < activeStep
+                      ? 'bg-primary'
+                      : i === activeStep
+                        ? 'bg-accent'
+                        : 'bg-border',
+                  )}
+                />
+              ))}
+            </div>
+            {activeStep < route.steps.length - 1 && (
+              <Button
+                className="mb-3 w-full rounded-2xl"
+                onClick={() => onStepJump(activeStep + 1)}
+              >
+                {route.steps[activeStep]?.kind === 'stairs'
+                  ? 'Я на новом этаже'
+                  : route.steps[activeStep + 1]?.kind === 'stairs'
+                    ? 'Я дошёл до лестницы'
+                    : 'Дальше'}
+              </Button>
+            )}
             <div className="space-y-2">
               {route.steps.map((step, i) => (
                 <button
