@@ -20,6 +20,8 @@ import type { Room, RouteResult, SchoolMapData } from '@/types/map'
 
 interface NavPanelProps {
   data: SchoolMapData
+  includeTechnical?: boolean
+  hiddenIds?: Set<string>
   fromId: string | null
   toId: string | null
   selectedId: string | null
@@ -37,6 +39,8 @@ interface NavPanelProps {
 
 export function NavPanel({
   data,
+  includeTechnical,
+  hiddenIds,
   fromId,
   toId,
   selectedId,
@@ -55,9 +59,9 @@ export function NavPanel({
   const [picking, setPicking] = useState<'from' | 'to' | null>(null)
 
   const results = useMemo(() => {
-    const list = searchRooms(data, query).filter((r) => r.kind !== 'stairs')
+    const list = searchRooms(data, query, { includeTechnical, hiddenIds })
     return list.slice(0, 40)
-  }, [data, query])
+  }, [data, query, includeTechnical, hiddenIds])
 
   const roomById = useMemo(
     () => new Map(data.rooms.map((r) => [r.id, r])),
@@ -84,7 +88,9 @@ export function NavPanel({
   }
 
   const chipClick = (label: string) => {
-    const matches = roomsForChip(data, label)
+    const matches = roomsForChip(data, label).filter(
+      (r) => includeTechnical || !r.technical,
+    )
     if (!matches.length) return
     const preferred =
       matches.find((m) => m.floor === 1) ??
@@ -203,6 +209,36 @@ export function NavPanel({
                   .join(' → ')}
               </span>
             </div>
+            <div className="mb-3 flex gap-1">
+              {route.steps.map((_step, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Шаг ${i + 1}`}
+                  onClick={() => onStepJump(i)}
+                  className={cn(
+                    'h-1.5 flex-1 rounded-full transition',
+                    i < activeStep
+                      ? 'bg-primary'
+                      : i === activeStep
+                        ? 'bg-accent'
+                        : 'bg-border',
+                  )}
+                />
+              ))}
+            </div>
+            {activeStep < route.steps.length - 1 && (
+              <Button
+                className="mb-3 w-full rounded-2xl"
+                onClick={() => onStepJump(activeStep + 1)}
+              >
+                {route.steps[activeStep]?.kind === 'stairs'
+                  ? 'Я на новом этаже'
+                  : route.steps[activeStep + 1]?.kind === 'stairs'
+                    ? 'Я дошёл до лестницы'
+                    : 'Дальше'}
+              </Button>
+            )}
             <div className="space-y-2">
               {route.steps.map((step, i) => (
                 <button

@@ -95,7 +95,7 @@ export function findRoute(
 
 function buildSteps(
   path: string[],
-  vias: (string | undefined)[],
+  _vias: (string | undefined)[],
   nodes: Map<string, GraphNode>,
   data: SchoolMapData,
 ): RouteStep[] {
@@ -109,35 +109,41 @@ function buildSteps(
 
   for (let i = 1; i < path.length; i++) {
     const node = nodes.get(path[i])!
-    const via = vias[i - 1]
     if (node.floor !== currentFloor) {
       steps.push({
         floor: currentFloor,
         points,
-        hint: hintParts.join(' · ') || `По этажу ${currentFloor}`,
-        via,
+        hint: `Дойдите до лестницы`,
+        kind: 'walk',
       })
-      const connector = via?.includes('elevator')
-        ? 'лифтом'
-        : 'по лестнице'
       const fromFloor = currentFloor
-      currentFloor = node.floor
+      const toFloor = node.floor
+      const up = toFloor > fromFloor
+      steps.push({
+        floor: fromFloor,
+        points: [points[points.length - 1]],
+        hint: up
+          ? `Поднимитесь по лестнице на ${toFloor} этаж`
+          : `Спуститесь по лестнице на ${toFloor === 0 ? 'подвал' : toFloor + ' этаж'}`,
+        via: 'stairs',
+        kind: 'stairs',
+      })
+      currentFloor = toFloor
       points = [[node.x, node.y]]
-      hintParts = [
-        `Переход ${connector} с ${floorLabel(fromFloor)} на ${floorLabel(currentFloor)}`,
-      ]
+      hintParts = []
       continue
     }
     points.push([node.x, node.y])
     if (node.kind === 'room') {
-      hintParts.push(`к «${roomName(node.id)}»`)
+      hintParts = ['По коридору']
     }
   }
 
   steps.push({
     floor: currentFloor,
     points,
-    hint: hintParts.join(' · ') || `По этажу ${currentFloor}`,
+    hint: hintParts.join(' · ') || `Идите по коридору`,
+    kind: 'walk',
   })
 
   // Enrich first/last hints
@@ -152,15 +158,22 @@ function buildSteps(
   return steps
 }
 
-function floorLabel(f: number) {
-  return f === 0 ? 'подвала' : `${f} этажа`
-}
-
-export function searchRooms(data: SchoolMapData, query: string) {
+export function searchRooms(
+  data: SchoolMapData,
+  query: string,
+  opts?: { includeTechnical?: boolean; hiddenIds?: Set<string> },
+) {
   const q = query.trim().toLowerCase().replace(/\s+/g, ' ')
-  if (!q) return data.rooms.filter((r) => r.kind !== 'stairs')
+  const visible = data.rooms.filter((r) => {
+    if (r.kind === 'stairs') return false
+    const hidden =
+      opts?.hiddenIds?.has(r.id) ||
+      (!opts?.includeTechnical && (r.technical || r.hidden))
+    return !hidden
+  })
+  if (!q) return visible
 
-  return data.rooms
+  return visible
     .filter((r) => {
       const hay = [r.name, r.label, ...r.aliases, ...r.chips]
         .join(' ')
@@ -175,5 +188,22 @@ export function searchRooms(data: SchoolMapData, query: string) {
 }
 
 export function roomsForChip(data: SchoolMapData, chipLabel: string) {
-  return data.rooms.filter((r) => r.chips.includes(chipLabel))
+  return data.rooms.filter((r) => r.chips.includes(chipLabel) && !r.technical)
+}
+
+export function nearestExit(
+  data: SchoolMapData,
+  fromId: string,
+): { id: string; route: ReturnType<typeof findRoute> } | null {
+  const exits = data.rooms.filter((r) => r.exit && r.id !== fromId)
+  let best: { id: string; route: NonNullable<ReturnType<typeof findRoute>> } | null =
+    null
+  for (const exit of exits) {
+    const route = findRoute(data, fromId, exit.id)
+    if (!route) continue
+    if (!best || route.distanceM < best.route.distanceM) {
+      best = { id: exit.id, route }
+    }
+  }
+  return best
 }

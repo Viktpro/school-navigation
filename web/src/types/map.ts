@@ -19,12 +19,16 @@ export interface Room {
   polygon: Point[]
   center: Point
   door: Point
+  hidden?: boolean
+  technical?: boolean
+  exit?: boolean
 }
 
 export interface FloorMeta {
   id: number
   name: string
   short: string
+  viewBox?: [number, number, number, number]
 }
 
 export interface GraphNode {
@@ -61,10 +65,12 @@ export interface SchoolMapData {
   floors: FloorMeta[]
   outline: Point[]
   corridors: Record<string, Point[][]>
+  walls?: Record<string, number[][]>
   rooms: Room[]
   nodes: GraphNode[]
   edges: GraphEdge[]
   quickChips: QuickChip[]
+  legacyPoints?: Record<string, string>
 }
 
 export interface RouteStep {
@@ -72,6 +78,7 @@ export interface RouteStep {
   points: Point[]
   hint: string
   via?: string
+  kind?: 'walk' | 'stairs'
 }
 
 export interface RouteResult {
